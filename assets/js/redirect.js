@@ -35,5 +35,5 @@ function redirect(id) {
 window.onload = function() {
     setTimeout(() => {
         redirect(redirect(window.location.search.split('id=')[1]))
-    }, 3500);
+    }, 1000);
 }
