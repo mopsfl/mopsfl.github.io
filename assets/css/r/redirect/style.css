@@ -1,0 +1,88 @@
+html,
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    background-color: #F7F8FB;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary,
+footer {
+    display: block;
+}
+
+footer {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0px;
+    left: 10px;
+}
+
+.message {
+    text-align: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 20px;
+    max-width: 450px;
+}
+
+.message_title {
+    font-size: 22px;
+    font-weight: 100;
+    margin-top: 15px;
+    color: #47494E;
+    margin-bottom: 8px;
+}
+
+.message_title::after {
+    animation: dots 2s linear infinite;
+    content: '';
+}
+
+.copyright,
+.copyright p {
+    overflow: hidden;
+    color: #47494E;
+}
+
+@keyframes dots {
+    0%,
+    20% {
+        content: '.';
+    }
+    40% {
+        content: '..';
+    }
+    60% {
+        content: '...';
+    }
+    90%,
+    100% {
+        content: '';
+    }
+}
