@@ -188,6 +188,10 @@
         display: block;
         font-weight: bold
     }
+    
+    .about-content {
+        margin-left: 2rem;
+    }
     /**Screen Resizer**/
     
     @media screen and (min-width: 64em) {
