@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RLO - Jail Time Converter</title>
+    <link rel="stylesheet" href="../../../assets/css/projects/pages/rlo-time-convert/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&display=swap" rel="stylesheet">
+    <meta property="og:description" content="Eine Website um die Gefängis Monate von Real Life Online in Minuten, Stunden und Tage zu konvertieren">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mopsfl.github.io/projects/page/rlo-time-convert/">
+    <meta property="og:image" content="https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/src/img/favicon.png">
+    <meta name="twitter:card" content="summary" />
+    <meta name=twitter:image content="https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/src/img/favicon.png">
+    <meta name=twitter:title content="mopsfl">
+    <meta name=twitter:description content="Eine Website um die Gefängis Monate von Real Life Online in Minuten, Stunden und Tage zu konvertieren">
+    <meta name=application-name content="mopsfl">
+    <meta name=apple-mobile-web-app-title content="mopsfl">
+    <meta name=theme-color content="#008fd1">
+    <meta name=msapplication-TileColor content="#008fd1">
+    <link rel="shortcut icon" type=image/x-icon href="../../../assets/img/favicon.png">
+    <link rel="icon" href="../../../assets/img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../../../assets/js/rlo-time-convert.js" type="text/javascript" defer=""></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-buttons">
+            <a class="btn btn-a white" type="submit" href="https://github.com/mopsfl" target="_blank"><i class="fa fa-github"></i> Github</a>
+            <a class="btn btn-a white" type="submit" href="https://reallifeonline.com" target="_blank"><i class="fa fa-link"></i> Real Life Online</a>
+            <a class="btn btn-a white" type="submit">v.0.1</a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="header">
+            <h1 class="header-title">Real Life Online - Jail Time Converter</h1>
+        </div>
+        <div class="main">
+            <input class="input time-input" id="months" type="number" placeholder="Monate"></input>
+            <br>
+            <input class="btn convert-minute" type="submit" value="Zu Minuten konvertieren" onclick="toMinutes(document.getElementById('months'), false)"></input>
+            <input class="btn convert-hour" type="submit" value="Zu Stunden konvertieren" onclick="toHours(document.getElementById('months'), false, 2)"></input>
+            <input class="btn convert-day" type="submit" value="Zu Tagen konvertieren" onclick="toDays(document.getElementById('months'), false, 2)"></input>
+            <div class="results">
+                <h1 id="result">Result: </h1>
+            </div>
+            <div class="buttons">
+                <!--<a class="btn btn-a" type="submit" onclick="">Formeln</a>-->
+                <a class="btn btn-a b2" type="submit" onclick="copyResult(this)">Ergebniss kopieren</a>
+                <a class="btn btn-a b2" type="submit" onclick="roundResult(this)">Ergebniss runden</a>
+                <a class="btn btn-a b2" type="submit" onclick="shareResult(this)">Share</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="site-footer">
+            <p><strong>© mopsfl 2021</strong></p>
+        </div>
+    </footer>
+</body>
+
+</html>
