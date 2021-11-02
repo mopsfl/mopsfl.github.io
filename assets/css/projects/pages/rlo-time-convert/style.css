@@ -1,0 +1,185 @@
+* {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #008fd1;
+    color: black;
+    text-align: center;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary,
+footer {
+    display: block;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.container {
+    background-color: rgb(243, 243, 243);
+    width: 50%;
+    height: auto;
+    display: inline-block;
+    top: 5rem;
+    position: relative;
+    text-align: center;
+    border-radius: .2rem;
+    box-shadow: 0px 0px 10px 1px rgb(58, 58, 58);
+}
+
+.header-title {
+    border-bottom: solid 1px black;
+    margin-left: .3rem;
+    margin-right: .3rem;
+}
+
+.input {
+    outline: none;
+    width: 90%;
+    border: none;
+    padding: .5rem 3rem;
+    padding-left: .4rem;
+    padding-right: .4rem;
+    border-radius: .2rem;
+    background-color: #008fd1;
+    outline: solid 1px transparent;
+    color: white;
+    transition: outline .1s linear;
+}
+
+.btn {
+    cursor: pointer;
+    margin-top: 1rem;
+    outline: none;
+    width: 90%;
+    border: none;
+    padding: .5rem 3rem;
+    padding-left: .4rem;
+    border-radius: .2rem;
+    background-color: #008fd1;
+    color: white;
+    outline: solid 1px transparent;
+    text-decoration: none;
+    transition: outline .1s linear;
+}
+
+.white {
+    background-color: white;
+    color: black;
+}
+
+.buttons {
+    margin: 0rem 1rem 1rem 1rem;
+}
+
+.btn-a {
+    width: auto;
+    padding-right: .4rem;
+    bottom: .5rem;
+    right: .5rem;
+    display: inline-block;
+}
+
+.results {
+    margin-top: 2rem;
+}
+
+::placeholder {
+    color: rgb(228, 228, 228);
+}
+
+.input:hover,
+.input:focus,
+.btn:hover {
+    outline: solid 3px #008fd1;
+    transition: .1s linear;
+}
+
+.white:hover {
+    outline: solid 3px #ffffff;
+    transition: .1s linear;
+}
+
+.btn:active,
+.input:active {
+    outline: solid 1px transparent;
+    transition: .1s linear;
+}
+
+.header-buttons {
+    text-align: left;
+    margin-left: 1rem;
+    position: absolute;
+}
+
+.site-footer {
+    position: absolute;
+    bottom: 0;
+    padding-left: 1rem;
+    color: white;
+}
+
+@media screen and (min-width: 48em) {
+    .container {
+        width: 45rem;
+    }
+}
+
+@media screen and (max-width: 48em) {
+    .container {
+        width: 35rem;
+    }
+}
+
+@media screen and (max-width: 571px) {
+    .container {
+        width: 20rem;
+    }
+    .header-title {
+        font-size: 20px;
+    }
+    .header-buttons a {
+        padding: .1rem;
+        font-size: 15px;
+    }
+    .b2 {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 333px) {
+    .container {
+        width: 100%;
+    }
+    .header-title {
+        font-size: 15px;
+    }
+    body {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
