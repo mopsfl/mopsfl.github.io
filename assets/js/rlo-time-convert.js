@@ -1,5 +1,6 @@
-var currentResult;
-var currentMethod;
+var currentResult,
+    currentMethod,
+    rounded = false
 
 function toMinutes(a, r) {
     value = a.value
@@ -14,6 +15,7 @@ function toMinutes(a, r) {
         } else {
             result = value / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2
             currentResult = value / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2 / 2 * 2
+            rounded = false
         }
         currentResult = result
         resultText.innerHTML = "Results: " + result + " Minute(n) <br><p style='font-size:11px'>(1 Monat ist eine Minute ;D)</p>"
@@ -37,6 +39,7 @@ function toHours(a, r, d) {
         } else {
             result = value / 60
             currentResult = value / 60
+            rounded = false
         }
         resultText.innerHTML = "Results: " + result.toFixed(d) + " Stunde(n)"
         console.log(value + " months to hours")
@@ -58,6 +61,7 @@ function toDays(a, r, d) {
         } else {
             result = value / 1440
             currentResult = value / 1440
+            rounded = false
         }
         currentResult = result
         resultText.innerHTML = "Results: " + result.toFixed(d) + " Tag(e)"
@@ -79,10 +83,10 @@ function roundResult(a) {
     } else {
         return console.warn("cannot round")
     }
-
+    rounded = true
     a.innerHTML = "Gerundet!"
     setTimeout(() => {
-        a.innerHTML = oldText
+        a.innerHTML = "Ergebniss runden"
     }, 1000);
 }
 
@@ -92,7 +96,7 @@ function copyResult(a) {
         navigator.clipboard.writeText(getCurrentResult())
         a.innerHTML = "Kopiert!"
         setTimeout(() => {
-            a.innerHTML = oldText
+            a.innerHTML = "Ergebniss kopieren"
         }, 1000);
     } else {
         console.warn("cannot copy result")
@@ -104,11 +108,11 @@ function shareResult(a) {
     if (getCurrentResult() != null && getCurrentMethod() != null) {
         var months = document.getElementById("months").value
         var method = getCurrentMethod()
-        var url = window.location.origin + window.location.pathname + "?m=" + months + "&k=" + method
+        var url = window.location.origin + window.location.pathname + "?m=" + months + "&k=" + method + "&r=" + rounded
         navigator.clipboard.writeText(url)
         a.innerHTML = "Kopiert!"
         setTimeout(() => {
-            a.innerHTML = oldText
+            a.innerHTML = "Share"
         }, 1000);
     } else {
         console.warn("cannot create share link")
@@ -148,21 +152,32 @@ if (window.location.search != "") {
     var params = parseQueryString();
 
 
-    if (params["m"] != undefined && params["k"] != "") {
+    if (params["m"] != undefined && params["k"] != "" && params["r"] != "") {
         console.log("share link detected.")
-        if (params["k"] != undefined && params["m"] != undefined) {
+        if (params["k"] != undefined && params["m"] != undefined && params["r"] != undefined && params["r"] == "false" || "true") {
+            var r = false
             if (params["k"] == "min") {
+                if (params["r"] == "true") {
+                    r = true
+                }
                 document.getElementById('months').value = params["m"]
-                toMinutes(document.getElementById('months'), false, 2)
+                toMinutes(document.getElementById('months'), r, 2)
             } else if (params["k"] == "hour") {
+                if (params["r"] == "true") {
+                    r = true
+                }
                 document.getElementById('months').value = params["m"]
-                toHours(document.getElementById('months'), false, 2)
+                toHours(document.getElementById('months'), r, 2)
             } else if (params["k"] == "day") {
+                if (params["r"] == "true") {
+                    r = true
+                }
                 document.getElementById('months').value = params["m"]
-                toDays(document.getElementById('months'), false, 2)
+                toDays(document.getElementById('months'), r, 2)
             } else {
                 console.warn("invalid convert method")
             }
+            r = false
         } else {
             console.warn("invalid format")
         }
