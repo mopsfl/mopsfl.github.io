@@ -82,7 +82,7 @@ function roundResult(a) {
 
     a.innerHTML = "Gerundet!"
     setTimeout(() => {
-        a.innerHTML = "Ergebniss runden"
+        a.innerHTML = oldText
     }, 1000);
 }
 
@@ -92,7 +92,7 @@ function copyResult(a) {
         navigator.clipboard.writeText(getCurrentResult())
         a.innerHTML = "Kopiert!"
         setTimeout(() => {
-            a.innerHTML = "Ergebniss kopieren"
+            a.innerHTML = oldText
         }, 1000);
     } else {
         console.warn("cannot copy result")
@@ -108,7 +108,7 @@ function shareResult(a) {
         navigator.clipboard.writeText(url)
         a.innerHTML = "Kopiert!"
         setTimeout(() => {
-            a.innerHTML = "Share"
+            a.innerHTML = oldText
         }, 1000);
     } else {
         console.warn("cannot create share link")
