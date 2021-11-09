@@ -49,12 +49,16 @@ h1 {
     text-align: center;
     border-radius: .2rem;
     box-shadow: 0px 0px 10px 1px rgb(58, 58, 58);
+    border-left: solid 6px #008fd1;
 }
 
-.header-title {
-    border-bottom: solid 1px black;
-    margin-left: .3rem;
-    margin-right: .3rem;
+.tabs {
+    margin-top: 1.2rem;
+    margin-bottom: -1.3rem;
+}
+
+.s-buttons {
+    margin-top: .6rem;
 }
 
 .input {
@@ -67,8 +71,9 @@ h1 {
     border-radius: .2rem;
     background-color: #008fd1;
     outline: solid 1px transparent;
+    border: solid 1px transparent;
     color: white;
-    transition: outline .1s linear;
+    transition: outline .1s linear, border .1s linear;
 }
 
 .btn {
@@ -84,7 +89,11 @@ h1 {
     color: white;
     outline: solid 1px transparent;
     text-decoration: none;
-    transition: outline .1s linear;
+    transition: outline .1s linear, border .1s linear;
+}
+
+.btn-c {
+    border: solid 1px transparent;
 }
 
 .white {
@@ -94,6 +103,10 @@ h1 {
 
 .buttons {
     margin: 0rem 1rem 1rem 1rem;
+}
+
+.buttons a:hover {
+    border-left: solid 6px #ffffff;
 }
 
 .btn-a {
@@ -112,10 +125,16 @@ h1 {
     color: rgb(228, 228, 228);
 }
 
-.input:hover,
-.input:focus,
-.btn:hover {
+.input:hover {
+    border-left: solid 6px #ffffff;
     outline: solid 3px #008fd1;
+    transition: .1s linear;
+}
+
+.input:focus,
+.btn-c:hover {
+    outline: solid 3px #008fd1;
+    border-left: solid 6px #ffffff;
     transition: .1s linear;
 }
 
@@ -136,11 +155,31 @@ h1 {
     position: absolute;
 }
 
+.header-buttons a {
+    border-left: solid 6px #0062d1;
+}
+
+.fullwidth {
+    width: 100%;
+}
+
 .site-footer {
     position: absolute;
     bottom: 0;
     padding-left: 1rem;
     color: white;
+}
+
+.border-bottom {
+    border-bottom: solid 1px black;
+    margin-left: .3rem;
+    margin-right: .3rem;
+}
+
+.border-top {
+    border-top: solid 1px black;
+    margin-left: .3rem;
+    margin-right: .3rem;
 }
 
 @media screen and (min-width: 48em) {
