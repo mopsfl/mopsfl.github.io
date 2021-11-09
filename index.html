@@ -1,75 +1,92 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RLO - Jail Time Converter</title>
-    <link rel="stylesheet" href="../../../assets/css/projects/pages/rlo-time-convert/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&display=swap" rel="stylesheet">
-    <meta property="og:description" content="Eine Website um die Gefängis Monate von Real Life Online in Minuten, Stunden und Tage zu konvertieren">
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>mopsfl - Home</title>
+    <meta property="og:description" content="Offical Github Website to find all projects by mopsfl.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mopsfl.github.io/projects/page/rlo-time-convert/">
+    <meta property="og:url" content="https://mopsfl.github.io">
     <meta property="og:image" content="https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/src/img/favicon.png">
     <meta name="twitter:card" content="summary" />
     <meta name=twitter:image content="https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/src/img/favicon.png">
     <meta name=twitter:title content="mopsfl">
-    <meta name=twitter:description content="Eine Website um die Gefängis Monate von Real Life Online in Minuten, Stunden und Tage zu konvertieren">
+    <meta name=twitter:description content="Offical Github Website to find all projects by mopsfl.">
     <meta name=application-name content="mopsfl">
     <meta name=apple-mobile-web-app-title content="mopsfl">
-    <meta name=theme-color content="#008fd1">
-    <meta name=msapplication-TileColor content="#008fd1">
-    <link rel="shortcut icon" type=image/x-icon href="../../../assets/img/favicon.png">
-    <link rel="icon" href="../../../assets/img/favicon.png">
+    <meta name=theme-color content="#ffffff">
+    <meta name=msapplication-TileColor content="#da532c">
+    <link rel="shortcut icon" type=image/x-icon href="assets/img/favicon.png">
+    <link rel="icon" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="assets/css/home/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="../../../assets/js/rlo-time-convert.js" type="text/javascript" defer=""></script>
+    <script src="../assets/js/more.js" type="text/javascript" defer=""></script>
+
 </head>
 
 <body>
-    <header>
-        <div class="header-buttons">
-            <a class="btn btn-a white" type="submit" href="https://github.com/mopsfl" target="_blank"><i class="fa fa-github"></i> Github</a>
-            <a class="btn btn-a white" type="submit" href="https://reallifeonline.net" target="_blank"><i class="fa fa-link"></i> Real Life Online</a>
-            <a class="btn btn-a white" type="submit">v.0.1</a>
+    <header class="page-header" role="banner">
+        <div class="page-header-main">
+            <div class="page-header-nav-more" id="page-header-nav-more" style="max-height: 0px;">
+                <div class="nav-bar-buttons">
+                    <a class="navMore-button" href="./" role="main"><i class="fa fa-home" style="width: 20px;"></i> Home</a>
+                    <a class="navMore-button" href="./about" role="main"><i class="fa fa-pencil" style="width: 20px;"></i> About</a>
+                    <a class="navMore-button" href="./projects" role="main"><i class="fa fa-code" style="width: 20px;"></i> Projects</a>
+                </div>
+            </div>
+            <h1 class="page-header-title">mopsfl</h1>
+            <hr><br>
+            <div class="page-header-buttons">
+                <a class="button" href="./r/?r_id=github" role="main" target="_blank"><i class="fa fa-github" style="width: 20px;"></i> Github</a>
+                <a class="button" href="./r/?r_id=youtube" role="main" target="_blank"><i class="fa fa-youtube-play" style="width: 20px;"></i> Youtube</a>
+                <a class="button" href="./r/?r_id=twitter" role="main" target="_blank"><i class="fa fa-twitter" style="width: 20px;"></i> Twitter</a>
+            </div>
+        </div>
+        <div class="page-header-nav">
+            <div class="nav-bar">
+                <div class="nav-bar-buttons">
+                    <a class="nav-button" href="./" role="main"><i class="fa fa-home" style="width: 20px;"></i> Home</a>
+                    <a class="nav-button" href="./about" role="main"><i class="fa fa-pencil" style="width: 20px;"></i> About</a>
+                    <a class="nav-button" href="./projects" role="main"><i class="fa fa-code" style="width: 20px;"></i> Projects</a>
+                    <a class="nav-button-more" id="button-more" role="main"><i class="fa fa-bars"></i></a>
+                </div>
+
+                <div class="nav-bar-logo">
+                    <a href="./"><img src="./assets/img/favicon.png" title="mopsfl" alt="mopsfl.github.io"></a>
+                </div>
+            </div>
         </div>
     </header>
-    <div class="container">
-        <noscript><p style="color:black">Ihr Browser muss Javascript unterstützen sodass diese Website funktioniert!</p></noscript>
-
-        <div class="header">
-            <h1 class="header-title border-bottom">Real Life Online - Jail Time Converter</h1>
-        </div>
-        <div class="main">
-            <input class="input time-input" id="months" type="number" placeholder="Monate">
-            <br>
-            <input class="btn btn-c convert-minute" type="submit" value="Zu Minuten konvertieren" onclick="toMinutes(document.getElementById('months'), false)">
-            <input class="btn btn-c convert-hour" type="submit" value="Zu Stunden konvertieren" onclick="toHours(document.getElementById('months'), false, 2)">
-            <input class="btn btn-c convert-day" type="submit" value="Zu Tagen konvertieren" onclick="toDays(document.getElementById('months'), false, 2)">
-            <div class="results">
-                <h1 id="result" class="border-bottom">Result: </h1>
+    <main id="content" class="page-main" role="main">
+        <h1 style="border-bottom: solid 1px #eff0f1; line-height: 60px;">Home</h1>
+        <span>
+            <p>Welcome to <a style="color: #1e6bb8;
+                text-decoration: none;"><strong>mopsfl.github.io</strong></a>
+            </p>
+            <p>Here can you find everything about:</p>
+                <div class="about-content">
+                    <li><strong>My Projects</strong>,</li>
+                    <li><strong>Informations about me</strong>,</li>
+                    <li><strong>More soon...</strong></li>
             </div>
-            <div class="buttons">
-                <!--<a class="btn btn-a" type="submit" onclick="">Formeln</a>-->
-                <div class="s-buttons">
-                    <a class="btn btn-c btn-a b2" type="submit" onclick="copyResult(this)">Ergebniss kopieren</a>
-                    <a class="btn btn-c btn-a b2" type="submit" onclick="roundResult(this)">Ergebniss runden</a>
-                    <a class="btn btn-c btn-a b2" type="submit" onclick="shareResult(this)">Share</a>
-                </div>
-                <!--<div class="tabs border-top">
-                    <a class="btn btn-a btn-c fullwidth" type="submit" href="https://github.com/mopsfl" target="_blank">Von Monaten</a>
-                    <a class="btn btn-a btn-c fullwidth" type="submit" href="https://reallifeonline.net" target="_blank"></i>Zu Monaten</a><br><br>
-                </div>-->
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div class="site-footer">
-            <p><strong>© mopsfl 2021</strong></p>
-        </div>
-    </footer>
+        </span>
+        <footer class="site-footer">
+            <span class="site-footer-copyright ">
+                <p><i class="fa fa-copyright"></i> mopsfl 2021</p>
+                
+            </span>
+            <!--<div class="language-picker">
+                <form class="language-picker__form" novalidate="">
+                    <select name="language-picker-select" name="language" id="language-picker-select" class="language-picker-select">
+                        <option lang="de" value="deutsch" selected>English</option>
+                        <option lang="en" value="english">Deutsch</option>
+                      </select>
+                </form>
+            </div>-->
+        </footer>
+    </main>
 </body>
 
 </html>
