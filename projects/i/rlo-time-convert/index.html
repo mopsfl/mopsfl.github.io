@@ -40,22 +40,28 @@
         <noscript><p style="color:black">Ihr Browser muss Javascript unterstützen sodass diese Website funktioniert!</p></noscript>
 
         <div class="header">
-            <h1 class="header-title">Real Life Online - Jail Time Converter</h1>
+            <h1 class="header-title border-bottom">Real Life Online - Jail Time Converter</h1>
         </div>
         <div class="main">
-            <input class="input time-input" id="months" type="number" placeholder="Monate"></input>
+            <input class="input time-input" id="months" type="number" placeholder="Monate">
             <br>
-            <input class="btn convert-minute" type="submit" value="Zu Minuten konvertieren" onclick="toMinutes(document.getElementById('months'), false)"></input>
-            <input class="btn convert-hour" type="submit" value="Zu Stunden konvertieren" onclick="toHours(document.getElementById('months'), false, 2)"></input>
-            <input class="btn convert-day" type="submit" value="Zu Tagen konvertieren" onclick="toDays(document.getElementById('months'), false, 2)"></input>
+            <input class="btn btn-c convert-minute" type="submit" value="Zu Minuten konvertieren" onclick="toMinutes(document.getElementById('months'), false)">
+            <input class="btn btn-c convert-hour" type="submit" value="Zu Stunden konvertieren" onclick="toHours(document.getElementById('months'), false, 2)">
+            <input class="btn btn-c convert-day" type="submit" value="Zu Tagen konvertieren" onclick="toDays(document.getElementById('months'), false, 2)">
             <div class="results">
-                <h1 id="result">Result: </h1>
+                <h1 id="result" class="border-bottom">Result: </h1>
             </div>
             <div class="buttons">
                 <!--<a class="btn btn-a" type="submit" onclick="">Formeln</a>-->
-                <a class="btn btn-a b2" type="submit" onclick="copyResult(this)">Ergebniss kopieren</a>
-                <a class="btn btn-a b2" type="submit" onclick="roundResult(this)">Ergebniss runden</a>
-                <a class="btn btn-a b2" type="submit" onclick="shareResult(this)">Share</a>
+                <div class="s-buttons">
+                    <a class="btn btn-c btn-a b2" type="submit" onclick="copyResult(this)">Ergebniss kopieren</a>
+                    <a class="btn btn-c btn-a b2" type="submit" onclick="roundResult(this)">Ergebniss runden</a>
+                    <a class="btn btn-c btn-a b2" type="submit" onclick="shareResult(this)">Share</a>
+                </div>
+                <!--<div class="tabs border-top">
+                    <a class="btn btn-a btn-c fullwidth" type="submit" href="https://github.com/mopsfl" target="_blank">Von Monaten</a>
+                    <a class="btn btn-a btn-c fullwidth" type="submit" href="https://reallifeonline.net" target="_blank"></i>Zu Monaten</a><br><br>
+                </div>-->
             </div>
         </div>
     </div>
