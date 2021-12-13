@@ -1,5 +1,9 @@
 * {
     box-sizing: border-box;
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* for Firefox */
 }
 
 html {
@@ -55,7 +59,7 @@ hr {
 }
 
 .page-main :first-child {
-    margin-top: 0;
+    margin-top: 0
 }
 
 .page-header {
@@ -91,6 +95,7 @@ hr {
     border-width: 1px;
     border-radius: 0.3rem;
     transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+    margin-right: .2rem;
 }
 
 .nav-button {
@@ -187,6 +192,16 @@ hr {
 .site-footer-copyright {
     display: block;
     font-weight: bold
+}
+
+.hidden {
+    visibility: hidden;
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+    display: block;
 }
 
 
