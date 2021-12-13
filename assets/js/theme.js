@@ -3,54 +3,42 @@ const themes = [
         primaryColor = "#171717",
         secondaryColor = "#313131",
         textColor = "#cacaca",
+        other = [
+            shadow1Color = "#000",
+        ]
     ],
     light = [
         primaryColor = "#ffffff",
         secondaryColor = "#eff0f1",
         textColor = "#606c71",
+        other = [
+            shadow1Color = "#5b5b5b",
+        ]
     ]
-]
-
-const settings = [
-    cookieName = "theme",
-    standard = "light"
 ]
 
 const theme_picker = document.getElementById("theme-picker"),
     theme_icon_light = document.getElementById("theme-icon-light"),
-    theme_icon_dark = document.getElementById("theme-icon-dark")
+    theme_icon_dark = document.getElementById("theme-icon-dark"),
+    header_shadow = document.getElementById("header-shadow")
 
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
 
-function setCookie(name, value, refreshPage) {
-    document.cookie = `${name}=${value}; domain=mopsfl.github.io`
-    if (refreshPage === true) {
-        return true, location.reload();
-    }
-    return true
-}
-
-function updateCookie() {
-    let color_theme = getCookie("color_theme")
-    if (color_theme !== undefined) {
-        return console.log("Current color_theme: " + color_theme)
+function updateThemeStorage() {
+    let color_theme = localStorage.getItem("color_theme")
+    if (color_theme !== null) {
+        console.log("Current color_theme: " + color_theme)
     } else {
-        let set = setCookie("color_theme", "light")
-        if (set == true) {
-            console.log("Set color_theme to: light")
-        }
+        localStorage.setItem("color_theme", "light")
+        console.log("Set color_theme to: light")
     }
 }
 
 function updateTheme(theme) {
-    if (theme !== undefined) {
+    if (theme !== null) {
         if (theme === "dark") {
             document.body.style.background = themes[0][0]
             document.body.style.color = themes[0][2]
+            header_shadow.style.outline = `solid ${themes[0][3][0]}`
             theme_icon_light.classList.add("hidden")
             theme_icon_light.classList.remove("visible")
             theme_icon_dark.classList.remove("hidden")
@@ -58,6 +46,7 @@ function updateTheme(theme) {
         } else if (theme === "light") {
             document.body.style.background = themes[1][0]
             document.body.style.color = themes[1][2]
+            header_shadow.style.outline = `solid ${themes[1][3][0]}`
             theme_icon_light.classList.remove("hidden")
             theme_icon_light.classList.add("visible")
             theme_icon_dark.classList.add("hidden")
@@ -68,20 +57,28 @@ function updateTheme(theme) {
     }
 }
 
+function updateStorage(name, theme, reloadPage) {
+    localStorage.setItem(name, theme)
+    if (reloadPage === true) {
+        location.reload()
+    }
+    return console.log("Saved color_theme " + theme)
+}
+
 theme_picker.addEventListener('click', async(event) => {
-    let color_theme = getCookie("color_theme")
-    if (color_theme !== undefined) {
+    let color_theme = localStorage.getItem("color_theme")
+    if (color_theme !== null) {
         if (color_theme === "light") {
-            return setCookie("color_theme", "dark", true)
+            return updateStorage("color_theme", "dark", true)
         } else if (color_theme === "dark") {
-            return setCookie("color_theme", "light", true)
+            return updateStorage("color_theme", "light", true)
         } else {
-            return setCookie("color_theme", "light", true)
+            return updateStorage("color_theme", "light", true)
         }
     }
 })
 
 window.onload = function() {
-    updateCookie();
-    updateTheme(getCookie("color_theme"))
+    updateThemeStorage();
+    updateTheme(localStorage.getItem("color_theme"))
 }
