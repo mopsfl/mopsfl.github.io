@@ -27,7 +27,7 @@ function getCookie(name) {
 }
 
 function setCookie(name, value, refreshPage) {
-    document.cookie = `${name}=${value}; domain=.github.io`
+    document.cookie = `${name}=${value}; domain=mopsfl.github.io`
     if (refreshPage === true) {
         return true, location.reload();
     }
