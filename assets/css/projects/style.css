@@ -1,11 +1,14 @@
 * {
     box-sizing: border-box;
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* for Firefox */
 }
 
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
-    scrollbar-width: none;
 }
 
 body {
@@ -291,6 +294,16 @@ hr {
 .link-shortcut:hover {
     font-weight: bold;
     transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.hidden {
+    visibility: hidden;
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+    display: block;
 }
 
 
