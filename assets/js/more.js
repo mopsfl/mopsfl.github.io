@@ -1,7 +1,7 @@
 var button = document.getElementById("button-more"),
     navMore = document.getElementById("page-header-nav-more"),
     navMoreOpened = false,
-    navOpen = "215px",
+    navOpen = "max-content",
     navClose = "0px"
 
 button.addEventListener('click', (event) => {
