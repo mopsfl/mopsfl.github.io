@@ -18,7 +18,10 @@ const themes = [
 ]
 
 const theme_picker = document.getElementById("theme-picker"),
+    theme_picker_more = document.getElementById("theme-picker-more"),
     theme_icon_light = document.getElementById("theme-icon-light"),
+    theme_icon_light_more = document.getElementById("theme-icon-light-more"),
+    theme_icon_dark_more = document.getElementById("theme-icon-dark-more"),
     theme_icon_dark = document.getElementById("theme-icon-dark"),
     header_shadow = document.getElementById("header-shadow")
 
@@ -43,6 +46,11 @@ function updateTheme(theme) {
             theme_icon_light.classList.remove("visible")
             theme_icon_dark.classList.remove("hidden")
             theme_icon_dark.classList.add("visible")
+
+            theme_icon_light_more.classList.add("hidden")
+            theme_icon_light_more.classList.remove("visible")
+            theme_icon_dark_more.classList.remove("hidden")
+            theme_icon_dark_more.classList.add("visible")
         } else if (theme === "light") {
             document.body.style.background = themes[1][0]
             document.body.style.color = themes[1][2]
@@ -51,6 +59,11 @@ function updateTheme(theme) {
             theme_icon_light.classList.add("visible")
             theme_icon_dark.classList.add("hidden")
             theme_icon_dark.classList.remove("visible")
+
+            theme_icon_light_more.classList.remove("hidden")
+            theme_icon_light_more.classList.add("visible")
+            theme_icon_dark_more.classList.add("hidden")
+            theme_icon_dark_more.classList.remove("visible")
         }
     } else {
         console.warn("Can't find theme [" + theme + "]")
@@ -78,7 +91,18 @@ theme_picker.addEventListener('click', async(event) => {
     }
 })
 
-window.onload = function() {
-    updateThemeStorage();
-    updateTheme(localStorage.getItem("color_theme"))
-}
+theme_picker_more.addEventListener('click', async(event) => {
+    let color_theme = localStorage.getItem("color_theme")
+    if (color_theme !== null) {
+        if (color_theme === "light") {
+            return updateStorage("color_theme", "dark", true)
+        } else if (color_theme === "dark") {
+            return updateStorage("color_theme", "light", true)
+        } else {
+            return updateStorage("color_theme", "light", true)
+        }
+    }
+})
+
+updateThemeStorage();
+updateTheme(localStorage.getItem("color_theme"))
