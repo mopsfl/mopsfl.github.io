@@ -39,6 +39,7 @@ function downloadFile(FileURL) {
             console.warn(e)
         }
     } else {
+        fileName.innerHTML = "File not found"
         return console.warn("File not found")
     }
 }
@@ -49,24 +50,35 @@ function main() {
             setTimeout(() => {
                 for (let i = 0; i < files.length; i++) {
                     const File = files[i];
-                    if (File !== undefined && File !== null) {
-                        if (params["id"] == File.ID) {
-                            fileName.innerHTML = File.FileName
-                            var downloadFunc = downloadFile(File.FileURL)
-                            if (downloadFunc !== false) {
-                                console.log("Downloaded" + File.FileName)
-                                setTimeout(() => {
-                                    if (lastPage !== "") {
-                                        return location = document.referrer
-                                    } else {
-                                        return location = "../"
-                                    }
-                                }, 100)
+                    if (params["id"] == File.ID) {
+                        if (File !== undefined && File !== null) {
+                            if (params["id"] == File.ID) {
+                                fileName.innerHTML = File.FileName
+                                var downloadFunc = downloadFile(File.FileURL)
+                                if (downloadFunc !== false) {
+                                    console.log("Downloaded" + File.FileName)
+                                    setTimeout(() => {
+                                        if (lastPage !== "") {
+                                            return location = document.referrer
+                                        } else {
+                                            return location = "../"
+                                        }
+                                    }, 100)
+                                } else {
+                                    fileName.innerHTML = "File not found"
+                                    download.href = File.FileURL
+                                    download.classList.add("visible")
+                                    download.classList.remove("hidden")
+                                    return console.warn("Popup is blocked")
+                                }
+                            }
+                        } else {
+                            fileName.innerHTML = "File not found"
+                            console.warn("file not found")
+                            if (lastPage !== "") {
+                                return location = document.referrer
                             } else {
-                                download.href = File.FileURL
-                                download.classList.add("visible")
-                                download.classList.remove("hidden")
-                                return console.warn("Popup is blocked")
+                                return location = "../"
                             }
                         }
                     } else {
