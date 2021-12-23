@@ -166,23 +166,22 @@ kbd {
     transition: max-height 0.2s
 }
 
-.nav-bar-logo {
-    position: absolute;
-    top: 0rem;
-}
-
-.nav-bar-logo img {
-    width: 2rem;
-    border-radius: 0px;
-    transition: box-shadow 0.2s, border-radius .5s;
-}
-
-.nav-bar-logo img:hover {
-    width: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0px 0px 5px 1px #c2c2c29c;
-    transition: box-shadow 0.2s
-}
+    .nav-bar-logo {
+        position: absolute;
+        top: 0rem;
+    }
+    
+    .nav-bar-logo img {
+        width: 2rem;
+        border-radius: 1rem;
+        transition: box-shadow 0.2s, border-radius .5s;
+    }
+    
+    .nav-bar-logo img:hover {
+        width: 2rem;
+        box-shadow: 0px 0px 5px 1px #c2c2c29c;
+        transition: box-shadow 0.2s
+    }
 
 .button:hover,
 .nav-button:hover,
