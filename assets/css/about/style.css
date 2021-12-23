@@ -161,6 +161,11 @@ kbd {
     transition: max-height 0.2s
 }
 
+    .nav-bar-logo {
+        position: absolute;
+        top: 0rem;
+    }
+    
     .nav-bar-logo img {
         width: 2rem;
         border-radius: 1rem;
