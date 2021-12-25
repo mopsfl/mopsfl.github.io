@@ -199,7 +199,7 @@ h1 {
 
 @media screen and (max-width: 571px) {
     .container {
-        width: 20rem;
+        width: 95%;
     }
     .header-title {
         font-size: 20px;
