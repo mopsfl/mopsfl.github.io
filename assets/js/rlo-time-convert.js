@@ -18,7 +18,7 @@ function toMinutes(a, r) {
             rounded = false
         }
         currentResult = result
-        resultText.innerHTML = "Results: " + result + " Minute(n) <br><p style='font-size:11px'>(1 Monat ist eine Minute ;D)</p>"
+        resultText.innerHTML = "Results: " + result + " Minute(n)"
         console.log(value + " months to minutes")
     } else {
         console.warn("Invalid input")
