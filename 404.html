@@ -35,7 +35,7 @@
                 <span id="message" class="message"><strong class="code">404.</strong> <span class="error-message">That's an error!</span></span><br><br>
                 <span class="message req-message">The requested URL <span id="url" class="url"><strong>/</strong></span> does not exist.</span>
                 <div class="links">
-                    <a class="link" id="back" href="./">Back</a>
+                    <a class="link" id="back" href="https://mopsfl.github.io">Back</a>
                 </div>
             </div>
         </div>
@@ -192,11 +192,6 @@
 
     window.onload = function() {
         url.innerHTML = "<strong>" + document.location.pathname + "</strong>"
-        if (document.referrer !== "") {
-            back.href = document.referrer
-        } else {
-            back.href = "./"
-        }
         console.log("Oh no! An 404 :(")
     }
 </script>
