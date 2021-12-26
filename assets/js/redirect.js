@@ -3,7 +3,10 @@ var redirects = [
     github = "https://github.com/mopsfl",
     twitter = "https://twitter.com/tonimahoni854",
     home = "../",
+    norickroll = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO",
 ]
+
+var lastPage = document.referrer
 
 var parseQueryString = function() {
 
@@ -22,12 +25,12 @@ var params = parseQueryString();
 
 
 function redirect(id) {
-    if (id != "" && id != undefined && !isNaN(id)) {
+    if (id != undefined && !isNaN(id)) {
         try {
             window.open(redirects[id], "_self")
             console.log("Redirected to [" + redirects[id] + "]")
         } catch (error) {
-            console.warn("Cannot redirect [" + error + "]")
+            console.warn("Cannot redirect. [" + error + "]")
         }
     } else {
         console.warn("Invalid id [" + id + "]")
@@ -49,6 +52,10 @@ window.onload = function() {
                     return redirect(2)
                 } else if (params["r"] == "home") {
                     return redirect(3)
+                } else if (params["r"] == "norickroll") {
+                    return redirect(4)
+                } else if (params["r"] == "test") {
+                    document.getElementById("test").style.display = "block"
                 } else {
                     console.warn("Invalid redirect id [" + params["r"] + "]")
                     return redirect(3)
@@ -61,5 +68,5 @@ window.onload = function() {
             console.warn("Invalid redirect format")
             redirect(3)
         }
-    }, 100)
+    }, 0)
 }
