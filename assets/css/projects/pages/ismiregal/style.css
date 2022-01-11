@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    overflow-y: visible;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #008fd1;
+    color: rgba(0, 0, 0, 0.808);
+    text-align: center;
+    background-color: #159957;
+    background-image: linear-gradient(120deg, #2b81cc, #25d57d);
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary,
+footer {
+    display: block;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+hr {
+    border: solid 1px black;
+    outline: none;
+}
+
+.container {
+    background-color: rgb(243, 243, 243);
+    width: 50%;
+    height: auto;
+    display: inline-block;
+    top: 5rem;
+    position: relative;
+    text-align: center;
+    border-radius: .2rem;
+    margin-bottom: 100px;
+    box-shadow: 0px 0px 10px 1px rgb(58, 58, 58);
+    transition: width 0.5s ease-in-out, transform 0.5s ease-in-out
+}
+
+.tabs {
+    margin-top: 1.2rem;
+    margin-bottom: -1.3rem;
+}
+
+.s-buttons {
+    margin-top: .6rem;
+}
+
+.input {
+    background: #e9e9ed;
+    padding: .5rem 3rem;
+    padding-left: .4rem;
+    padding-right: .4rem;
+    border-radius: .2rem;
+    outline: none;
+    width: 90%;
+    border: none;
+    cursor: text;
+    margin-top: 1rem;
+    outline: solid 1px #82828247;
+    border: solid 1px transparent;
+    text-decoration: none;
+    margin-bottom: 15px;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.btn {
+    background: #e9e9ed;
+    padding: .5rem 3rem;
+    padding-left: .4rem;
+    border-radius: .2rem;
+    outline: none;
+    width: 90%;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+    outline: solid 1px #82828247;
+    text-decoration: none;
+    margin-bottom: 15px;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.btn-c {
+    border: solid 1px transparent;
+}
+
+.white {
+    background-color: white;
+    color: black;
+}
+
+.buttons {
+    margin: 0rem 1rem 1rem 1rem;
+}
+
+.btn-a {
+    width: auto;
+    padding-right: .4rem;
+    bottom: .5rem;
+    right: .5rem;
+    display: inline-block;
+    transition: padding 0.5s ease-in-out
+}
+
+.results {
+    margin-top: 2rem;
+}
+
+::placeholder {
+    color: rgba(0, 0, 0, 0.74);
+}
+
+.input:hover {
+    outline: solid 3px #008fd1;
+    transition: .1s linear;
+}
+
+.input:focus,
+.btn-c:hover {
+    outline: solid 3px #008fd1;
+    transition: .1s linear;
+}
+
+.white:hover {
+    outline: solid 3px #ffffff;
+    transition: .1s linear;
+}
+
+.btn:active,
+.input:active {
+    outline: solid 1px #82828247;
+    transition: .1s linear;
+}
+
+.header-buttons {
+    text-align: left;
+    margin-left: 1rem;
+    position: absolute;
+}
+
+.header-buttons a {
+    border-left: solid 6px #0062d1;
+}
+
+.fullwidth {
+    width: 100%;
+}
+
+.site-footer {
+    position: absolute;
+    bottom: 0;
+    padding-left: 1rem;
+    color: white;
+}
+
+.border-bottom {
+    border-bottom: solid 1px #b9b9b9;
+    margin-left: .3rem;
+    margin-right: .3rem;
+}
+
+.border-top {
+    border-top: solid 1px black;
+    margin-left: .3rem;
+    margin-right: .3rem;
+}
+
+.text-white {
+    color: white !important;
+}
+
+.vid {
+    display: none
+}
+
+@media screen and (min-width: 48em) {
+    .container {
+        width: 45rem;
+    }
+}
+
+@media screen and (max-width: 48em) {
+    .container {
+        width: 35rem;
+    }
+}
+
+@media screen and (max-width: 571px) {
+    .container {
+        width: 95%;
+    }
+    .header-title {
+        font-size: 20px;
+    }
+    .header-buttons a {
+        padding: .1rem;
+        font-size: 15px;
+    }
+    .b2 {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 333px) {
+    .container {
+        width: 100%;
+    }
+    .header-title {
+        font-size: 15px;
+    }
+    body {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
