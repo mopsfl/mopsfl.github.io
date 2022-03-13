@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Finder</title>
+
+    <link href="./static/main.css" rel="stylesheet" type="text/css" defer="">
+    <script src="./static/main.js" type="text/javascript" defer=""></script>
+</head>
+
+<body>
+    <div class="loading">
+        <p>Loading games</p>
+    </div>
+    <main class="hide">
+        <div class="header" data-header>
+            <input class="input" id="input" type="text" placeholder="Search a game" data-search>
+        </div>
+        <div class="games" data-game-items></div>
+        <template data-game-template>
+            <div class="card" data-game-card>
+                <div class="name" data-name></div>
+                <div class="id" data-id></div>
+            </div>
+        </template>
+    </main>
+</body>
+
+</html>
