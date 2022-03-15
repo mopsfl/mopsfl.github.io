@@ -38,17 +38,17 @@ html::-webkit-scrollbar-track {
 }
 
 .theme-light {
-    --bg: rgb(255, 255, 255);
-    --bg2: rgb(214, 214, 214);
-    --bg3: rgb(170, 170, 170);
-    --txt: rgb(0, 0, 0);
+    --bg: rgb(255, 255, 255) !important;
+    --bg2: rgb(214, 214, 214) !important;
+    --bg3: rgb(170, 170, 170) !important;
+    --txt: rgb(0, 0, 0) !important;
 }
 
 .theme-dark {
-    --bg: rgb(29, 29, 29);
-    --bg2: rgb(58, 58, 58);
-    --bg3: rgb(116, 116, 116);
-    --txt: rgb(255, 255, 255);
+    --bg: rgb(29, 29, 29) !important;
+    --bg2: rgb(58, 58, 58) !important;
+    --bg3: rgb(116, 116, 116) !important;
+    --txt: rgb(255, 255, 255) !important;
 }
 
 .loading {
@@ -106,6 +106,39 @@ html::-webkit-scrollbar-track {
     transition: .4s;
     cursor: pointer;
     transition: outline 0.2s;
+}
+
+.card>.info {
+    overflow: hidden;
+    margin-top: 0px;
+    max-height: 0px;
+    transition: max-height .7s, margin-top .7s;
+}
+
+.card>.info>div {
+    font-size: 11px;
+}
+
+a.btn {
+    z-index: 5;
+    float: right;
+    border: none;
+    outline: solid 1px var(--bg2);
+    padding: 5px;
+    border-radius: 4px;
+    background-color: var(--bg);
+    color: var(--txt);
+    text-decoration: none;
+    transition: outline 0.2s;
+}
+
+a.btn:hover {
+    outline: solid 2px rgb(19, 156, 219)
+}
+
+#clicked {
+    margin-top: 5px;
+    max-height: 10rem;
 }
 
 .card:hover {
