@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>github copilot made this website</title>
+</head>
+
+<body>
+    <main>
+        <!--create a canvas width 100px height 100px bg red-->
+        <div id="container" style="background-color: red; width:100px; height:100px;">
+            <!--add some text to the div-->
+            <p>click me</p>
+        </div>
+    </main>
+</body>
+
+</html>
+
+<style>
+    /*make a rotate animation for the container*/
+    
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    /*add a border to container*/
+    
+    #container {
+        border: 5px solid rgb(199, 39, 39);
+    }
+    /*add the animation rotate to the container*/
+    
+    #container {
+        border-radius: 4px;
+        animation: rotate 5s linear infinite;
+    }
+    /*align main to center*/
+    
+    main {
+        display: flex;
+        justify-content: center;
+        margin-top: 10rem;
+    }
+</style>
+
+<script type="text/javascript">
+    //make a function that makes text rainbow
+    function rainbow() {
+        var colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+        var i = 0;
+        setInterval(function() {
+            document.getElementById("container").style.backgroundColor = colors[i];
+            i++;
+            if (i == colors.length) {
+                i = 0;
+            }
+        }, 500);
+    }
+
+
+    //define the function on all p elements
+    document.querySelectorAll("p").forEach(function(p) {
+        p.onclick = rainbow;
+    });
+
+    //set the p element text to the current time + click me
+    document.querySelector("p").innerHTML = new Date().toLocaleTimeString() + " click me";
+
+    //make a function if the time changes it updates the text
+    function updateTime() {
+        document.querySelector("p").innerHTML = new Date().toLocaleTimeString() + " click me";
+    }
+
+    //set the updateTime function to run every second
+    setInterval(updateTime, 1000);
+
+    //create a p element wich counts down from 60 to 0
+    var p = document.createElement("p");
+    p.innerHTML = "countdown from 60 to 0";
+    document.body.appendChild(p);
+
+    //make the cooldown function wich will close the window if countdown is done
+    function cooldown() {
+        var count = 60;
+        var interval = setInterval(function() {
+            p.innerHTML = "countdown from " + count + " to 0";
+            count--;
+            if (count == 0) {
+                clearInterval(interval);
+                location.reload();
+            }
+        }, 1000);
+    }
+
+    //call the cooldown function
+    cooldown();
+
+    //make a function that centers a element argument
+    function center(element) {
+        element.style.position = "absolute";
+        element.style.top = "50%";
+        element.style.left = "50%";
+        element.style.transform = "translate(-50%, -50%)";
+    }
+
+    //call the center function on the p element
+    center(p);
+
+    //create a button that will create a new countdown every second
+    var button = document.createElement("button");
+    button.innerHTML = "new countdown";
+    document.body.appendChild(button);
+
+    //make the button function that will create a new p element with a 40 second countdown
+    button.onclick = function() {
+        var p = document.createElement("p");
+        p.innerHTML = "countdown from 40 to 0";
+        document.body.appendChild(p);
+        center(p);
+
+        function cooldown() {
+            var count = 40;
+            var interval = setInterval(function() {
+                p.innerHTML = "countdown from " + count + " to 0";
+                count--;
+                if (count == 0) {
+                    clearInterval(interval);
+                    location.reload();
+                }
+            }, 1000);
+        }
+        cooldown();
+    }
+
+    //list all the countdown elements
+    var pList = document.querySelectorAll("p");
+    //make the p elements center
+    pList.forEach(function(p) {
+        center(p);
+    });
+</script>
