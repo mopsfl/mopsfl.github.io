@@ -1,4 +1,4 @@
-const request = new Request('https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCtJTqwX2h8MiuFWd6dsyzbw&key=AIzaSyAaMq2jR4LbDCatMrmhh5dcsx0Ae60MGOc')
+const request = new Request('https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCtJTqwX2h8MiuFWd6dsyzbw&key=AIzaSyBGodKkIfF1B9h-mgaWTtHz12jlBSxhUgg')
 
 function fetchStatistics() {
     fetch(request)
