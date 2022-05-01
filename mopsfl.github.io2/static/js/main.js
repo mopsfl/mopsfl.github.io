@@ -4,7 +4,6 @@ var _cgb = false
 function init() {
     for (let i = 0; i < links.length; i++) {
         const element = links[i];
-        console.log(element)
         element.onmouseover = () => {
             element.lastChild.style.maxWidth = '100px';
         }
@@ -17,7 +16,7 @@ function init() {
     particlesJS("particles-js", {
         "particles": {
             "number": {
-                "value": 50,
+                "value": 100,
                 "density": {
                     "enable": true,
                     "value_area": 800
@@ -63,7 +62,7 @@ function init() {
             },
             "line_linked": {
                 "enable": false,
-                "distance": 150,
+                "distance": 30,
                 "color": "#ffffff",
                 "opacity": 0.4,
                 "width": 1
@@ -84,14 +83,14 @@ function init() {
             }
         },
         "interactivity": {
-            "detect_on": "canvas",
+            "detect_on": "window",
             "events": {
                 "onhover": {
                     "enable": true,
                     "mode": "grab"
                 },
                 "onclick": {
-                    "enable": false,
+                    "enable": true,
                     "mode": "repulse"
                 },
                 "resize": true
@@ -100,7 +99,7 @@ function init() {
                 "grab": {
                     "distance": 100,
                     "line_linked": {
-                        "opacity": 1,
+                        "opacity": .8,
                     }
                 },
                 "bubble": {
@@ -111,8 +110,8 @@ function init() {
                     "speed": 3
                 },
                 "repulse": {
-                    "distance": 200,
-                    "duration": 0.4
+                    "distance": 150,
+                    "duration": 0.1
                 },
                 "push": {
                     "particles_nb": 4
@@ -127,34 +126,58 @@ function init() {
 
     /*PAGE LOADING*/
 
+    function toggleSection(sectionToShowSelector, sectionToHideSelector, sectionContentHref) {
+        if (sectionToShowSelector == ".section2") {
+            $(sectionToShowSelector).empty()
+            $(sectionToShowSelector).load(sectionContentHref)
+            $(".back").removeClass("hide")
+            _cgb = true
+        } else {
+            _cgb = false
+            $(".back").addClass("hide")
+        }
+
+        $(sectionToHideSelector).addClass("hide")
+        $(sectionToHideSelector).removeClass("show")
+        $(sectionToShowSelector).addClass("hide");
+        $(sectionToShowSelector).removeClass("show")
+        setTimeout(() => {
+            $(sectionToHideSelector).addClass("none")
+            $(sectionToShowSelector).removeClass("none")
+            setTimeout(() => {
+                $(sectionToShowSelector).removeClass("hide");
+                $(sectionToShowSelector).addClass("show");
+            }, 500)
+        }, 500)
+    }
+
     $(() => {
-        $(".btns > a").click((e) => {
+        $(".btns > a").click(e => {
             e.preventDefault();
-            $(".section").toggleClass("hide");
-            $(".section2").toggleClass("hide");
-            $(".section2").load(e.target.href);
-            setTimeout(() => {
-                $(".section").toggleClass("none");
-                $(".section2").removeClass("none");
-            }, 500)
-            setTimeout(() => {
-                $(".section2").toggleClass("show");
-            }, 500)
+            if (_cgb === true) return
+            if (e.target.attributes.hrefdata) {
+                toggleSection(".section2", ".section", e.target.attributes.hrefdata.nodeValue)
+            } else console.warn("Unable to get pageHref")
         });
 
-        $(".back").click((e) => {
+        $(".back").click(e => {
             e.preventDefault();
-            $(".section").addClass("hide");
-            $(".section2").addClass("hide");
-            $(".section2").removeClass("show");
-            $(".section").removeClass("none");
-            setTimeout(() => {
-                $(".section2").addClass("none");
-                setTimeout(() => {
-                    $(".section").addClass("show");
-                    $(".section").removeClass("hide");
-                }, 500)
-            }, 500)
+            if (!_cgb) return
+            toggleSection(".section", ".section2");
         })
+    });
+
+    /*SCROLL HANDLER*/
+
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+
+        if (scroll >= 1) {
+            $(".content-header").fadeOut("hide");
+            $(".footer").fadeOut("hide");
+        } else {
+            $(".content-header").fadeIn("hide");
+            $(".footer").fadeIn("hide");
+        }
     });
 }
