@@ -16,5 +16,5 @@ function fetchStatistics() {
 function init() {
     fetchStatistics()
 
-    setInterval(fetchStatistics, 60000)
+    setInterval(fetchStatistics, 600000)
 }
