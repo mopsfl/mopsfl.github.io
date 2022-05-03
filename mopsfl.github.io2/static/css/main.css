@@ -102,6 +102,38 @@ main {
     display: none !important;
 }
 
+.cursor-pointer:hover {
+    cursor: pointer
+}
+
+.livestream {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    max-width: 25vw;
+    margin-left: 10px;
+}
+
+.livestream2 {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+    max-width: 25vw;
+    margin-left: 10px;
+}
+
+.news {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-top: 15px;
+    width: 100%;
+    text-align: center
+}
+
 .section,
 .section2 {
     transition: opacity 0.5s ease-in-out;
@@ -154,6 +186,7 @@ main {
     border-radius: 2px;
     transition: background-color .3s, opacity .1s, box-shadow .3s;
     margin-left: 5px;
+    white-space: nowrap;
 }
 
 .btn:hover {
@@ -456,5 +489,21 @@ main {
         position: static;
         width: 100%;
         margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .livestream {
+        max-width: 150px
+    }
+    .livestreamThumbnail {
+        width: 132px;
+        height: 99px
+    }
+}
+
+@media screen and (max-width: 690px) {
+    .livestream {
+        display: none;
     }
 }
