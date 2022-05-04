@@ -3,7 +3,7 @@ const channelID = "UCtJTqwX2h8MiuFWd6dsyzbw"
 const statistics = new Request(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelID}&key=${atob(apiKey.split("").reverse().join(""))}`)
 const snippet = new Request(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelID}&key=${atob(apiKey.split("").reverse().join(""))}`)
 const streams = new Request(`https://www.googleapis.com/youtube/v3/search?type=video&eventType=live&part=snippet&channelId=${channelID}&key=${atob(apiKey.split("").reverse().join(""))}`)
-const debug = true
+const debug = false
 
 let $_ = true
 let channelName = ""
