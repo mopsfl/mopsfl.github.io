@@ -280,7 +280,7 @@ main {
     margin-left: 15px;
 }
 
-.thumbnail-csyon {
+.channelThumbnail {
     transform: translateY(3px);
     transition: width .5s;
     border-radius: 5rem;
@@ -289,7 +289,7 @@ main {
     transition: transform .5s;
 }
 
-.thumbnail-csyon:hover {
+.channelThumbnail:hover {
     transform: translateY(-3px);
 }
 
@@ -467,7 +467,7 @@ main {
     .footer {
         font-size: 8px;
     }
-    .thumbnail-csyon {
+    .channelThumbnail {
         width: 50px
     }
     .btn.back {
