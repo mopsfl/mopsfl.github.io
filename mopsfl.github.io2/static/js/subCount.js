@@ -1,15 +1,16 @@
-const apiKey = atob("JZlS4BDZ2d0c6hHdZpGcxAHOip2NWZWWkpHVBRUNCFFR5NVY6lUQ".split("").reverse().join(""))
+const apiKey = "ndWVoh3UCxmayEjeIRHVXF2Zt1Ca5IUMGZWSrtEZvdkQ5NVY6lUQ"
 const channelID = "UCtJTqwX2h8MiuFWd6dsyzbw"
+const statistics = new Request(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelID}&key=${atob(apiKey.split("").reverse().join(""))}`)
+const snippet = new Request(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelID}&key=${atob(apiKey.split("").reverse().join(""))}`)
+const streams = new Request(`https://www.googleapis.com/youtube/v3/search?type=video&eventType=live&part=snippet&channelId=${channelID}&key=${atob(apiKey.split("").reverse().join(""))}`)
+const debug = true
 
-const statistics = new Request(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelID}&key=${apiKey}`)
-const snippet = new Request(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelID}&key=${apiKey}`)
-const streams = new Request(`https://www.googleapis.com/youtube/v3/search?type=video&eventType=live&part=snippet&channelId=${channelID}&key=${apiKey}`)
-const debug = false
 let $_ = true
+let channelName = ""
 
 const messages = {
-    ["1mil"]: "🎉 CSYON hat 100.000.000 Abbonenten erreicht. 🎉",
-    ["live"]: "🔴 CSYON ist live! 🔴",
+    ["1mil"]: `🎉 CSYON hat 100.000.000 Abbonenten erreicht. 🎉`,
+    ["live"]: `🔴 CSYON ist live! 🔴`,
 }
 
 function htmlDecode(input) {
@@ -49,8 +50,10 @@ function fetchAll(a) {
             .then(res => res.json())
             .then(data => {
                 const snippet = data.items[0].snippet
+                channelName = snippet.title
                 if (debug) console.log(data)
-                $(".thumbnail-csyon").attr("src", snippet.thumbnails.high.url)
+                $(".channelThumbnail").attr("src", snippet.thumbnails.high.url)
+                $(".channelName").text(snippet.title)
             })
             .catch(err => {
                 $("._ld").hide()
