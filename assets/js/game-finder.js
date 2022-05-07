@@ -55,11 +55,6 @@ fetch(request)
                 publisher.textContent = game.publisher + " - " + game.store
                 id.innerText = "ID: " + game.id
                 publisher2.innerText = "Publisher: " + game.publisher
-                if (game.store == "Epic") {
-                    store.innerText = "Store: Epic Games"
-                } else {
-                    store.innerText = "Store: " + game.store
-                }
                 if (game.steamUrl) {
                     link.setAttribute("href", game.steamUrl)
                 } else {
