@@ -52,7 +52,7 @@ fetch(request)
                 const store = card.querySelector("[data-store]")
 
                 name.textContent = game.title
-                publisher.textContent = game.publisher + " - " + game.store
+                publisher.textContent = game.publisher
                 id.innerText = "ID: " + game.id
                 publisher2.innerText = "Publisher: " + game.publisher
                 if (game.steamUrl) {
