@@ -25,7 +25,6 @@ searchInput.addEventListener("input", e => {
             game.publisher.toLowerCase().includes(value) ||
             game.name.toLowerCase().replace(" ", "").includes(value) ||
             game.publisher.toLowerCase().replace(" ", "").includes(value) ||
-            game.sortName.toLowerCase().replace(" ", "").includes(value) ||
             game.url.toLowerCase().replace(" ", "").includes(value) ||
             game.id.toString().includes(value)
 
@@ -54,7 +53,6 @@ fetch(request)
 
                 name.textContent = game.title
                 publisher.textContent = game.publisher + " - " + game.store
-                card.id = game.sortName
                 id.innerText = "ID: " + game.id
                 publisher2.innerText = "Publisher: " + game.publisher
                 if (game.store == "Epic") {
@@ -70,7 +68,6 @@ fetch(request)
                 list.append(card)
                 return {
                     name: game.title,
-                    sortName: game.sortName,
                     publisher: game.publisher,
                     store: game.store,
                     id: game.id,
