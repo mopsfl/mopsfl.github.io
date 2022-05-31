@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/game.css">
+    <script src="../static/js/clickOMator.js" defer type="text/javascript"></script>
+    <script src="../static/js/ripple.js" defer type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="game fadehide hide" data-game>
+        <span class="obj" data-obj></span>
+        <div class="scores">
+            <p class="score nohover" data-score>Score: 0</p>
+            <p class="score c_pointer" data-highscore>Highscore: 0</p>
+            <div class="frame" data-highscoreFrame>
+                <div class="frame-item">
+                    <button class="btn btn-small btn-red" data-resetData>Reset Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="title" data-title>ClickOMator 9000</h1>
+    <div class="loading fadehide" data-loading>
+        Loading...
+    </div>
+    <div class="menu" data-menu>
+        <button class="btn" data-btn-play>Play</button>
+        <button class="btn" data-btn-settings>Settings</button>
+        <div class="frame settings" data-settings>
+            <div class="frame-item">
+                <span class="frame-name">Object Color:</span>
+                <input class="selection" type="color" name="objColor" id="objColor" data-objColor>
+            </div>
+            <div class="frame-item">
+                <span class="frame-name">Object Size:</span>
+                <input class="selection" type="range" name="objSize" id="objSize" data-objSize style="transform: translateY(45%)" max="100" min="1">
+            </div>
+            <br><br><button class="btn btn-small" data-backToDefault>Back to Default</button>
+        </div>
+    </div>
+    <div class="bottom">
+        <p class="version" data-versionText>v.-.-.-</p>
+    </div>
+</body>
+
+</html>
