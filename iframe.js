@@ -1,0 +1,1 @@
+alert("iframe hacked lol")
