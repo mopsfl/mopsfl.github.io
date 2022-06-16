@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+
+<body>
+    <div class="circle"></div>
+</body>
+
+</html>
+
+<style>
+    .circle {
+        background-color: transparent !important;
+        width: 5em;
+        height: 5em;
+        border-radius: 10rem;
+        border: .5em solid aquamarine;
+        border-top: .5em solid transparent;
+        animation: spin-circle 1s infinite;
+    }
+    
+    @keyframes spin-circle {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>

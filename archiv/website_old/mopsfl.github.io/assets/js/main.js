@@ -1,0 +1,1 @@
+document.cookie = `lastPage=${document.referrer};`
