@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ripple</title>
+    <script src="../static/js/newRipple.js" defer type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="buttons">
+        <button class="btn btn1" data-ripple>PLAY</button>
+        <button class="btn btn1" data-ripple>PLAY</button>
+    </div>
+</body>
+
+</html>
+
+<style>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        color: white;
+        transition: opacity .5s;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        font-family: arial, sans-serif;
+        font-size: 16px;
+        background-color: rgb(32, 33, 36);
+    }
+    
+    .btn {
+        position: relative;
+        font-family: arial, sans-serif;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        overflow: hidden;
+        transition: border .2s, background-color .2s, box-shadow .2s;
+        background-color: #303134;
+        text-transform: uppercase;
+    }
+    
+    .btn1 {
+        border: 1px solid #303134;
+        border-radius: 4px;
+        color: #e8eaed;
+        margin: 10px 5px;
+        padding: 0 16px;
+        height: 36px;
+        min-width: 150px;
+        box-shadow: 0 1px 3px 2px rgba(0, 0, 0, 0.274);
+    }
+    
+    .btn2 {
+        background-color: #303134;
+        border: 1px solid #303134;
+        border-radius: 1rem;
+        color: #e8eaed;
+        margin: 10px 5px;
+        padding: 0 16px;
+        height: 36px;
+        min-width: 150px;
+        box-shadow: 0 1px 3px 2px rgba(0, 0, 0, 0.274);
+        text-transform: uppercase;
+    }
+    
+    .btn:hover {
+        border: 1px solid #4e4f53;
+    }
+    
+    .btn span {
+        position: absolute;
+        border-radius: 50%;
+        background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(112, 112, 112, 0. 5), rgba(66, 66, 66, 0.5));
+        width: 100px;
+        height: 100px;
+        margin-top: -50px;
+        margin-left: -50px;
+        opacity: 0;
+        animation: ripple 2s;
+    }
+    
+    @keyframes ripple {
+        from {
+            opacity: 1;
+            transform: scale(0);
+        }
+        to {
+            opacity: 0;
+            transform: scale(10);
+        }
+    }
+    
+    @keyframes ripple2 {
+        0% {
+            opacity: 1;
+            transform: scale(0);
+        }
+        50% {
+            opacity: 0;
+            transform: scale(2);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(10);
+        }
+    }
+</style>

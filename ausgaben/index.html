@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ausgaben</title>
+    <link rel="stylesheet" href="../static/css/ausgaben.css">
+    <script src="../static/js/ausgaben.js" defer type="text/javascript"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body class="dark">
+    <div class="create hide" data-create>
+        <form class="form" data-form>
+            <h1 class="title">Neue Ausgabenliste</h1>
+            <div class="form-groups">
+                <div class="form-group">
+                    <input required="required" type="text" class="input form-input" id="name" placeholder="Name" data-form-name>
+                </div>
+                <div class="form-group">
+                    <textarea class="input form-input" id="desc" placeholder="Beschreibung" data-form-desc></textarea>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button class="btn btn-cancel" type="reset" data-cancel>Abbrechen</button>
+                <button class="btn btn-submit" type="submit" data-submit><a class="fa fa-spinner fa-spin hide" aria-hidden="true" data-spinner></a> Erstellen</button>
+            </div>
+        </form>
+    </div>
+    <div class="delete hide" data-delf>
+        <h1 class="title">Ausgabenliste löschen</h1>
+        <div class="del-list" data-del-list>
+            <template data-template-del>
+                <div class="del-item" data-del-item>
+                    <div class="del-item-name" data-del-name>Name</div>
+                </div>
+            </template>
+        </div>
+        <div class="form-buttons">
+            <button class="btn btn-submit" type="submit" data-canceldel>Abbrechen</button>
+            <button class="btn btn-cancel" type="reset" data-submitdel><a class="fa fa-spinner fa-spin hide" aria-hidden="true" data-spinner></a> Löschen</button>
+        </div>
+    </div>
+    <div class="list_data hide" data-list-data>
+        <div class="header">
+            <h1 class="title" data-list-name>List Name</h1>
+            <div class="data-buttons">
+                <button class="btn btn-add" data-newdata><a class="fa fa-spinner fa-spin hide" aria-hidden="true" data-spinner></a> &plus; Neue Ausgabe</button>
+                <button class="btn btn-delete" data-deldata><a class="fa fa-trash"></a> Ausgabe löschen</button>
+                <button class="btn" data-close-1>&LeftArrow; Zurück</button>
+            </div>
+        </div>
+        <div class="newdata-menu hide" data-newDataMenu>
+            <h1 class="title">Neue Ausgabe</h1>
+            <div class="newdata-menu-items">
+                <div class="form-groups">
+                    <div class="form-group">
+                        <input required="required" type="text" class="input form-input" id="name" placeholder="Preis" data-newdata-name>
+                    </div>
+                    <div class="form-group">
+                        <input required="required" type="text" class="input form-input" id="name" placeholder="Anzahl" data-newdata-count>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-data" data-list-content>
+            <template data-list-data-template>
+                <div class="data" data-data>
+                    <span class="data-1" data-1></span>
+                    <span class="data-2" data-2></span>
+                    <span class="data-3"data-3></span>
+                </div>
+            </template>
+        </div>
+    </div>
+    <div class="container" data-container>
+        <div class="header">
+            <h1 class="title">Ausgaben <span class="location" data-location></span></h1>
+            <div class="header-button">
+                <button class="btn btn-create header-btn" data-new>&plus; Neue Ausgabenliste</button>
+                <button class="btn btn-delete header-btn" data-delete><a class="fa fa-trash"></a> Ausgabenliste löschen</button>
+            </div>
+        </div>
+        <div class="main" data-main>
+            <div class="list" data-list>
+                <template data-list-template>
+                    <div class="item" data-item>
+                        <div class="left-content">
+                            <div class="name" data-name></div>
+                            <div class="desc" data-desc></div>
+                        </div>
+                        <div class="right-content">
+                            <div class="total" data-total></div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-create header-btn" data-debugConsoleBtn style="float:right; margin-right: 5px;">Debug Console</button>
+    <div class="devDebug hide" data-debugConsole>
+        <h1 class="title title-small">Developer Debug Console</h1>
+        <div class="devDebug-logs" data-debugLogs>
+            <template data-debugMsgTemplate>
+                <p data-message></p>
+            </template>
+        </div>
+        <div class="codebar">
+            <input class="input codeInput" type="text" data-codeInput>
+            <button class="btn codeRun" data-codeRun>Run</button>
+        </div>
+    </div>
+    <div class="notifications" data-notifications>
+        <template data-notificationTemplate>
+            <div class="notification in">
+                <button data-close>&times;</button>
+                <div class="content">
+                    <p class="title" data-title>Title</p>
+                    <p class="message" data-message>Message</p>
+                </div>
+            </div>
+        </template>
+    </div>
+    <footer>
+        <p>&copy; 2022 mopsfl</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de" class="light">
+
+<head>
+    <title>CSYON - Subscriber Count</title>
+
+    <!--METAS-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--LINKS-->
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://www.googleapis.com">
+    <link rel="preconnect" href="https://yt3.ggpht.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended+Text&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!--SCRIPTS-->
+    <script src="../static/js/main.js" type="text/javascript" defer=""></script>
+    <script src="../static/js/subCount.js" type="text/javascript" defer=""></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" type="text/javascript" defer=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript" defer=""></script>
+    <script type="text/javascript">
+        var onloadCallback = function() {
+            grecaptcha.render('html_element', {
+                'sitekey': '6Ld-t7UfAAAAAHYT_lFLZYrvKSqmnQBw7ybOaERK'
+            });
+        };
+    </script>
+</head>
+
+<body onload="init()">
+    <div class="background"></div>
+    <div class="particles-js" id="particles-js"></div>
+    <main class="main">
+        <div class="news" style="display:none">
+            <p class="news-message">Loading message...</p>
+        </div>
+        <div class="sections">
+            <section class="_ld" style="text-align:center; display:none">
+                Fetching data...
+            </section>
+            <div class="livestream" style="display:none">
+                <img src="" alt="Loading Thumbnail..." class="livestreamThumbnail" width="264" height="198">
+                <p class="livestreamTitle"></p>
+                <a class="btn livestreamLink" target="_blank"><i class="fa fa-youtube-play "></i> Watch Stream</a>
+            </div>
+            <section class="section section-main" style="display:none">
+                <h class="title cursor-pointer"><img class="channelThumbnail" src=""> <span class="channelName">Loading...</span></h>
+                <p class="subCount dbText ">Loading...</p>
+                <p class="vidCount dbText ">Loading...</p>
+                <p class="viewCount dbText ">Loading...</p>
+                <div class="buttons ">
+                    <a href="https://www.youtube.com/channel/UCtJTqwX2h8MiuFWd6dsyzbw?sub_confirmation=1 " class="btn" target="_blank "><i class="fa fa-youtube-play "></i> Subscribe</a>
+                    <a class="btn csyon-refresh"><i class="fa fa-refresh"></i> Refresh</a>
+                </div>
+            </section>
+            <section class="section2 " id="content "></section>
+            <section class="_l " style="text-align:center; display:none">
+                Unable to load data! Try again later...
+            </section>
+        </div>
+    </main>
+    <footer class="footer ">
+        <p>&copy; 2022 mopsfl</p>
+    </footer>
+</body>
+
+</html>
