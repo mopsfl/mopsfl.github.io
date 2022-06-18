@@ -1,264 +1,85 @@
-const main = document.querySelector('[data-main]')
-const text_location = document.querySelector("[data-location]")
-const text_temperature = document.querySelector("[data-temperature]")
-const text_temperature_min = document.querySelector("[data-temperature-min]")
-const text_temperature_max = document.querySelector("[data-temperature-max]")
-const icon_weather = document.querySelector("[data-weather-icon]")
-const text_date = document.querySelector("[data-date]")
-const text_time = document.querySelector("[data-time]")
-const loading = document.querySelector("[data-loading]")
-const settings = document.querySelector("[data-settingsFrame]")
-const btn_Settings = document.querySelector("[data-settings]")
-
-const input_showDate = document.querySelector("[data-showDate]")
-const input_showTime = document.querySelector("[data-showTime]")
-const input_showLocation = document.querySelector("[data-showLocation]")
-const input_showTemperature = document.querySelector("[data-showTemp]")
-const input_showIcon = document.querySelector("[data-showIcon]")
-
-const standard_data = {
-    lastFetch: 0,
-    data: [],
-    settings: {
-        showDate: true,
-        showTime: true,
-        showLocation: true,
-        showTemperature: true,
-        showTemperatureMinMax: true,
-        showIcon: true,
-    }
+const main = document.querySelector('[data-main]'), text_location = document.querySelector('[data-location]'), text_temperature = document.querySelector('[data-temperature]'), text_temperature_min = document.querySelector('[data-temperature-min]'), text_temperature_max = document.querySelector('[data-temperature-max]'), icon_weather = document.querySelector('[data-weather-icon]'), text_date = document.querySelector('[data-date]'), text_time = document.querySelector('[data-time]'), loading = document.querySelector('[data-loading]'), settings = document.querySelector('[data-settingsFrame]'), btn_Settings = document.querySelector('[data-settings]'), input_showDate = document.querySelector('[data-showDate]'), input_showTime = document.querySelector('[data-showTime]'), input_showLocation = document.querySelector('[data-showLocation]'), input_showTemperature = document.querySelector('[data-showTemp]'), input_showIcon = document.querySelector('[data-showIcon]'), standard_data = {
+		lastFetch: 0,
+		data: [],
+		settings: {
+			showDate: !0,
+			showTime: !0,
+			showLocation: !0,
+			showTemperature: !0,
+			showTemperatureMinMax: !0,
+			showIcon: !0
+		}
+	}, API_KEY = '391d4c20a09de5b8f61e6bc5852c28e9', API_URL = new Request(`https://api.openweathermap.org/data/2.5/weather?lat=49.640621&lon=9.245574&appid=${ API_KEY }`), ICON_URL = 'https://openweathermap.org/img/wn/';
+var req = null;
+function calculateTemperature(e) {
+	return Math.round(e - 273.15);
 }
-
-const API_KEY = "391d4c20a09de5b8f61e6bc5852c28e9"
-const API_URL = new Request(`https://api.openweathermap.org/data/2.5/weather?lat=49.640621&lon=9.245574&appid=${API_KEY}`)
-const ICON_URL = "https://openweathermap.org/img/wn/"
-
-var req = null
-
-/*MAIN*/
-
-window.onload = () => {
-    loadData()
-    manageSettings()
-
-    btn_Settings.addEventListener('click', () => {
-        settings.classList.toggle("closed")
-        btn_Settings.classList.toggle("open")
-    })
-
-    //SETTINGS
-
-    input_showDate.addEventListener('change', () => {
-        const data = JSON.parse(atob(localStorage.getItem("salbenWeather_data")))
-        data.settings.showDate = input_showDate.checked
-        localStorage.setItem("salbenWeather_data", btoa(JSON.stringify(data)))
-        manageSettings()
-    })
-
-    input_showTime.addEventListener('change', () => {
-        const data = JSON.parse(atob(localStorage.getItem("salbenWeather_data")))
-        data.settings.showTime = input_showTime.checked
-        localStorage.setItem("salbenWeather_data", btoa(JSON.stringify(data)))
-        manageSettings()
-    })
-
-    input_showLocation.addEventListener('change', () => {
-        const data = JSON.parse(atob(localStorage.getItem("salbenWeather_data")))
-        data.settings.showLocation = input_showLocation.checked
-        localStorage.setItem("salbenWeather_data", btoa(JSON.stringify(data)))
-        manageSettings()
-    })
-
-    input_showTemperature.addEventListener('change', () => {
-        const data = JSON.parse(atob(localStorage.getItem("salbenWeather_data")))
-        data.settings.showTemperature = input_showTemperature.checked
-        localStorage.setItem("salbenWeather_data", btoa(JSON.stringify(data)))
-        manageSettings()
-    })
-
-    input_showIcon.addEventListener('change', () => {
-        const data = JSON.parse(atob(localStorage.getItem("salbenWeather_data")))
-        data.settings.showTemperatureMinMax = input_showIcon.checked
-        localStorage.setItem("salbenWeather_data", btoa(JSON.stringify(data)))
-        manageSettings()
-    })
+function loadWeatherIcon(e) {
+	if (!e)
+		return null;
+	fetch(ICON_URL + e + '@2x.png').then(e => {
+		e.ok && (icon_weather.src = e.url);
+	});
 }
-
-//FUNCTIONS
-
-/**
- * 
- * @param {Number} kelvin 
- * @returns {Number} Celsius
- */
-
-function calculateTemperature(kelvin) {
-    return Math.round(kelvin - 273.15)
+function getMonthName(e) {
+	let t = new Array();
+	return t[0] = 'Januar', t[1] = 'Februar', t[2] = 'März', t[3] = 'April', t[4] = 'Mai', t[5] = 'Juni', t[6] = 'Juli', t[7] = 'August', t[8] = 'September', t[9] = 'Oktober', t[10] = 'November', t[11] = 'Dezember', t[e];
 }
-
-function loadWeatherIcon(id) {
-    if (!id) return null
-    fetch(ICON_URL + id + "@2x.png")
-        .then(icon => {
-            if (!icon.ok) return;
-            icon_weather.src = icon.url
-        })
-}
-
-function getMonthName(month) {
-    let monthName = new Array()
-    monthName[0] = "Januar"
-    monthName[1] = "Februar"
-    monthName[2] = "März"
-    monthName[3] = "April"
-    monthName[4] = "Mai"
-    monthName[5] = "Juni"
-    monthName[6] = "Juli"
-    monthName[7] = "August"
-    monthName[8] = "September"
-    monthName[9] = "Oktober"
-    monthName[10] = "November"
-    monthName[11] = "Dezember"
-    return monthName[month]
-}
-
 function getNamedDate() {
-    let today = new Date()
-    let dd = today.getDate()
-    let mm = today.getMonth() + 1
-
-    return `${dd}. ${getMonthName(mm)}`
+	let e = new Date();
+	return `${ e.getDate() }. ${ getMonthName(e.getMonth() + 1) }`;
 }
-
-/**
- * 
- * @param {boolean} sec Show seconds
- * @returns 
- */
-
-function getTime(sec) {
-    let today = new Date()
-    let h = today.getHours()
-    let m = today.getMinutes()
-    let s = today.getSeconds()
-    m = checkTime(m)
-    s = checkTime(s)
-    if (sec) {
-        return `${h}:${m}:${s}`
-    } else return `${h}:${m}`
+function getTime(e) {
+	let t = new Date(), a = t.getHours(), n = t.getMinutes(), o = t.getSeconds();
+	return n = checkTime(n), o = checkTime(o), e ? `${ a }:${ n }:${ o }` : `${ a }:${ n }`;
 }
-
-function checkTime(i) {
-    if (i < 10) {
-        i = "0" + i
-    }
-    return i
+function checkTime(e) {
+	return e < 10 && (e = '0' + e), e;
 }
-
 function getDate() {
-    let today = new Date()
-    let dd = today.getDate()
-    let mm = today.getMonth() + 1
-    let yyyy = today.getFullYear()
-    if (dd < 10) {
-        dd = '0' + dd
-    }
-    if (mm < 10) {
-        mm = '0' + mm
-    }
-    today = dd + '.' + mm + '.' + yyyy
-    return today
+	let e = new Date(), t = e.getDate(), a = e.getMonth() + 1, n = e.getFullYear();
+	return t < 10 && (t = '0' + t), a < 10 && (a = '0' + a), e = t + '.' + a + '.' + n, e;
 }
-
 function manageSettings() {
-    let settingsData = JSON.parse(atob(localStorage.getItem("salbenWeather_data"))).settings
-    if (settingsData) {
-        console.log(settingsData)
-
-        input_showDate.checked = settingsData.showDate
-        input_showTime.checked = settingsData.showTime
-        input_showLocation.checked = settingsData.showLocation
-        input_showTemperature.checked = settingsData.showTemperature
-        input_showIcon.checked = settingsData.showTemperatureMinMax
-
-        if (!settingsData.showDate) { text_date.classList.add("hide") } else {
-            text_date.classList.remove("hide")
-        }
-        if (!settingsData.showTime) { text_time.classList.add("hide") } else {
-            text_time.classList.remove("hide")
-        }
-        if (!settingsData.showLocation) { text_location.classList.add("hide") } else {
-            text_location.classList.remove("hide")
-        }
-        if (!settingsData.showTemperature) {
-            text_temperature.classList.add("hide")
-        } else {
-            text_temperature.classList.remove("hide")
-        }
-        if (!settingsData.showTemperatureMinMax) {
-            text_temperature_min.classList.add("hide")
-            text_temperature_max.classList.add("hide")
-        }
-        if (!settingsData.showIcon) {
-            icon_weather.classList.add("hide")
-        }
-    }
+	let e = JSON.parse(atob(localStorage.getItem('salbenWeather_data'))).settings;
+	e && (console.log(e), input_showDate.checked = e.showDate, input_showTime.checked = e.showTime, input_showLocation.checked = e.showLocation, input_showTemperature.checked = e.showTemperature, input_showIcon.checked = e.showTemperatureMinMax, e.showDate ? text_date.classList.remove('hide') : text_date.classList.add('hide'), e.showTime ? text_time.classList.remove('hide') : text_time.classList.add('hide'), e.showLocation ? text_location.classList.remove('hide') : text_location.classList.add('hide'), e.showTemperature ? text_temperature.classList.remove('hide') : text_temperature.classList.add('hide'), e.showTemperatureMinMax || (text_temperature_min.classList.add('hide'), text_temperature_max.classList.add('hide')), e.showIcon || icon_weather.classList.add('hide'));
 }
-
-/**
- * 
- * @param {string} text Text do show while loading 
- */
-
-function toggleLoading(text) {
-    if (text == null) text = "Loading..."
-    loading.children[0].innerText = text.toString()
-    loading.classList.toggle('hide')
-    main.classList.toggle('hide')
+function toggleLoading(e) {
+	null == e && (e = 'Loading...'), loading.children[0].innerText = e.toString(), loading.classList.toggle('hide'), main.classList.toggle('hide');
 }
-
 function loadData() {
-    if (!localStorage.getItem("salbenWeather_data")) localStorage.setItem("salbenWeather_data", btoa(JSON.stringify(standard_data)))
-    console.log(getDate())
-    console.log(getNamedDate())
-    console.log(getTime())
-    let ldata = JSON.parse(atob(localStorage.getItem("salbenWeather_data")))
-    if (ldata.lastFetch + 60000 < Date.now()) {
-        ldata.lastFetch = Date.now()
-        toggleLoading("Loading...")
-        console.warn("Fetch new data")
-        req = fetch(API_URL)
-            .then(res => res.json())
-            .then(function(data) {
-                text_location.innerText = data.name
-                text_temperature.innerText = `${calculateTemperature(data.main.temp)}°`
-                text_temperature_min.innerText = `${calculateTemperature(data.main.temp_min)}°`
-                text_temperature_max.innerText = `${calculateTemperature(data.main.temp_max)}°`
-                loadWeatherIcon(data.weather[0].icon)
-                text_time.innerText = `${getNamedDate()} ${getTime()}`
-
-                ldata.data = data
-                localStorage.setItem("salbenWeather_data", btoa(JSON.stringify(ldata)))
-
-                console.log(data)
-
-                return setTimeout(() => {
-                    toggleLoading()
-                }, 150)
-            })
-    } else {
-        const data = JSON.parse(atob(localStorage.getItem("salbenWeather_data"))).data
-        console.log(data)
-
-        text_location.innerText = data.name
-        text_temperature.innerText = `${calculateTemperature(data.main.temp)}°`
-        text_temperature_min.innerText = `${calculateTemperature(data.main.temp_min)}°`
-        text_temperature_max.innerText = `${calculateTemperature(data.main.temp_max)}°`
-        loadWeatherIcon(data.weather[0].icon)
-        text_date.innerText = `${getNamedDate()} `
-        text_time.innerText = `${getTime()}`
-
-        const newFetch = (ldata.lastFetch - (Date.now() - 60000)) / 1000
-        console.warn("Use cached data. New fetch in " + Math.round(newFetch) + " seconds")
-    }
+	localStorage.getItem('salbenWeather_data') || localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(standard_data))), console.log(getDate()), console.log(getNamedDate()), console.log(getTime());
+	let e = JSON.parse(atob(localStorage.getItem('salbenWeather_data')));
+	if (e.lastFetch + 60000 < Date.now())
+		e.lastFetch = Date.now(), toggleLoading('Loading...'), console.warn('Fetch new data'), req = fetch(API_URL).then(e => e.json()).then(function (t) {
+			return text_location.innerText = t.name, text_temperature.innerText = `${ calculateTemperature(t.main.temp) }°`, text_temperature_min.innerText = `${ calculateTemperature(t.main.temp_min) }°`, text_temperature_max.innerText = `${ calculateTemperature(t.main.temp_max) }°`, loadWeatherIcon(t.weather[0].icon), text_time.innerText = `${ getNamedDate() } ${ getTime() }`, e.data = t, localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(e))), console.log(t), setTimeout(() => {
+				toggleLoading();
+			}, 150);
+		});
+	else {
+		const t = JSON.parse(atob(localStorage.getItem('salbenWeather_data'))).data;
+		console.log(t), text_location.innerText = t.name, text_temperature.innerText = `${ calculateTemperature(t.main.temp) }°`, text_temperature_min.innerText = `${ calculateTemperature(t.main.temp_min) }°`, text_temperature_max.innerText = `${ calculateTemperature(t.main.temp_max) }°`, loadWeatherIcon(t.weather[0].icon), text_date.innerText = `${ getNamedDate() } `, text_time.innerText = `${ getTime() }`;
+		const a = (e.lastFetch - (Date.now() - 60000)) / 1000;
+		console.warn('Use cached data. New fetch in ' + Math.round(a) + ' seconds');
+	}
 }
+window.onload = () => {
+	loadData(), manageSettings(), btn_Settings.addEventListener('click', () => {
+		settings.classList.toggle('closed'), btn_Settings.classList.toggle('open');
+	}), input_showDate.addEventListener('change', () => {
+		const e = JSON.parse(atob(localStorage.getItem('salbenWeather_data')));
+		e.settings.showDate = input_showDate.checked, localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(e))), manageSettings();
+	}), input_showTime.addEventListener('change', () => {
+		const e = JSON.parse(atob(localStorage.getItem('salbenWeather_data')));
+		e.settings.showTime = input_showTime.checked, localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(e))), manageSettings();
+	}), input_showLocation.addEventListener('change', () => {
+		const e = JSON.parse(atob(localStorage.getItem('salbenWeather_data')));
+		e.settings.showLocation = input_showLocation.checked, localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(e))), manageSettings();
+	}), input_showTemperature.addEventListener('change', () => {
+		const e = JSON.parse(atob(localStorage.getItem('salbenWeather_data')));
+		e.settings.showTemperature = input_showTemperature.checked, localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(e))), manageSettings();
+	}), input_showIcon.addEventListener('change', () => {
+		const e = JSON.parse(atob(localStorage.getItem('salbenWeather_data')));
+		e.settings.showTemperatureMinMax = input_showIcon.checked, localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(e))), manageSettings();
+	});
+};
