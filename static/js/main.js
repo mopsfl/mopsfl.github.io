@@ -20,9 +20,9 @@ function init() {
 
     /**
      * 
-     * @param {string} stss Section to show selector 
-     * @param {string} sths Section to hide selector
-     * @param {string} sch Section content href
+     * @param {string} s Section to show selector 
+     * @param {string} e Section to hide selector
+     * @param {string} a Section content href
      */
 
      function toggleSection(s, e, a) {
