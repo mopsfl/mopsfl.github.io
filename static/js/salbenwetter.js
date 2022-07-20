@@ -27,7 +27,7 @@ function getMonthName(e) {
 }
 function getNamedDate() {
 	let e = new Date();
-	return `${ e.getDate() }. ${ getMonthName(e.getMonth() + 1) }`;
+	return `${ e.getDate() }. ${ getMonthName(e.getMonth()) }`;
 }
 function getTime(e) {
 	let t = new Date(), a = t.getHours(), n = t.getMinutes(), o = t.getSeconds();
