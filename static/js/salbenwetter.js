@@ -9,7 +9,7 @@ const main = document.querySelector('[data-main]'), text_location = document.que
 			showTemperatureMinMax: !0,
 			showIcon: !0
 		}
-	}, API_URL = new Request(`https://api.openweathermap.org/data/2.5/weather?lat=49.640621&lon=9.245574&appid=${ API_KEY }`), API_KEY = '391d4c20a09de5b8f61e6bc5852c28e9', ICON_URL = 'https://openweathermap.org/img/wn/';
+	}, API_KEY = '391d4c20a09de5b8f61e6bc5852c28e9', API_URL = new Request(`https://api.openweathermap.org/data/2.5/weather?lat=49.640621&lon=9.245574&appid=${ API_KEY }`), ICON_URL = 'https://openweathermap.org/img/wn/';
 var req = null;
 function calculateTemperature(e) {
 	return Math.round(e - 273.15);
@@ -52,13 +52,13 @@ function loadData() {
 	let e = JSON.parse(atob(localStorage.getItem('salbenWeather_data')));
 	if (e.lastFetch + 60000 < Date.now())
 		e.lastFetch = Date.now(), toggleLoading('Loading...'), console.warn('Fetch new data'), req = fetch(API_URL).then(e => e.json()).then(function (t) {
-			return text_location.innerText = t.name, text_temperature.innerText = `${ calculateTemperature(t.main.temp) }°`, text_temperature_min.innerText = `${ calculateTemperature(t.main.temp_min) }°`, text_temperature_max.innerText = `${ calculateTemperature(t.main.temp_max) }°`, loadWeatherIcon(t.weather[0].icon), text_time.innerText = `${ getNamedDate() } ${ getTime() }`, e.data = t, localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(e))), console.log(t), setTimeout(() => {
+			return text_location.innerText = t.name, text_temperature.innerText = `${ calculateTemperature(t.main.temp) }°`, text_temperature_min.innerText = `${ calculateTemperature(t.main.temp_min) }°`, text_temperature_max.innerText = `${ calculateTemperature(t.main.temp_max) }°`, loadWeatherIcon(t.weather[0].icon), text_date.innerText = `${ getNamedDate() } `, text_time.innerText = `${ getTime() }`, e.data = t, localStorage.setItem('salbenWeather_data', btoa(JSON.stringify(e))), console.log(t), setTimeout(() => {
 				toggleLoading();
 			}, 150);
 		});
 	else {
 		const t = JSON.parse(atob(localStorage.getItem('salbenWeather_data'))).data;
-		console.log(t), text_location.innerText = t.name, text_temperature.innerText = `${ calculateTemperature(t.main.temp) }°`, text_temperature_min.innerText = `${ calculateTemperature(t.main.temp_min) }°`, text_temperature_max.innerText = `${ calculateTemperature(t.main.temp_max) }°`, loadWeatherIcon(t.weather[0].icon), text_time.innerText = `${ getNamedDate() } ${ getTime() }`;
+		console.log(t), text_location.innerText = t.name, text_temperature.innerText = `${ calculateTemperature(t.main.temp) }°`, text_temperature_min.innerText = `${ calculateTemperature(t.main.temp_min) }°`, text_temperature_max.innerText = `${ calculateTemperature(t.main.temp_max) }°`, loadWeatherIcon(t.weather[0].icon), text_date.innerText = `${ getNamedDate() } `, text_time.innerText = `${ getTime() }`;
 		const a = (e.lastFetch - (Date.now() - 60000)) / 1000;
 		console.warn('Use cached data. New fetch in ' + Math.round(a) + ' seconds');
 	}
