@@ -2,7 +2,7 @@ const main = document.querySelector('[data-main]')
 const loading = document.querySelector("[data-loading]")
 
 const standard_data = {
-    lastFetch: 0,
+    lastFetch: null,
     data: {
         weather: {},
         forecast: {},
@@ -249,7 +249,7 @@ function loadData() {
     console.log(getTime())
     let ldata = JSON.parse(atob(localStorage.getItem(lsKey)))
     console.log(ldata)
-    if (ldata.lastFetch + (fetchCooldown * 60000) < Date.now() && location.hostname == "127.0.0.1") {
+    if (ldata.lastFetch && ldata.lastFetch + (fetchCooldown * 60000) < Date.now() && location.hostname == "127.0.0.1") {
         ldata.lastFetch = Date.now()
         toggleLoading("Loading...")
         console.warn("Fetch new data")
@@ -309,7 +309,7 @@ function loadData() {
         const data = JSON.parse(atob(localStorage.getItem(lsKey))).data
         console.log(data)
 
-        if(data.weather[0]){
+        if (data.weather[0]) {
             setElementText("[data-temperature-value]", data.weather[0].Temperature.Metric.Value + "°")
         } else console.warn("Unable to get weather data from cache.")
 
