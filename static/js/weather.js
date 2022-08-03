@@ -299,7 +299,7 @@ function loadData() {
                     ldata.data.location = locationData
                     localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
 
-                    setElementText("[data-location]", `${cityName}, ${countryName}`)
+                    setElementText("[data-location]", `${locationData.city}, ${locationData.country}`)
                 })
             } else {
                 console.warn("Unable to get IP. Please enable your internet connection or disable your ad blocker.")
@@ -309,7 +309,9 @@ function loadData() {
         const data = JSON.parse(atob(localStorage.getItem(lsKey))).data
         console.log(data)
 
-        setElementText("[data-temperature-value]", data.weather[0].Temperature.Metric.Value + "°")
+        if(data.weather[0]){
+            setElementText("[data-temperature-value]", data.weather[0].Temperature.Metric.Value + "°")
+        } else console.warn("Unable to get weather data from cache.")
 
         const newFetchMin = secondsToMinute((ldata.lastFetch - (Date.now() - (fetchCooldown * 60000))) / 1000).min
         const newFetchSec = secondsToMinute((ldata.lastFetch - (Date.now() - (fetchCooldown * 60000))) / 1000).sec
