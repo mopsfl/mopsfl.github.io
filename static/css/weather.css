@@ -93,21 +93,21 @@ footer {
 footer {
     position: fixed;
     bottom: 0px;
-    font-size: 10px;
     width: 100%;
     height: max-content;
     padding: 5px;
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, .5));
 }
 
 footer>a {
     float: right;
     margin: 0px;
-    font-size: 15px;
+    font-size: 10px;
 }
 
 footer>p {
     float: left;
-    font-size: 15px;
+    font-size: 10px;
     margin: 0px;
 }
 
@@ -139,9 +139,17 @@ main {
     animation: Gradient 25s ease infinite;
 }
 
+.header {
+    border-bottom: solid 1px rgba(255, 255, 255, 0.349);
+    display: flex;
+    backdrop-filter: blur(10px);
+}
+
 .header>.location {
     font-size: 1.5em;
     text-align: center;
+    margin: 0;
+    filter: drop-shadow(1px 1px 6px rgba(0, 0, 0, .5));
 }
 
 
@@ -159,15 +167,53 @@ main {
     white-space: nowrap;
 }
 
+.btn.noutline {
+    outline: none !important;
+}
+
 .btn:hover {
     cursor: pointer;
+}
+
+.btn:hover:not(.nobg) {
     background-color: var(--btn-bg);
     color: var(--txt)
 }
 
-.btn:active {
+.btn:active:not(.nactive) {
     opacity: .8;
     box-shadow: 0px 0px 0px 3px var(--btn-bg-op), 0 0 0 4px transparent;
+}
+
+.btn.btn-circle {
+    box-shadow: 0px 2px 3px 1px #0000004f;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.ripple {
+    filter: none !important;
+}
+
+.settings {
+    background: none;
+    border: none;
+    height: 30px;
+    width: 30px;
+    fill: white;
+    margin-left: auto;
+    cursor: pointer;
+    display: block;
+    transition: transform .5s
+}
+
+.settings path {
+    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, .5));
 }
 
 .loading {
@@ -180,11 +226,22 @@ main {
 
 .temperature {
     display: flex;
-    text-align: center;
     justify-content: center;
     align-items: center;
     font-size: 2em;
-    margin-top: 35px
+    margin-top: 35px;
+}
+
+.info {
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, .5));
+}
+
+.info>div {
+    text-align: center;
+}
+
+.info>.other-infos {
+    margin-top: 15px
 }
 
 .temperature-wrapper>p {
@@ -235,6 +292,10 @@ main {
     transition: opacity 0.3s;
 }
 
+.tooltip.t-b .tooltiptext {
+    bottom: -30px;
+}
+
 .tooltip .tooltiptext::after {
     content: "";
     position: absolute;
@@ -244,6 +305,17 @@ main {
     border-width: 5px;
     border-style: solid;
     border-color: rgba(0, 0, 0, 0.541) transparent transparent transparent;
+}
+
+.tooltip.t-l .tooltiptext::after {
+    top: 31%;
+    transform: rotate(270deg);
+    left: 104%;
+}
+
+.tooltip.t-l .tooltiptext {
+    left: -310%;
+    bottom: 0% !important;
 }
 
 .tooltip:hover .tooltiptext {
@@ -269,9 +341,16 @@ main {
 
 /*SCREEN SIZES*/
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 450px) {
     .header>.location {
         text-align: left;
         font-size: 1rem;
+    }
+    .settings {
+        width: 25px;
+        height: 25px;
+    }
+    .settings>.tooltip>.tooltiptext {
+        display: none !important;
     }
 }
