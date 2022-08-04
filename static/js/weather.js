@@ -58,6 +58,22 @@
 
     /**
      * 
+     * @returns {Object} Object
+     */
+
+    function getData() {
+        if (!localStorage.getItem(lsKey)) return standard_data
+        const data = JSON.parse(atob(lzw_decode(localStorage[lsKey])))
+        console.log(data)
+        return data
+    }
+
+    function saveData(data) {
+        localStorage.setItem(lsKey, lzw_encode(btoa(JSON.stringify(data))))
+    }
+
+    /**
+     * 
      * @param {Number} kelvin 
      * @returns {Number} Celsius
      */
@@ -164,7 +180,7 @@
     }
 
     function manageSettings() {
-        let settingsData = JSON.parse(atob(localStorage.getItem(lsKey))).settings
+        let settingsData = getData().settings
     }
 
     async function loadIPInfo() {
@@ -187,7 +203,7 @@
     }
 
     function checkSetting(key) {
-        let settingsData = JSON.parse(atob(localStorage.getItem(lsKey))).settings
+        let settingsData = getData().settings
         if (settingsData) {
             return settingsData[key]
         }
@@ -200,11 +216,11 @@
      */
 
     function setSetting(key, value) {
-        let data = JSON.parse(atob(localStorage.getItem(lsKey)))
+        let data = getData()
         if (data) {
             console.log(data)
             data.settings[key] = value
-            localStorage.setItem(lsKey, btoa(JSON.stringify(data)))
+            saveData(data)
         }
     }
 
@@ -289,14 +305,63 @@
         return "";
     }
 
+    function lzw_encode(s) {
+        var dict = {};
+        var data = (s + "").split("");
+        var out = [];
+        var currChar;
+        var phrase = data[0];
+        var code = 256;
+        for (var i = 1; i < data.length; i++) {
+            currChar = data[i];
+            if (dict[phrase + currChar] != null) {
+                phrase += currChar;
+            } else {
+                out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
+                dict[phrase + currChar] = code;
+                code++;
+                phrase = currChar;
+            }
+        }
+        out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
+        for (var i = 0; i < out.length; i++) {
+            out[i] = String.fromCharCode(out[i]);
+        }
+        return out.join("");
+    }
+
+    function lzw_decode(s) {
+        var dict = {};
+        var data = (s + "").split("");
+        var currChar = data[0];
+        var oldPhrase = currChar;
+        var out = [currChar];
+        var code = 256;
+        var phrase;
+        for (var i = 1; i < data.length; i++) {
+            var currCode = data[i].charCodeAt(0);
+            if (currCode < 256) {
+                phrase = data[i];
+            } else {
+                phrase = dict[currCode] ? dict[currCode] : (oldPhrase + currChar);
+            }
+            out.push(phrase);
+            currChar = phrase.charAt(0);
+            dict[code] = oldPhrase + currChar;
+            code++;
+            oldPhrase = phrase;
+        }
+        return out.join("");
+    }
+
     function loadData() {
-        if (!localStorage.getItem(lsKey)) localStorage.setItem(lsKey, btoa(JSON.stringify(standard_data)))
-        const ldata = JSON.parse(atob(localStorage.getItem(lsKey)))
+        if (!getData()) saveData(standard_data)
+        const ldata = getData()
 
         /**CURRENT-CONDITIONS**/
         if (ldata.lastFetches.currentconditions == null) {
             ldata.lastFetches.currentconditions = Date.now() - (fetchCooldowns.currentconditions * 60000 * 2);
-            localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+            saveData(ldata)
         }
         if (ldata.lastFetches.currentconditions + (fetchCooldowns.currentconditions * 60000) < Date.now()) {
             ldata.lastFetches.currentconditions = Date.now()
@@ -306,9 +371,10 @@
                 .then(res => res.json())
                 .then(data => {
                     ldata.data.weather = data
-                    localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+                    saveData(ldata)
 
                     setElementText("[data-temperature-value]", data[0].Temperature.Metric.Value + "°")
+                    setElementText("[data-weathertext]", data[0].WeatherText)
 
                     return setTimeout(() => {
                         toggleLoading()
@@ -319,10 +385,11 @@
                     toggleLoading("We were unable to load the data. Please try again!")
                 })
         } else {
-            const data = JSON.parse(atob(localStorage.getItem(lsKey))).data
+            const data = getData().data
 
             if (data.weather[0]) {
                 setElementText("[data-temperature-value]", data.weather[0].Temperature.Metric.Value + "°")
+                setElementText("[data-weathertext]", data.weather[0].WeatherText)
             } else console.warn("Unable to get weather data from cache.")
 
             const newFetchMin = secondsToMinute((ldata.lastFetches.currentconditions - (Date.now() - (fetchCooldowns.currentconditions * 60000))) / 1000).min
@@ -333,7 +400,7 @@
         /**LOCATION**/
         if (ldata.lastFetches.location == null) {
             ldata.lastFetches.location = Date.now() - (fetchCooldowns.location * 60000 * 2);
-            localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+            saveData(ldata)
         }
 
         if (ldata.lastFetches.location + (fetchCooldowns.location * 60000) < Date.now()) {
@@ -344,7 +411,7 @@
                 .then(res => res.json())
                 .then(data => {
                     ldata.data.location = data
-                    localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+                    saveData(ldata)
 
                     const location = {
                         city: data.ParentCity.LocalizedName || "Unknown",
@@ -362,7 +429,7 @@
                     toggleLoading("We were unable to load the data. Please try again!")
                 })
         } else {
-            const data = JSON.parse(atob(localStorage.getItem(lsKey))).data
+            const data = getData().data
 
             if (Object.keys(data.location).length > 0) {
                 const location = {
@@ -380,7 +447,7 @@
         /**FORECAST**/
         if (ldata.lastFetches.forecast == null) {
             ldata.lastFetches.forecast = Date.now() - (fetchCooldowns.forecast * 60000 * 2);
-            localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+            saveData(ldata)
         }
 
         if (ldata.lastFetches.forecast + (fetchCooldowns.forecast * 60000) < Date.now()) {
@@ -391,7 +458,7 @@
                 .then(res => res.json())
                 .then(data => {
                     ldata.data.forecast = data
-                    localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+                    saveData(ldata)
 
                     const forecast = {
                         today: {
@@ -414,7 +481,7 @@
                     toggleLoading("We were unable to load the data. Please try again!")
                 })
         } else {
-            const data = JSON.parse(atob(localStorage.getItem(lsKey))).data
+            const data = getData().data
             if (Object.keys(data.forecast).length > 0) {
                 const forecast = {
                     today: {
