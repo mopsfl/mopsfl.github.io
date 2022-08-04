@@ -143,6 +143,13 @@ function epochToDate(epoch) {
     return date
 }
 
+/**
+ * 
+ * @param {string} date (example: "2020-01-01")
+ * @returns {number} epoch
+ * @example dateToEpoch("2022-01-08") returns 1641600000
+ */
+
 function dateToEpoch(date) {
     let epoch = new Date(date)
     epoch = epoch.getTime() / 1000
@@ -212,7 +219,6 @@ function qs(selector) {
 }
 
 /**
- * 
  * @param {string} text Text to show while loading 
  */
 
@@ -233,6 +239,12 @@ function setElementText(selector, text) {
     qs(selector).innerText = text
 }
 
+/**
+ * @param {number} seconds Seconds
+ * @returns Minutes and seconds
+ * @example secondsToMinute(65) returns { min: 1, sec: 5 }
+ */
+
 function secondsToMinute(seconds) {
     let minutes = Math.floor(seconds / 60)
     let seconds_ = seconds % 60
@@ -249,72 +261,61 @@ function loadData() {
     console.log(getTime())
     let ldata = JSON.parse(atob(localStorage.getItem(lsKey)))
     console.log(ldata)
-    if (ldata.lastFetch && ldata.lastFetch + (fetchCooldown * 60000) < Date.now() && location.hostname == "127.0.0.1") {
-        ldata.lastFetch = Date.now()
-        toggleLoading("Loading...")
-        console.warn("Fetch new data")
-            /*req = fetch(API_URLS.forecast)
+    if (ldata.lastFetch != null) {
+        if (ldata.lastFetch + (fetchCooldown * 60000) < Date.now()) {
+            ldata.lastFetch = Date.now()
+            toggleLoading("Loading...")
+            console.warn("Fetch new data")
+            fetch(API_URLS.weather)
                 .then(res => res.json())
-                .then(function(data) {
-                    data.DailyForecasts.forEach(function(day) {
-                        const cd1 = day.Date.substring(0, 10)
-                        if (cd1 == epochToDate(dateToEpoch(getDate()))) {
-                            console.log(cd1, epochToDate(dateToEpoch(getDate())))
-                            console.log(day.EpochDate, dateToEpoch(getDate()))
-                        }
-                    })
-
+                .then(data => {
                     console.log(data)
+                    ldata.data.weather = data
+                    localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+
+                    setElementText("[data-temperature-value]", data[0].Temperature.Metric.Value + "°")
 
                     return setTimeout(() => {
                         toggleLoading()
                     }, 150)
                 })
-                .catch(err => {
-                    console.error(err)
-                    toggleLoading("Unable to fetch forecast data.")
-                })*/
-        fetch(API_URLS.weather)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                ldata.data.weather = data
-                localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+                /****************************************************************/
+            if (checkSetting("useIp") == true) {
+                if (window._IP && window._IP != null) {
+                    loadLocationData().then(function() {
+                        const locationData = {
+                            city: ipInfo.ParentCity.LocalizedName,
+                            country: ipInfo.AdministrativeArea.LocalizedName
+                        }
 
-                setElementText("[data-temperature-value]", data[0].Temperature.Metric.Value + "°")
+                        ldata.data.location = locationData
+                        localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
 
-                return setTimeout(() => {
-                    toggleLoading()
-                }, 150)
-            })
-            /****************************************************************/
-        if (checkSetting("useIp") == true) {
-            if (window._IP && window._IP != null) {
-                loadLocationData().then(function() {
-                    const locationData = {
-                        city: ipInfo.ParentCity.LocalizedName,
-                        country: ipInfo.AdministrativeArea.LocalizedName
-                    }
-
-                    ldata.data.location = locationData
-                    localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
-
-                    setElementText("[data-location]", `${locationData.city}, ${locationData.country}`)
-                })
-            } else {
-                console.warn("Unable to get IP. Please enable your internet connection or disable your ad blocker.")
+                        setElementText("[data-location]", `${locationData.city}, ${locationData.country}`)
+                    })
+                } else {
+                    console.warn("Unable to get IP. Please enable your internet connection or disable your ad blocker.")
+                }
             }
+        } else {
+            const data = JSON.parse(atob(localStorage.getItem(lsKey))).data
+            console.log(data)
+
+            if (data.weather[0]) {
+                setElementText("[data-temperature-value]", data.weather[0].Temperature.Metric.Value + "°")
+            } else console.warn("Unable to get weather data from cache.")
+
+            if (data.location) {
+                setElementText("[data-location]", `${data.location.city}, ${data.location.country}`)
+            } else console.warn("Unable to get location data from cache.")
+
+            const newFetchMin = secondsToMinute((ldata.lastFetch - (Date.now() - (fetchCooldown * 60000))) / 1000).min
+            const newFetchSec = secondsToMinute((ldata.lastFetch - (Date.now() - (fetchCooldown * 60000))) / 1000).sec
+            console.warn("Used cached data. New fetch in " + Math.round(newFetchMin) + " minutes and " + Math.round(newFetchSec) + " seconds.")
         }
     } else {
-        const data = JSON.parse(atob(localStorage.getItem(lsKey))).data
-        console.log(data)
-
-        if (data.weather[0]) {
-            setElementText("[data-temperature-value]", data.weather[0].Temperature.Metric.Value + "°")
-        } else console.warn("Unable to get weather data from cache.")
-
-        const newFetchMin = secondsToMinute((ldata.lastFetch - (Date.now() - (fetchCooldown * 60000))) / 1000).min
-        const newFetchSec = secondsToMinute((ldata.lastFetch - (Date.now() - (fetchCooldown * 60000))) / 1000).sec
-        console.warn("Used cached data. New fetch in " + Math.round(newFetchMin) + " minutes and " + Math.round(newFetchSec) + " seconds.")
+        ldata.lastFetch = Date.now() - (fetchCooldown * 60000)
+        localStorage.setItem(lsKey, btoa(JSON.stringify(ldata)))
+        loadData()
     }
 }
