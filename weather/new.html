@@ -20,6 +20,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../static/img/weather.png" type="image/x-icon">
 
     <!--SCRIPTS-->
     <script>
@@ -32,7 +34,6 @@
     <script src="../static/js/ripple.js" defer type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" type="text/javascript" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript" defer></script>
-
 
     <noscript>
         <style>
@@ -50,7 +51,7 @@
     </style>
 </head>
 
-<body onload="init()">
+<body>
     <div class="particles-js" id="particles-js"></div>
     <div class="loading none" data-loading><span>Loading...</span></div>
     <main class="main none" data-main>
@@ -69,10 +70,16 @@
                     <div class="divider"></div>
                     <div class="minmax-wrapper">
                         <p class="max-value">
-                            <span data-max-value>0°</span>
+                            <div class="tooltip" data-max-value tooltip="Max Temperature">
+                                <span data-value>0°</span>
+                                <span class="tooltiptext">Max Temperature</span>
+                            </div>
                         </p>
                         <p class="min-value">
-                            <span data-min-value>0°</span>
+                            <div class="tooltip" data-min-value tooltip="Min Temperature">
+                                <span data-value>0°</span>
+                                <span class="tooltiptext">Min Temperature</span>
+                            </div>
                         </p>
                     </div>
                 </div>
@@ -81,7 +88,12 @@
     </main>
     <footer class="footer">
         <p>&copy; 2022 mopsfl</p>
-        <a href="http://accuweather.com">AccuWeather</a>
+        <a href="http://accuweather.com" target="_blank">
+            <div class="tooltip" data-min-value tooltip="Min Temperature">
+                <span>Accuweather</span>
+                <span class="tooltiptext">API</span>
+            </div>
+        </a>
     </footer>
 
 </body>
