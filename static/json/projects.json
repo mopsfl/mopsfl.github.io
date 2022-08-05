@@ -3,7 +3,7 @@
     "projects": [
         {
             "title": "Weather App",
-            "githubURL:" "https://github.com/mopsfl/mopsfl.github.io",
+            "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
             "testURL": "https://mopsfl.github.io/weather/new.html",
             "downloadURL": "",
             "imageURL": "https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/static/img/weather.png",
