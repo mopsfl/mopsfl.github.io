@@ -15,22 +15,34 @@
         },
         settings: {
             useIp: true,
+            lang: "de",
         }
     }
+
+    const languages = [{
+            code: "de",
+            langName: "Deutsch",
+        },
+        {
+            code: "en",
+            langName: "English",
+        },
+    ]
 
     let _IP = window._IP,
         ipInfo = {},
         lsKey = "weather_data",
-        req = null
+        req = null,
+        langIndex = 0
 
     const API_KEYS = {
         main: "GvLtbTTU3XOUi1hSdxfA247N3IdA1naO",
         second: "n1UYMojECGyTAvTFDNbw6h9PFA8xRRDa"
     }
     const API_URLS = {
-        weather: new Request(`https://dataservice.accuweather.com/currentconditions/v1/994921?apikey=${API_KEYS.main}&language=de`),
-        forecast: new Request(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/994921?apikey=${API_KEYS.main}&language=de&details=false&metric=false`),
-        location: new Request(`https://dataservice.accuweather.com/locations/v1/cities/ipaddress?apikey=${API_KEYS.main}&q=${_IP}&language=de`),
+        weather: new Request(`https://dataservice.accuweather.com/currentconditions/v1/994921?apikey=${API_KEYS.main}`),
+        forecast: new Request(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/994921?apikey=${API_KEYS.main}&details=false&metric=false`),
+        location: new Request(`https://dataservice.accuweather.com/locations/v1/cities/ipaddress?apikey=${API_KEYS.main}&q=${_IP}`),
         ip: "https://api.ipify.org?format=json"
     }
     const ICON_URL = "",
@@ -40,6 +52,7 @@
             location: 62,
             forecast: 242,
         }
+
 
     /*MAIN*/
 
@@ -52,6 +65,32 @@
             console.log("Unable to get IP. Please disable some of your browser adddons (AdBlocker).")
         } else delete window._IP
 
+        document.querySelector("[data-settings]").addEventListener("click", (e) => {
+            document.querySelector(".settingsContainer").classList.contains("none") ? document.querySelector(".container").classList.add("none") : document.querySelector(".container").classList.remove("none")
+            document.querySelector(".settingsContainer").classList.contains("none") ? document.querySelector(".settingsContainer").classList.remove("none") : document.querySelector(".settingsContainer").classList.add("none")
+        })
+
+        document.querySelector("[data-sback]").addEventListener("click", (e) => {
+            document.querySelector(".settingsContainer").classList.contains("none") ? document.querySelector(".container").classList.add("none") : document.querySelector(".container").classList.remove("none")
+            document.querySelector(".settingsContainer").classList.contains("none") ? document.querySelector(".settingsContainer").classList.remove("none") : document.querySelector(".settingsContainer").classList.add("none")
+        })
+
+        document.querySelector("[data-lang]").addEventListener("click", (e) => {
+            const data = getData()
+            if (Object.keys(languages)[langIndex++]) {
+                langIndex = parseInt(langIndex) % Object.keys(languages).length
+            } else {
+                langIndex = 0
+            }
+            console.log(`Set language to ${languages[langIndex].code} (${languages[langIndex].langName})`)
+
+            e.target.querySelector("[data-lang-value]").innerText = languages[langIndex].langName
+
+            data.settings.lang = languages[langIndex].code
+            saveData(data)
+
+            forceFetch(true)
+        })
     }
 
     //FUNCTIONS
@@ -64,7 +103,6 @@
     function getData() {
         if (!localStorage.getItem(lsKey)) return standard_data
         const data = JSON.parse(atob(lzw_decode(localStorage[lsKey])))
-        console.log(data)
         return data
     }
 
@@ -181,6 +219,19 @@
 
     function manageSettings() {
         let settingsData = getData().settings
+
+        if (settingsData.lang) {
+            langIndex = languages.findIndex(lang => lang.code === settingsData.lang)
+            setElementText("[data-lang-value]", languages[langIndex].langName)
+
+            console.log(`Set language to ${languages[langIndex].code} (${languages[langIndex].langName})`)
+
+            if (langIndex === -1) {
+                langIndex = 0
+                setElementText("[data-lang-value]", languages[langIndex].langName)
+                console.log(`Set language to ${languages[langIndex].code} (${languages[langIndex].langName})`)
+            }
+        }
     }
 
     async function loadIPInfo() {
@@ -218,7 +269,6 @@
     function setSetting(key, value) {
         let data = getData()
         if (data) {
-            console.log(data)
             data.settings[key] = value
             saveData(data)
         }
@@ -354,6 +404,21 @@
         return out.join("");
     }
 
+    function forceFetch(ovr) {
+        r = RegExp('^http[s]?:\/\/((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])');
+
+        if (r.test(this.location.href) || ovr) {
+            const data = getData()
+
+            Object.keys(data.lastFetches).forEach(d => {
+                data.lastFetches[d] = data.lastFetches[d].lastFetches / (data.lastFetches[d].lastFetches * 2)
+            })
+
+            saveData(data)
+            loadData()
+        }
+    }
+
     function loadData() {
         if (!getData()) saveData(standard_data)
         const ldata = getData()
@@ -367,7 +432,7 @@
             ldata.lastFetches.currentconditions = Date.now()
             toggleLoading("Loading...")
             console.warn("[CURRENTCONDITION]: Fetch new data")
-            fetch(API_URLS.weather)
+            fetch(`${API_URLS.weather.url}&language=${languages[langIndex].code || "de"}`)
                 .then(res => res.json())
                 .then(data => {
                     ldata.data.weather = data
@@ -382,6 +447,7 @@
                 })
                 .catch(err => {
                     console.error(err)
+                    toggleLoading()
                     toggleLoading("We were unable to load the data. Please try again!")
                 })
         } else {
@@ -407,7 +473,7 @@
             ldata.lastFetches.location = Date.now()
             toggleLoading("Loading...")
             console.warn("[LOCATION]: Fetch new data")
-            fetch(API_URLS.location)
+            fetch(`${API_URLS.location.url}&language=${languages[langIndex].code || "de"}`)
                 .then(res => res.json())
                 .then(data => {
                     ldata.data.location = data
@@ -426,6 +492,7 @@
                 })
                 .catch(err => {
                     console.error(err)
+                    toggleLoading()
                     toggleLoading("We were unable to load the data. Please try again!")
                 })
         } else {
@@ -454,7 +521,7 @@
             ldata.lastFetches.forecast = Date.now()
             toggleLoading("Loading...")
             console.warn("[FORECAST]: Fetch new data")
-            fetch(API_URLS.forecast)
+            fetch(`${API_URLS.forecast.url}&language=${languages[langIndex].code  || "de"}`)
                 .then(res => res.json())
                 .then(data => {
                     ldata.data.forecast = data
@@ -478,6 +545,7 @@
                 })
                 .catch(err => {
                     console.error(err)
+                    toggleLoading()
                     toggleLoading("We were unable to load the data. Please try again!")
                 })
         } else {
