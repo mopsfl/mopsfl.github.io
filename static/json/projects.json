@@ -1,6 +1,6 @@
 {
 
-    projects: [
+    "projects": [
         {
             "title": "Weather App",
             "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
