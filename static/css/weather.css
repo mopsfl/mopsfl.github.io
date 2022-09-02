@@ -335,7 +335,11 @@ input.textinput:not(:placeholder-shown) {
 }
 
 .info>.other-infos {
-    margin-top: 15px
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
 }
 
 .temperature-wrapper>p {
