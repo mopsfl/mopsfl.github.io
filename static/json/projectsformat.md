@@ -1,0 +1,15 @@
+{
+            "title": "Title",
+            "githubURL": "url",
+            "testURL": "testing url",
+            "downloadURL": "download url",
+            "imageURL": "image url",
+            "descItems": [
+                {
+                    "text": "desc text 1"
+                },
+                {
+                    "text": "desc text 2"
+                }
+            ]
+        }
