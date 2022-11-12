@@ -55,8 +55,8 @@ const standard_data = {
         second: "n1UYMojECGyTAvTFDNbw6h9PFA8xRRDa"
     },
     API_URLS = {
-        weather: new Request(`https://dataservice.accuweather.com/currentconditions/v1/168720?apikey=${API_KEYS.main}`),
-        forecast: new Request(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/168720?apikey=${API_KEYS.main}&details=false&metric=false`),
+        weather: new Request(`https://dataservice.accuweather.com/currentconditions/v1/63897?apikey=${API_KEYS.main}`),
+        forecast: new Request(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/63897?apikey=${API_KEYS.main}&details=false&metric=false`),
         location: new Request(`https://dataservice.accuweather.com/locations/v1/cities/ipaddress?apikey=${API_KEYS.main}&q=${_IP}`),
         ip: "https://api.ipify.org?format=json"
     },
