@@ -1,18 +1,7 @@
-const URL = "https://reallifeonline.cf:30120"
-const ENDPOINTS = {
-    players: "players.json",
-}
-
 var dynamic = null,
     players = null,
     info = null
 
-const headers = new Headers()
-headers.append('pragma', 'no-cache');
-headers.append('cache-control', 'no-cache');
-headers.append('Access-Control-Allow-Origin', '*');
-headers.append('Accept', "application/json")
-headers.append('Content-Type', "application/json")
 
 async function loadPlayers() {
     try {
@@ -25,7 +14,7 @@ async function loadPlayers() {
                 players = JSON.parse(xhttp.response)
             }
         };
-        xhttp.open("GET", "http://lol.daki.cc:6054/api/rlo/players", true);
+        xhttp.open("GET", "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/players", true);
         xhttp.send();
     } catch (error) {
         console.error(error)
@@ -40,7 +29,8 @@ async function loadDynamic() {
                 dynamic = JSON.parse(xhttp.response)
             }
         };
-        xhttp.open("GET", "http://lol.daki.cc:6054/api/rlo/dynamic", true);
+
+        xhttp.open("GET", "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/dynamic", true);
         xhttp.send();
     } catch (error) {
         console.error(error)
@@ -56,7 +46,7 @@ async function loadInfo() {
                 await load()
             }
         };
-        xhttp.open("GET", "http://lol.daki.cc:6054/api/rlo/info", true);
+        xhttp.open("GET", "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/info", true);
         xhttp.send();
     } catch (error) {
         console.error(error)
