@@ -8,10 +8,47 @@
     <title>Real Life Online Stats</title>
 
     <script src="/static/js/rlo.js" defer></script>
+    <script src="../static/js/ripple.js" defer type="text/javascript"></script>
+    <link rel="stylesheet" href="/static/css/rlo.css">
+    <noscript>
+        <style>
+            .noscript-message{ display: block !important; }
+        </style>
+    </noscript>
+    <style>
+        .noscript-message {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Real Life Online Stats </h1>
+    <div class="particles-js" id="particles-js"></div>
+    <main>
+        <p class="noscript-message">Many features may not work properly without JavaScript enabled.</p>
+        <div class="container">
+            <div class="header">
+                <h1 class="title" data-servername>Real Life Online - Server Stats</h1>
+                <button class="btn btn-main ripple reload" ripple-color="#7b7b7b" ripple-opacity=".3" ripple-release-expand-time="1" data-reload>Reload</button>
+            </div>
+            <div class="info">
+                <p class="plrcount">Spieler Online: <span data-plr-count>0/1</span></p>
+            </div>
+            <div class="content">
+                <div class="players" data-players>
+                    <h2>Spieler:</h2>
+                    <div class="list" data-players-list>
+                    </div>
+                    <template data-plrtemplate>
+                        <div class="plr">
+                            <p class="name" data-name>plr_name</p>
+                            <p class="id" data-id>id</p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>
