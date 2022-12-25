@@ -55,7 +55,7 @@ async function load() {
         });
     }
     if (info) {
-        qs("[data-servername]").innerText = info.vars.sv_projectName
+        qs("[data-servername]").innerText = info.vars.sv_projectName.replaceAll("^", "").replaceAll("5", "").replaceAll("E0", "E") + " - SERVER STATS"
     }
 }
 
