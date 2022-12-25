@@ -3,7 +3,7 @@ const responses = {}
 const requests = [
     "players",
     "dynamic",
-    "info",
+    "infos",
 ]
 
 const nicknames = {
