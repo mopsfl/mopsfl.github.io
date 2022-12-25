@@ -330,7 +330,7 @@ input.textinput:not(:placeholder-shown) {
 }
 
 .players>.list {
-    max-height: 650px;
+    max-height: 70vh;
     overflow-y: scroll;
 }
 
