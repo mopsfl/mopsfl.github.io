@@ -148,20 +148,6 @@ main {
     display: none !important;
 }
 
-.start-hide {
-    transition: transform .5s;
-    transform: translate(-500%, -50%) !important;
-}
-
-.quiz {
-    transform: translate(5000%, -50%) !important;
-}
-
-.quiz-show {
-    transition: transform 1s;
-    transform: translate(-50%, -50%) !important;
-}
-
 .cursor-pointer:hover {
     cursor: pointer
 }
@@ -315,55 +301,159 @@ h2 {
 
 /*MAIN*/
 
-.content {
+.loading {
     text-align: center;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
 }
 
-.players>h2,
-.info>h2 {
+.loading>.error {
+    color: red;
+    font-size: 11px;
+}
+
+.loading>p {
+    margin: 0;
+}
+
+footer>* {
+    margin-left: 10px !important;
+}
+
+main,
+footer {
+    z-index: 999;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: max-content;
+    padding: 5px;
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, .5));
+    text-align: center;
+}
+
+footer>a {
     color: white;
+    float: right;
+    margin: 0px;
+    font-size: 12px;
+}
+
+footer>p {
+    color: white;
+    float: left;
+    font-size: 12px;
+    margin: 0px;
+}
+
+.playercount {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.playercount>p {
+    margin-top: 0;
+}
+
+.playerlist {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 70vh;
+    max-height: 70vh;
+}
+
+.playerlist>.list {
+    overflow-y: scroll;
+    max-height: 70vh;
+    min-height: 70vh;
+}
+
+.playerlist>.title {
+    text-align: center;
+    color: white;
+    font-size: 25px;
     filter: drop-shadow(1px 1px 6px rgba(0, 0, 0, .5));
     border-bottom: solid 1px rgba(255, 255, 255, 0.349);
+    width: 80vw;
+    margin-bottom: 15px;
 }
 
-.players>.list {
-    height: 50vh;
-    overflow-y: scroll;
+.player {
+    margin: 5px;
+    outline: solid 1px rgba(255, 255, 255, 0.349);
+    padding: 1px 10px;
+    border-radius: 3px;
 }
 
-.reload {
-    height: 25px;
-    position: absolute !important;
-    right: 15px;
+.player {
+    margin-bottom: 5px;
+    cursor: pointer;
+    max-height: 35px;
+    overflow: hidden;
+    transition: max-height .5s;
 }
 
-.plr {
-    display: flex;
+.player>.info {
+    margin-bottom: 5px;
 }
 
-.plr>.id {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    width: max-content;
+.player>.info>p {
+    font-size: 11px;
+    margin: 0;
+}
+
+.player>p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    pointer-events: none;
+}
+
+#clicked {
+    max-height: 250px;
+}
+
+.search {
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    float: right;
+    transform: scale(75%);
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.search-input {
+    width: 200px;
+    margin-left: 15px;
+    background: none;
+    outline: solid 1px rgba(255, 255, 255, 0.349);
+    border: none;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: 'Varela Round', sans-serif;
+    float: right;
     text-align: right;
+    transition: width .5s;
 }
 
-.plr>.name {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    width: max-content;
-    text-align: left;
-    margin-right: 10px;
-    margin-left: 10px;
+.search-input.hide {
+    width: 0 !important;
 }
 
-.plrcount {
-    height: 25px;
-    position: absolute !important;
-    right: 15px;
-    margin-top: 0;
+.hide {
+    display: none;
 }
 
 
@@ -384,9 +474,8 @@ h2 {
 
 /*SCREEN THING*/
 
-@media screen and (max-width: 668px) {
-    .title,
-    .plrcount {
-        font-size: 10px !important;
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 10px;
     }
 }
