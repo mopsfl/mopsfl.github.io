@@ -7,7 +7,20 @@
         "downloadURL": "",
         "imageURL": "https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/static/img/weather.png",
         "descItems": [{
-                "text": "Simple weather app wich displays current and forecast data. (Data provided by <a class='link-highlight' href='https://developer.accuweather.com/' target='_blank'>Accuweather</a>)"
+                "text": "Einfache Wetter-App, die aktuelle Wetter Daten anzeigt. (Daten von <a class='link-highlight' href='https://developer.accuweather.com/' target='_blank'>Accuweather</a>)"
+            },
+            {
+                "text": "<small>v.0.1</small>"
+            }
+        ]
+    }, {
+        "title": "Real Life Online Server Stats",
+        "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
+        "testURL": "https://mopsfl.github.io/rlo",
+        "downloadURL": "",
+        "imageURL": "https://reallifeonline.net/assets/images/real-life-online-black.png",
+        "descItems": [{
+                "text": "Eine App welche Informationen über den FiveM Roleplay Server <a class='link-highlight' href='https://reallifeonline.net/' target='_blank'>Real Life Online</a> anzeigt. (Spieleranzahl, Spieler Liste)"
             },
             {
                 "text": "<small>v.0.1</small>"
