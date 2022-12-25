@@ -1,107 +1,156 @@
-const URL = "https://reallifeonline.cf:30120"
-const ENDPOINTS = {
-    players: "players.json",
+const URL = "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/"
+const responses = {}
+const requests = [
+    "players",
+    "dynamic",
+    "info",
+]
+
+const nicknames = {
+    "Onearly": "andl",
+    "Linux3G": "mcveysl",
+    "Voymar": "police",
+    "Andy_Hck": "police",
+    "BroZz": "police",
+    "jxst_nati": "107",
+    "Freddie": "107",
+    "CSYON": "107",
+    "Gibbi": "107",
+    "Page not found 404": "kartell",
+    "Anna Steel/Jenny Saller": "kartell",
 }
 
-var dynamic = null,
-    players = null,
-    info = null
-
-const headers = new Headers()
-headers.append('pragma', 'no-cache');
-headers.append('cache-control', 'no-cache');
-headers.append('Access-Control-Allow-Origin', '*');
-headers.append('Accept', "application/json")
-headers.append('Content-Type', "application/json")
-
-async function loadPlayers() {
-    try {
-        /*const data = await fetch(`lol.daki.cc:6054/api/rlo/players`)
-        const json = await data.json()
-        return json*/
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                players = JSON.parse(xhttp.response)
-            }
-        };
-        xhttp.open("GET", "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/players", true);
-        xhttp.send();
-    } catch (error) {
-        console.error(error)
-    }
-}
-
-async function loadDynamic() {
-    try {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                dynamic = JSON.parse(xhttp.response)
-            }
-        };
-
-        xhttp.open("GET", "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/dynamic", true);
-        xhttp.send();
-    } catch (error) {
-        console.error(error)
-    }
-}
-
-async function loadInfo() {
-    try {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = async function() {
-            if (this.readyState == 4 && this.status == 200) {
-                info = JSON.parse(xhttp.response)
-                await load()
-            }
-        };
-        xhttp.open("GET", "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/info", true);
-        xhttp.send();
-    } catch (error) {
-        console.error(error)
-    }
-}
+var _error = "",
+    _loaded = false,
+    _search = false,
+    players = {}
 
 function qs(element) {
     return document.querySelector(element)
 }
 
-async function load() {
-    qs("[data-players-list]").innerHTML = ""
-    if (dynamic && dynamic.clients) {
-        qs("[data-plr-count]").innerText = dynamic.clients + "/" + dynamic.sv_maxclients
-    } else if (dynamic && dynamic.message) {
-        console.error(dynamic.error)
-        const plrElement = qs("[data-plrtemplate]").content.cloneNode(true).children[0]
-        plrElement.querySelector("[data-name]").innerText = "Error while requesting dynamic.json"
-        qs("[data-players-list]").appendChild(plrElement)
-        return
+async function loadContent() {
+    //PLAYERS
+
+    const playerList = qs("[data-plrlist]"),
+        template = qs("[data-playertemplate]")
+
+    players = responses.players.map(player => {
+        const plrelement = template.content.cloneNode(true).children[0]
+
+        return {
+            name: player.name,
+            id: player.id,
+            ping: player.ping,
+            nickname: nicknames[player.name] || "",
+            element: plrelement
+        }
+    })
+
+    players.sort((a, b) => { return a.id > b.id })
+
+    players.forEach(player => {
+        const name = player.element.querySelector("[data-name]"),
+            id = player.element.querySelector("[data-playerid]"),
+            ping = player.element.querySelector("[data-playerping]")
+
+        name.innerText = player.name
+        id.querySelector("[data-value]").innerText = player.id
+        ping.querySelector("[data-value]").innerText = player.ping
+        playerList.appendChild(player.element)
+
+
+        player.element.addEventListener("click", (e) => {
+            if (!e.target.getAttribute("id", "clicked")) {
+                e.target.setAttribute("id", "clicked")
+
+            } else {
+                e.target.removeAttribute("id")
+            }
+        })
+    });
+
+    //ONLINE COUNT
+
+    const playerCount = qs("[data-plrcount]")
+
+    playerCount.innerText = `${responses.dynamic.clients}/${responses.dynamic.sv_maxclients}`
+}
+
+async function loadData() {
+    qs("[data-loading]").classList.remove("none")
+    qs("[data-content]").classList.add("none")
+    for (let i = 0; i < requests.length; i++) {
+        console.log("Requesting > " + requests[i])
+        _error = ""
+        qs("[data-ltext]").innerText = `Loading resource ${requests[i]}... (${i+1}/3)`
+        if (_error != "") {
+            qs("[data-error]").innerText = "Error while loading this resource"
+        }
+        const request = new Request(URL + requests[i]);
+        try {
+            await fetch(request).then(res => res.json()).then(data => {
+                responses[requests[i]] = data
+            })
+        } catch (error) {
+            _error = error
+        }
     }
-    if (players) {
-        players.forEach(player => {
-            const plrElement = qs("[data-plrtemplate]").content.cloneNode(true).children[0]
-            plrElement.querySelector("[data-name]").innerText = `${player.name}`
-            plrElement.querySelector("[data-id]").innerText = `(${player.id})`
-            qs("[data-players-list]").appendChild(plrElement)
-        });
-    }
-    if (info) {
-        qs("[data-servername]").innerText = info.vars.sv_projectName.replaceAll("^", "").replaceAll("5", "").replaceAll("E0", "E") + " - SERVER STATS"
+
+    console.log(`Requests finished. ${Object.keys(responses).length}/3 successfull.`)
+
+    if (Object.keys(responses).length == 3) {
+        qs("[data-ltext]").innerText = `Resources loaded! Loading content...`;
+        await loadContent()
+
+        setTimeout(() => {
+            qs("[data-loading]").classList.add("none")
+            qs("[data-content]").classList.remove("none")
+        }, 1000)
+    } else {
+        qs("[data-ltext]").innerText = `Error`;
+        qs("[data-error]").innerText = "Unable to load resources!"
     }
 }
 
 window.onload = () => {
-    //load()
+    loadData()
 
-    /*qs("[data-reload]").addEventListener("click", (e) => {
-        loadPlayers()
-        loadDynamic()
-        loadInfo()
-    })*/
+    document.addEventListener("mousedown", (e) => {
+        if (e.target != qs("[data-searchinput]") && e.target != qs("[data-search]")) {
+            _search = false
+            qs("[data-searchinput]").classList.add("hide")
+            setTimeout(() => {
+                qs("[data-searchinput]").style.display = "none"
+            }, 500)
+        }
+    })
 
-    loadPlayers()
-    loadDynamic()
-    loadInfo()
+    qs("[data-search]").addEventListener("click", (e) => {
+        _search = !_search
+
+        if (_search) {
+            qs("[data-searchinput]").style.display = "block"
+            setTimeout(() => {
+                qs("[data-searchinput]").classList.remove("hide")
+            }, 100)
+        } else {
+            qs("[data-searchinput]").classList.add("hide")
+            setTimeout(() => {
+                qs("[data-searchinput]").style.display = "none"
+            }, 500)
+        }
+    })
+
+    qs("[data-searchinput]").addEventListener("input", (e) => {
+        const value = e.target.value.toLowerCase().replace(" ", "")
+        players.forEach(player => {
+            const isVisible = player.name.toLowerCase().includes(value) ||
+                player.nickname.toLowerCase().includes(value) ||
+                player.id.toString().includes(value)
+            setTimeout(function() {
+                player.element.classList.toggle("hide", !isVisible)
+            }, 10)
+        });
+    })
 }
