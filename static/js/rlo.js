@@ -17,12 +17,14 @@ const nicknames = {
     "Freddie": "107",
     "EspressoDepresso": "107",
     "Vinz": "107",
-    "CSYON": "107 police",
+    "CSYON": "107 police kurt",
     "Gibbi": "107",
     "XxVCelinexX": "107",
     "Page not found 404": "kartell",
     "Anna Steel/Jenny Saller": "kartell",
     "Käthe": "amr",
+    "John Ram": "107",
+    "Rainer": "107 schandl",
 }
 
 var _error = "",
