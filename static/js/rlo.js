@@ -7,17 +7,22 @@ const requests = [
 ]
 
 const nicknames = {
-    "Onearly": "andl",
-    "Linux3G": "mcveysl",
+    "Onearly": "andl 107",
+    "Linux3G": "mcveysl mafia",
+    "Lilith McVeysl": "mcveysl mafia",
     "Voymar": "police",
     "Andy_Hck": "police",
     "BroZz": "police",
     "jxst_nati": "107",
     "Freddie": "107",
-    "CSYON": "107",
+    "EspressoDepresso": "107",
+    "Vinz": "107",
+    "CSYON": "107 police",
     "Gibbi": "107",
+    "XxVCelinexX": "107",
     "Page not found 404": "kartell",
     "Anna Steel/Jenny Saller": "kartell",
+    "Käthe": "amr",
 }
 
 var _error = "",
@@ -31,9 +36,10 @@ function qs(element) {
 
 async function loadContent() {
     //PLAYERS
-
     const playerList = qs("[data-plrlist]"),
         template = qs("[data-playertemplate]")
+
+    playerList.innerHTML = ""
 
     players = responses.players.map(player => {
         const plrelement = template.content.cloneNode(true).children[0]
@@ -71,9 +77,7 @@ async function loadContent() {
     });
 
     //ONLINE COUNT
-
     const playerCount = qs("[data-plrcount]")
-
     playerCount.innerText = `${responses.dynamic.clients}/${responses.dynamic.sv_maxclients}`
 }
 
