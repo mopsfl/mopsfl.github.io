@@ -308,18 +308,17 @@ input.textinput:not(:placeholder-shown) {
     filter: none !important;
 }
 
+h2 {
+    margin-top: 0;
+}
+
 
 /*MAIN*/
 
 .content {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
-    width: 50vw;
+    width: 100%;
     height: 100%;
-    margin-top: 100px;
 }
 
 .players>h2,
@@ -330,7 +329,7 @@ input.textinput:not(:placeholder-shown) {
 }
 
 .players>.list {
-    max-height: 350px;
+    height: 50vh;
     overflow-y: scroll;
 }
 
@@ -360,6 +359,13 @@ input.textinput:not(:placeholder-shown) {
     margin-left: 10px;
 }
 
+.plrcount {
+    height: 25px;
+    position: absolute !important;
+    right: 15px;
+    margin-top: 0;
+}
+
 
 /*ANIMATIONS*/
 
@@ -372,5 +378,15 @@ input.textinput:not(:placeholder-shown) {
     }
     100% {
         background-position: 0% 50%;
+    }
+}
+
+
+/*SCREEN THING*/
+
+@media screen and (max-width: 668px) {
+    .title,
+    .plrcount {
+        font-size: 10px !important;
     }
 }
