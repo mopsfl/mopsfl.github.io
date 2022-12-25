@@ -10,6 +10,10 @@
     <script src="/static/js/rlo.js" defer></script>
     <script src="../static/js/ripple.js" defer type="text/javascript"></script>
     <link rel="stylesheet" href="/static/css/rlo.css">
+    <link rel="icon" type="image/x-icon" href="https://reallifeonline.net/assets/images/real-life-online-black.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="../static/js/ripple.js" defer type="text/javascript"></script>
+
     <noscript>
         <style>
             .noscript-message{ display: block !important; }
@@ -27,26 +31,39 @@
     <main>
         <p class="noscript-message">Many features may not work properly without JavaScript enabled.</p>
         <div class="container">
-            <div class="header">
-                <h1 class="title" data-servername>Real Life Online - Server Stats</h1>
-                <!--<button class="btn btn-main ripple reload" ripple-color="#7b7b7b" ripple-opacity=".3" ripple-release-expand-time="1" data-reload>Reload</button>-->
-                <p class="plrcount">Spieler Online: <span data-plr-count>0/1</span></p>
+            <div class="loading none" data-loading>
+                <p data-ltext>Loading resource %resourcename%... (0/3)</p>
+                <p class="error" data-error></p>
             </div>
-            <div class="content">
-                <div class="players" data-players>
-                    <h2>Spieler:</h2>
-                    <div class="list" data-players-list>
+            <div class="content" data-content>
+                <div class="playercount">
+                    <p>Spieler Online: <span data-plrcount>0/0</span></p>
+                </div>
+                <div class="playerlist">
+                    <h1 class="title">Spieler Liste
+                        <button class="fa fa-search search ripple" data-search></button>
+                        <input class="search-input hide" data-searchinput type="text" style="display:none">
+                    </h1>
+                    <div class="list" data-plrlist>
+
                     </div>
-                    <template data-plrtemplate>
-                        <div class="plr">
-                            <p class="name" data-name>plr_name</p>
-                            <p class="id" data-id>id</p>
+                    <template data-playertemplate>
+                        <div class="player">
+                            <p data-name>Player Name</p>
+                            <div class="info">
+                                <p class="id" data-playerid>ID: <span data-value>0</span></p>
+                                <p class="ping" data-playerping>Ping: <span data-value>0</span></p>
+                            </div>
                         </div>
                     </template>
                 </div>
             </div>
         </div>
     </main>
+    <footer>
+        <a href="https://reallifeonline.net" target="_blank" style="float:right">Real Life Online Stats</a>
+        <a href="https://github.com/mopsfl" target="_blank" style="float:left; margin-left: 0 !important;">&copy; mopsfl | v.0.1</a>
+    </footer>
 </body>
 
 </html>
