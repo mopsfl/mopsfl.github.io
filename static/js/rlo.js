@@ -3,6 +3,10 @@ const ENDPOINTS = {
     players: "players.json",
 }
 
+var dynamic = null,
+    players = null,
+    info = null
+
 const headers = new Headers()
 headers.append('pragma', 'no-cache');
 headers.append('cache-control', 'no-cache');
@@ -10,22 +14,53 @@ headers.append('Access-Control-Allow-Origin', '*');
 headers.append('Accept', "application/json")
 headers.append('Content-Type', "application/json")
 
-async function getPlayers() {
-    const data = await fetch(`http://localhost:3000/api/rlo/players`)
-    const json = await data.json()
-    return json
+async function loadPlayers() {
+    try {
+        /*const data = await fetch(`lol.daki.cc:6054/api/rlo/players`)
+        const json = await data.json()
+        return json*/
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                players = JSON.parse(xhttp.response)
+            }
+        };
+        xhttp.open("GET", "http://lol.daki.cc:6054/api/rlo/players", true);
+        xhttp.send();
+    } catch (error) {
+        console.error(error)
+    }
 }
 
-async function getDynamic() {
-    const data = await fetch(`http://localhost:3000/api/rlo/dynamic`)
-    const json = await data.json()
-    return json
+async function loadDynamic() {
+    try {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                dynamic = JSON.parse(xhttp.response)
+            }
+        };
+        xhttp.open("GET", "http://lol.daki.cc:6054/api/rlo/dynamic", true);
+        xhttp.send();
+    } catch (error) {
+        console.error(error)
+    }
 }
 
-async function getInfo() {
-    const data = await fetch(`http://localhost:3000/api/rlo/info`)
-    const json = await data.json()
-    return json
+async function loadInfo() {
+    try {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = async function() {
+            if (this.readyState == 4 && this.status == 200) {
+                info = JSON.parse(xhttp.response)
+                await load()
+            }
+        };
+        xhttp.open("GET", "http://lol.daki.cc:6054/api/rlo/info", true);
+        xhttp.send();
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 function qs(element) {
@@ -34,9 +69,6 @@ function qs(element) {
 
 async function load() {
     qs("[data-players-list]").innerHTML = ""
-    const dynamic = await getDynamic()
-    const players = await getPlayers()
-    const info = await getInfo()
     if (dynamic && dynamic.clients) {
         qs("[data-plr-count]").innerText = dynamic.clients + "/" + dynamic.sv_maxclients
     } else if (dynamic && dynamic.message) {
@@ -60,9 +92,13 @@ async function load() {
 }
 
 window.onload = () => {
-    load()
+    //load()
 
     qs("[data-reload]").addEventListener("click", (e) => {
         load()
     })
+
+    loadPlayers()
+    loadDynamic()
+    loadInfo()
 }
