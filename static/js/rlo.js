@@ -1,7 +1,18 @@
+const URL = "https://reallifeonline.cf:30120"
+const ENDPOINTS = {
+    players: "players.json",
+}
+
 var dynamic = null,
     players = null,
     info = null
 
+const headers = new Headers()
+headers.append('pragma', 'no-cache');
+headers.append('cache-control', 'no-cache');
+headers.append('Access-Control-Allow-Origin', '*');
+headers.append('Accept', "application/json")
+headers.append('Content-Type', "application/json")
 
 async function loadPlayers() {
     try {
@@ -84,9 +95,11 @@ async function load() {
 window.onload = () => {
     //load()
 
-    qs("[data-reload]").addEventListener("click", (e) => {
-        load()
-    })
+    /*qs("[data-reload]").addEventListener("click", (e) => {
+        loadPlayers()
+        loadDynamic()
+        loadInfo()
+    })*/
 
     loadPlayers()
     loadDynamic()
