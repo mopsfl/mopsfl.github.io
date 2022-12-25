@@ -1,7 +1,7 @@
 const URL = "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/"
 const responses = {}
 const requests = [
-    "playerss",
+    "players",
     "dynamic",
     "info",
 ]
