@@ -1,4 +1,4 @@
-const URL = "https://rlo-stats.mopsfl20lol.repl.co/api/rlo/"
+const URL = "https://rlo-stats.mopsfl20lol.repl.co"
 const responses = {}
 const requests = [
     "players",
@@ -17,14 +17,12 @@ const nicknames = {
     "Freddie": "107",
     "EspressoDepresso": "107",
     "Vinz": "107",
-    "CSYON": "107 police kurt",
+    "CSYON": "107 police",
     "Gibbi": "107",
     "XxVCelinexX": "107",
     "Page not found 404": "kartell",
     "Anna Steel/Jenny Saller": "kartell",
     "Käthe": "amr",
-    "John Ram": "107",
-    "Rainer": "107 schandl",
 }
 
 var _error = "",
@@ -34,6 +32,41 @@ var _error = "",
 
 function qs(element) {
     return document.querySelector(element)
+}
+
+function getDiscordId(player) {
+    if (!player && !player.identifiers) return
+    let _id = ""
+    player.identifiers.forEach(i => {
+        if (i.includes("discord")) {
+            _id = i.replace("discord:", "")
+        }
+    })
+    return _id
+}
+
+async function getDiscordInfo(id) {
+    if (!id) return
+    let _d = {}
+    const request = new Request(URL + `/api/discord/info/${id}`)
+    await fetch(request)
+        .then(res => res.json())
+        .then(data => {
+            _d = data
+            return data
+        })
+    return _d
+}
+
+function showContent() {
+    if (qs("[data-plrlist]").childNodes.length == responses.dynamic.clients) {
+        setTimeout(wait, 1000)
+    } else {
+        setTimeout(() => {
+            qs("[data-loading]").classList.add("none")
+            qs("[data-content]").classList.remove("none")
+        }, 2000)
+    }
 }
 
 async function loadContent() {
@@ -50,6 +83,7 @@ async function loadContent() {
             name: player.name,
             id: player.id,
             ping: player.ping,
+            identifiers: player.identifiers,
             nickname: nicknames[player.name] || "",
             element: plrelement
         }
@@ -57,22 +91,34 @@ async function loadContent() {
 
     players.sort((a, b) => { return a.id > b.id })
 
-    players.forEach(player => {
-        const name = player.element.querySelector("[data-name]"),
+    players.forEach(async player => {
+        const name = player.element.querySelector("[data-plrname]"),
             id = player.element.querySelector("[data-playerid]"),
-            ping = player.element.querySelector("[data-playerping]")
+            ping = player.element.querySelector("[data-playerping]"),
+            avatar = player.element.querySelector("[data-discordavatar]")
+
+        const discordinfo = await getDiscordInfo(getDiscordId(player))
 
         name.innerText = player.name
         id.querySelector("[data-value]").innerText = player.id
         ping.querySelector("[data-value]").innerText = player.ping
+        if (discordinfo.avatar.link != null) {
+            avatar.src = discordinfo.avatar.link
+        } else {
+            avatar.src = "https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
+        }
+
         playerList.appendChild(player.element)
 
 
         player.element.addEventListener("click", (e) => {
             if (!e.target.getAttribute("id", "clicked")) {
                 e.target.setAttribute("id", "clicked")
-
+                avatar.style.width = "100px"
+                avatar.style.height = "100px"
             } else {
+                avatar.style.width = "25px"
+                avatar.style.height = "25px"
                 e.target.removeAttribute("id")
             }
         })
@@ -92,8 +138,9 @@ async function loadData() {
         qs("[data-ltext]").innerText = `Loading resource ${requests[i]}... (${i+1}/3)`
         if (_error != "") {
             qs("[data-error]").innerText = "Error while loading this resource"
+            console.warn(_error)
         }
-        const request = new Request(URL + requests[i]);
+        const request = new Request(URL + "/api/rlo/" + requests[i]);
         try {
             await fetch(request).then(res => res.json()).then(data => {
                 responses[requests[i]] = data
@@ -108,11 +155,7 @@ async function loadData() {
     if (Object.keys(responses).length == 3) {
         qs("[data-ltext]").innerText = `Resources loaded! Loading content...`;
         await loadContent()
-
-        setTimeout(() => {
-            qs("[data-loading]").classList.add("none")
-            qs("[data-content]").classList.remove("none")
-        }, 1000)
+        setTimeout(showContent(), 1000);
     } else {
         qs("[data-ltext]").innerText = `Error`;
         qs("[data-error]").innerText = "Unable to load resources!"
