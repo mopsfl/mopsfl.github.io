@@ -1,4 +1,4 @@
-const URL = "https://rlo-stats.mopsfl20lol.repl.co"
+const URL = "https://rlostats.floda854.repl.co"
 const responses = {}
 const requests = [
     "players",
