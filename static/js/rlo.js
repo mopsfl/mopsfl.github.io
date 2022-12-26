@@ -48,7 +48,7 @@ function getDiscordId(player) {
 async function getDiscordInfo(id) {
     if (!id) return console.warn("no discord id given")
     let _d = {}
-    const request = new Request(URL + `/api/discord/info/${id}`)
+    const request = new Request(`https://salbenbot.floda854.repl.co/api/discord/avatar/${id}`)
     await fetch(request)
         .then(res => res.json())
         .then(data => {
@@ -115,28 +115,15 @@ async function loadContent() {
         name.innerText = player.name
         id.querySelector("[data-value]").innerText = player.id
         ping.querySelector("[data-value]").innerText = player.ping
-        if (discordinfo && discordinfo.avatar.link) {
-            avatar.src = discordinfo.avatar.link
+        if (discordinfo && discordinfo.avatarURL) {
+            avatar.src = discordinfo.avatarURL
         } else {
-            await discordinfo.avatar.link
-            if (discordinfo && discordinfo.avatar.link) {
-                avatar.src = discordinfo.avatar.link
+            await discordinfo.avatarURL
+            if (discordinfo && discordinfo.avatarURL) {
+                avatar.src = discordinfo.avatarURL
                 _avatar = true
             } else {
                 avatar.src = "https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
-                const interval = setInterval(async() => {
-                    if (!_avatar && _tries < 5) {
-                        const discordinfo = await getDiscordInfo(getDiscordId(player))
-                        _tries++;
-                        if (discordinfo && discordinfo.avatar.link) {
-                            avatar.src = discordinfo.avatar.link
-                            _avatar = true
-                        }
-                    } else clearInterval(interval)
-                }, Math.random() * 10000)
-                if (_avatar) {
-                    clearInterval(interval)
-                }
             }
         }
 
