@@ -50,7 +50,7 @@ app.get('/api/rlo/players', async (req, res) => {
         return res.status(405).json({ code: 405, message: "Origin not allowed." })
     }
     try {
-        await fetch("fetch(`${requestServer}/api/rlo/players`)").then(res => res.json()).then(data => {
+        await fetch(`${requestServer}/api/rlo/players`).then(res => res.json()).then(data => {
              if(data) res.json(data)
         })
     } catch (error) {
