@@ -392,14 +392,24 @@ footer>p {
     outline: solid 1px rgba(255, 255, 255, 0.349);
     padding: 1px 10px;
     border-radius: 3px;
-}
-
-.player {
     margin-bottom: 5px;
     cursor: pointer;
     max-height: 35px;
     overflow: hidden;
     transition: max-height .5s;
+}
+
+.player>.plrmain {
+    display: flex;
+}
+
+.player>.plrmain>.plrname {
+    margin-left: 5px;
+}
+
+.player>.plrmain>img {
+    border-radius: 3px;
+    transition: width .5s, height .5s;
 }
 
 .player>.info {
