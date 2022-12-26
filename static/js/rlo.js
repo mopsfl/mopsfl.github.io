@@ -26,7 +26,7 @@ const nicknames = {
 }
 
 var _error = "",
-    _loaded = false,
+    _load = true,
     _search = false,
     players = {}
 
@@ -35,7 +35,7 @@ function qs(element) {
 }
 
 function getDiscordId(player) {
-    if (!player && !player.identifiers) return
+    if (!player && !player.identifiers) return console.log("no player object given")
     let _id = ""
     player.identifiers.forEach(i => {
         if (i.includes("discord")) {
@@ -46,7 +46,7 @@ function getDiscordId(player) {
 }
 
 async function getDiscordInfo(id) {
-    if (!id) return
+    if (!id) return console.warn("no discord id given")
     let _d = {}
     const request = new Request(URL + `/api/discord/info/${id}`)
     await fetch(request)
@@ -63,6 +63,7 @@ function showContent() {
         setTimeout(wait, 1000)
     } else {
         setTimeout(() => {
+            if (!_load) return
             qs("[data-loading]").classList.add("none")
             qs("[data-content]").classList.remove("none")
         }, 2000)
@@ -74,7 +75,16 @@ async function loadContent() {
     const playerList = qs("[data-plrlist]"),
         template = qs("[data-playertemplate]")
 
+    let current = 0
+
     playerList.innerHTML = ""
+
+    if (responses.players == undefined || !responses.players) {
+        qs("[data-ltext]").innerText = `Error`
+        qs("[data-error]").innerText = "Resource 'player' is invalid."
+        _load = false
+        return console.warn("Resource 'players' is invalid.")
+    }
 
     players = responses.players.map(player => {
         const plrelement = template.content.cloneNode(true).children[0]
@@ -97,15 +107,37 @@ async function loadContent() {
             ping = player.element.querySelector("[data-playerping]"),
             avatar = player.element.querySelector("[data-discordavatar]")
 
+        current++;
         const discordinfo = await getDiscordInfo(getDiscordId(player))
+        let _avatar = false,
+            _tries = 0
 
         name.innerText = player.name
         id.querySelector("[data-value]").innerText = player.id
         ping.querySelector("[data-value]").innerText = player.ping
-        if (discordinfo.avatar.link != null) {
+        if (discordinfo && discordinfo.avatar.link) {
             avatar.src = discordinfo.avatar.link
         } else {
-            avatar.src = "https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
+            await discordinfo.avatar.link
+            if (discordinfo && discordinfo.avatar.link) {
+                avatar.src = discordinfo.avatar.link
+                _avatar = true
+            } else {
+                avatar.src = "https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
+                const interval = setInterval(async() => {
+                    if (!_avatar && _tries < 5) {
+                        const discordinfo = await getDiscordInfo(getDiscordId(player))
+                        _tries++;
+                        if (discordinfo && discordinfo.avatar.link) {
+                            avatar.src = discordinfo.avatar.link
+                            _avatar = true
+                        }
+                    } else clearInterval(interval)
+                }, Math.random() * 10000)
+                if (_avatar) {
+                    clearInterval(interval)
+                }
+            }
         }
 
         playerList.appendChild(player.element)
@@ -144,6 +176,11 @@ async function loadData() {
         try {
             await fetch(request).then(res => res.json()).then(data => {
                 responses[requests[i]] = data
+                if (data.code && data.code == 429) {
+                    _error = data.message
+                    qs("[data-ltext]").innerText = `Error`
+                    qs("[data-error]").innerText = data.message
+                }
             })
         } catch (error) {
             _error = error
