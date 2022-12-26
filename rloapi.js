@@ -2,6 +2,7 @@ const fetch = require("node-fetch")
 const express = require("express")
 const rateLimit = require('express-rate-limit')
 const app = express()
+const requestServer = process.env['server']
 
 const allowedOrigins = ["https://mopsfl.github.io", "http://127.0.0.1:5500"]
 const requestLog = []
@@ -41,7 +42,7 @@ app.get('/', (req, res) => {
     }
 });
 
-app.get('/api/rlo/players', (req, res) => {
+app.get('/api/rlo/players', async (req, res) => {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || ""
     requestLog.push({ origin: req.headers.origin || "unknown", time: Date.now(), resource: req.route.path })
     console.log(`resource '${req.route.path}' requested from ${req.headers.origin} (${ip})`)
@@ -49,7 +50,7 @@ app.get('/api/rlo/players', (req, res) => {
         return res.status(405).json({ code: 405, message: "Origin not allowed." })
     }
     try {
-        fetch("ip removed :)").then(res => res.json()).then(data => {
+        await fetch("fetch(`${requestServer}/api/rlo/players`)").then(res => res.json()).then(data => {
              if(data) res.json(data)
         })
     } catch (error) {
@@ -58,7 +59,7 @@ app.get('/api/rlo/players', (req, res) => {
     }
 });
 
-app.get('/api/rlo/dynamic', (req, res) => {
+app.get('/api/rlo/dynamic', async (req, res) => {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || ""
     requestLog.push({ origin: req.headers.origin || "unknown", time: Date.now(), resource: req.route.path })
     console.log(`resource '${req.route.path}' requested from ${req.headers.origin} (${ip})`)
@@ -66,7 +67,7 @@ app.get('/api/rlo/dynamic', (req, res) => {
         return res.status(405).json({ code: 405, message: "Origin not allowed." })
     }
     try {
-        fetch("ip removed :)").then(res => res.json()).then(data => {
+        await fetch(`${requestServer}/api/rlo/dynamic`).then(res => res.json()).then(data => {
             if(data) res.json(data)
         })
     } catch (error) {
@@ -75,7 +76,7 @@ app.get('/api/rlo/dynamic', (req, res) => {
     }
 });
 
-app.get('/api/rlo/info', (req, res) => {
+app.get('/api/rlo/info', async (req, res) => {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || ""
     requestLog.push({ origin: req.headers.origin || "unknown", time: Date.now(), resource: req.route.path })
     console.log(`resource '${req.route.path}' requested from ${req.headers.origin} (${ip})`)
@@ -83,7 +84,7 @@ app.get('/api/rlo/info', (req, res) => {
         return res.status(405).json({ code: 405, message: "Origin not allowed." })
     }
     try {
-        fetch("ip removed :)").then(res => res.json()).then(data => {
+        await fetch(`${requestServer}/api/rlo/info`).then(res => res.json()).then(data => {
              if(data) res.json(data)
         })
     } catch (error) {
