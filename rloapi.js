@@ -104,12 +104,15 @@ app.get("/api/discord/info/:id", async (req, res) => {
         res.status(400).json({ message: "Missing id param" });
         return;
     }
-    await fetch(`https://discordlookup.mesavirep.xyz/v1/${req.params.id}`)
-        .then(res => res.json())
-        .then((response) => {
-            res.json(response)
-        })
-        .catch(console.error);
+   const id = req.params.id
+   if(id) {
+       await fetch(`https://discordlookup.mesavirep.xyz/v1/${id}`)
+            .then(res => res.json())
+            .then((response) => {
+                res.json(response)
+            })
+            .catch(console.error);
+   }
 });
 
 app.get("/api/logs", (req, res) => {
