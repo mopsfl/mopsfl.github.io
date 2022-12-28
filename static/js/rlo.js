@@ -160,6 +160,7 @@
     }
 
     async function loadData() {
+        if (!_load) return
         try {
             qs("[data-loading]").classList.remove("none")
             qs("[data-content]").classList.add("none")
