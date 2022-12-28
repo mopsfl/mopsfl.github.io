@@ -1,5 +1,5 @@
 (() => {
-    const URL = "https://rlostats.floda854.repl.co"
+    const URL = "https://mopsflgithubio.floda854.repl.co/"
     const responses = {}
     const requests = [
         "players",
