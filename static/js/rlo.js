@@ -31,7 +31,8 @@
         _load = true,
         _search = false,
         _loadImages = true,
-        _players = {}
+        _players = {},
+        _plrcountUpdate = true
 
     function qs(element) {
         return document.querySelector(element)
@@ -46,6 +47,26 @@
             }
         })
         return _id
+    }
+
+    async function plrcUpdate() {
+        if (!_plrcountUpdate) return
+        setInterval(async() => {
+            let dynamic = null
+            await fetch(`${URL}/api/rlo/dynamic`).then(res => res.json()).then(data => {
+                try {
+                    dynamic = data
+                    const playerCount = qs("[data-plrcount]")
+                    playerCount.innerText = `${dynamic.clients}/${dynamic.sv_maxclients}`
+
+                    console.log(`Updated playercount to ${dynamic.clients}`)
+                } catch (e) {
+                    console.warn(e)
+                }
+            }).catch(e => {
+                console.error(e)
+            })
+        }, 10000);
     }
 
     async function getDiscordInfo(id) {
@@ -73,8 +94,6 @@
             //PLAYERS
             const playerList = qs("[data-plrlist]"),
                 template = qs("[data-playertemplate]")
-
-            let current = 0
 
             playerList.innerHTML = ""
 
@@ -106,7 +125,6 @@
                     ping = player.element.querySelector("[data-playerping]"),
                     avatar = player.element.querySelector("[data-discordavatar]")
 
-                current++;
                 const discordinfo = await getDiscordInfo(getDiscordId(player))
 
                 name.innerText = player.name
@@ -149,9 +167,13 @@
             const playerCount = qs("[data-plrcount]")
             playerCount.innerText = `${responses.dynamic.clients}/${responses.dynamic.sv_maxclients}`
 
-            setInterval(() => {
-                if (playerList.childNodes.length >= responses.dynamic.clients) showContent()
-            }, 1000)
+            const yield = setInterval(() => {
+                if (playerList.childNodes.length >= responses.dynamic.clients) {
+                    showContent();
+                    plrcUpdate();
+                    clearInterval(yield)
+                }
+            }, 1000);
         } catch (error) {
             console.error(error)
             qs("[data-ltext]").innerText = `Error`;
