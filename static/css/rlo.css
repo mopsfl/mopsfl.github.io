@@ -40,7 +40,7 @@ html {
 }
 
 html {
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Open Sans', sans-serif !important;
     -webkit-text-size-adjust: 100%;
     user-select: none;
     scroll-behavior: smooth;
@@ -49,7 +49,7 @@ html {
 body {
     padding: 0;
     margin: 0;
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 16px;
     line-height: 1.5;
     background: var(--bg-gradient)
@@ -459,7 +459,7 @@ footer>p {
     padding: 5px;
     border-radius: 3px;
     font-size: 14px;
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Open Sans', sans-serif !important;
     float: right;
     text-align: right;
     transition: width .5s;
