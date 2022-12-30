@@ -8,23 +8,25 @@
     ]
 
     const nicknames = {
-        "Onearly": "andl 107",
-        "Linux3G": "mcveysl mafia",
+        "Onearly": "andl 107 admin",
+        "Linux3G": "mcveysl mafia admin",
         "Lilith McVeysl": "mcveysl mafia",
         "Voymar": "police",
         "Andy_Hck": "police",
         "BroZz": "police",
         "jxst_nati": "107",
-        "Freddie": "107",
+        "Freddie": "107 admin",
         "EspressoDepresso": "107",
         "Vinz": "107",
-        "CSYON": "107 police",
+        "CSYON": "107 police admin",
         "Gibbi": "107",
         "XxVCelinexX": "107",
         "Page not found 404": "kartell",
         "Anna Steel/Jenny Saller": "kartell",
         "Käthe": "amr",
         "Steffi White": "kartell",
+        "AlphaWarrior": "police admin",
+        "mike_s26": "admin"
     }
 
     var _error = "",
