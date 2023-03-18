@@ -14,7 +14,7 @@
             }
         ]
     }, {
-        "title": "Real Life Online Server Stats",
+        "title": "Real Life Online Server Stats (deprecated)",
         "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
         "testURL": "https://mopsfl.github.io/rlo",
         "downloadURL": "",
