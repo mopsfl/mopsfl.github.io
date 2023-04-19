@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <script src="./static/js/script.js" defer></script>
+    <style>
+        textarea {
+            resize: none;
+        }
+        
+        textarea:focus {
+            border: none;
+            outline: none;
+        }
+        
+        footer {
+            position: absolute;
+            bottom: 5px;
+        }
+        
+        button:hover {
+            opacity: 80%;
+        }
+        
+        button:active {
+            opacity: 60%;
+        }
+    </style>
+</head>
+
+<body style="background: black; color:white; font-family: Arial, Helvetica, sans-serif;">
+    Pattern: <input type="number" data-pattern style="margin-bottom: 15px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; padding: 5px; width: 350px" placeholder="Pattern number (dont set too high)" value=""><br>Fake
+    Strings Count:
+    <input type="number" data-fake_strings style="margin-bottom: 15px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; padding: 5px; width: 350px" placeholder="fake strings count (optional)" value=""><br>Fake String
+    Length:
+    <input type="number" data-fake_stringlength style="margin-bottom: 15px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; padding: 5px; width: 350px" placeholder="fake string length (optional)" value="">
+    <div style="display: flex;">
+        <div style="float: left">
+            <div style="display: flex;">
+                <textarea data-input style="background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; width: 720px; height: 200px;" placeholder="Text to encode here"></textarea>
+                <button data-encode style="margin-left: 5px; height: 25px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; ">Encode</button>
+            </div>
+            <br><br>
+            <p style="color: white; font-family: Arial, Helvetica, sans-serif;">Results:</p>
+            <div style="display: flex;">
+                <textarea data-results readonly style="background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; width: 720px; height: 200px;"></textarea>
+                <button data-copy style="margin-left: 5px; height: 25px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; ">Copy</button>
+                <button data-download style="margin-left: 5px; height: 25px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; ">Download</button>
+                <button data-clear style="margin-left: 5px; height: 25px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; ">Clear</button>
+            </div>
+        </div>
+        <div style="margin-left: 100px; float: right;">
+            <div style="display: flex;">
+                <textarea data-input_dec style="background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; width: 720px; height: 200px;" placeholder="Text to decode here"></textarea>
+                <button data-decode style="margin-left: 5px; height: 25px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; ">Decode</button>
+            </div>
+            <br><br>
+            <p style="color: white; font-family: Arial, Helvetica, sans-serif;">Results:</p>
+            <div style="display: flex;">
+                <textarea data-results_dec readonly style="background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; width: 720px; height: 200px;"></textarea>
+                <button data-copy_dec style="margin-left: 5px; height: 25px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; ">Copy</button>
+                <button data-download_dec style="margin-left: 5px; height: 25px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; ">Download</button>
+                <button data-clear_dec style="margin-left: 5px; height: 25px;background: rgb(68, 68, 68); border-radius: 3px; color: white; border: solid 1px gray; ">Clear</button>
+            </div>
+        </div>
+    </div>
+    <div style="color: white; font-family: Arial, Helvetica, sans-serif; margin-top: 30px;">
+        <h4>Cool Patterns:</h4>
+        <ul>
+            <li>630-680</li>
+            <li>700-770</li>
+            <li>60000</li>
+        </ul>
+        <h4 style="color: red">Notes:</h4>
+        <ul>
+            <li>very large positive patterns will break</li>
+            <li>larger negative patterns will/might break</li>
+            <li>too much fake strings will cause lags/crashes and bigger files</li>
+            <li>to decode a string, the pattern must be the same that were used to encode</li>
+            <li>its not really that secure. its just for fun bc im bored</li>
+        </ul>
+    </div>
+    <footer>&copy; mopsfl</footer>
+</body>
+
+</html>
