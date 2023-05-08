@@ -77,7 +77,7 @@ $(() => {
             setTimeout(() => {
                 if (hrefData == "projects") {
                     console.warn("Fetching projects")
-                    fetch("https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/static/json/projects.json", { method: 'GET', headers: headers })
+                    fetch("./static/json/projects.json", { method: 'GET', headers: headers })
                         .then(res => res.json())
                         .then(data => {
                             currentProjectsFetch = data
