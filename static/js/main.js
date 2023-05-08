@@ -77,7 +77,7 @@ $(() => {
             setTimeout(() => {
                 if (hrefData == "projects") {
                     console.warn("Fetching projects")
-                    fetch("./static/json/projects.json", { method: 'GET', headers: headers })
+                    fetch("https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/static/json/projects.json", { method: 'GET', headers: headers })
                         .then(res => res.json())
                         .then(data => {
                             currentProjectsFetch = data
@@ -122,13 +122,6 @@ $(() => {
                                 projectsList.appendChild(projectClone)
                             });
                         })
-                } else if (hrefData == "about") {
-                    fetch("./static/json/about.json", { method: 'GET', headers: headers })
-                        .then(res => res.json())
-                        .then(data => {
-                            currentAboutFetch = data
-                        })
-                } else if (hrefData == "contact") {
                 }
             }, 1000)
         } else console.warn("Unable to get pageHref", e)
