@@ -1,0 +1,43 @@
+{
+
+    "projects": [{
+        "title": "Weather App",
+        "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
+        "testURL": "https://mopsfl.github.io/weather/new.html",
+        "downloadURL": "",
+        "imageURL": "https://raw.githubusercontent.com/mopsfl/mopsfl.github.io/main/static/img/weather.png",
+        "descItems": [{
+                "text": "Einfache Wetter-App, die aktuelle Wetter Daten anzeigt. (Daten von <a class='link-highlight' href='https://developer.accuweather.com/' target='_blank'>Accuweather</a>)"
+            },
+            {
+                "text": "<small>v.0.2</small>"
+            }
+        ]
+    }, {
+        "title": "<s>Real Life Online Server Stats</s> (deprecated)",
+        "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
+        "testURL": "https://mopsfl.github.io/rlo",
+        "downloadURL": "",
+        "imageURL": "https://reallifeonline.net/assets/images/real-life-online-black.png",
+        "descItems": [{
+                "text": "Eine App welche Informationen über den FiveM Roleplay Server <a class='link-highlight' href='https://reallifeonline.net/' target='_blank'>Real Life Online</a> anzeigt. (Spieleranzahl, Spieler Liste)"
+            },
+            {
+                "text": "<small>v.0.3</small>"
+            }
+        ]
+    }, {
+        "title": "Lua Obfuscator - Discord Bot",
+        "githubURL": "https://github.com/mopsfl/luaobfuscator-bot",
+        "testURL": "https://top.gg/bot/1096928538034180146",
+        "downloadURL": "",
+        "imageURL": "https://luaobfuscator.com/img/logo.png",
+        "descItems": [{
+                "text": "Der offizielle Discord Bot für <a class='link-highlight' href='https://luaobfuscator.com' target='_blank'>Lua Obfuscator</a>."
+            },
+            {
+                "text": "<small>v.0.1</small>"
+            }
+        ]
+    }]
+}
