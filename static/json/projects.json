@@ -14,19 +14,6 @@
             }
         ]
     }, {
-        "title": "<s>Real Life Online Server Stats</s> (deprecated)",
-        "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
-        "testURL": "https://mopsfl.github.io/rlo",
-        "downloadURL": "",
-        "imageURL": "https://reallifeonline.net/assets/images/real-life-online-black.png",
-        "descItems": [{
-                "text": "Eine App welche Informationen über den FiveM Roleplay Server <a class='link-highlight' href='https://reallifeonline.net/' target='_blank'>Real Life Online</a> anzeigt. (Spieleranzahl, Spieler Liste)"
-            },
-            {
-                "text": "<small>v.0.3</small>"
-            }
-        ]
-    }, {
         "title": "Lua Obfuscator - Discord Bot",
         "githubURL": "https://github.com/mopsfl/luaobfuscator-bot",
         "testURL": "https://top.gg/bot/1096928538034180146",
