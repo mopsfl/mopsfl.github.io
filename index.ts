@@ -61,13 +61,13 @@ function openLink(link) {
 }
 
 function checkProjectLinks(a, b, c, d) {
-    if (!_.isNil(d.downloadURL)) {
+    if (!d.downloadURL) {
         a.remove()
     }
-    if (!_.isNil(d.testURL)) {
+    if (!d.testURL) {
         b.remove()
     }
-    if (!_.isNil(d.githubURL)) {
+    if (!d.githubURL) {
         c.remove()
     }
 }
@@ -88,7 +88,6 @@ $(() => {
                             currentProjectsFetch = data
                             const projectTemplate: any = document.querySelector("[data-project-template]")
                             const projectsList = document.querySelector("[data-project-list]")
-                            console.log(data)
 
                             data.projects.forEach(project => {
                                 const projectClone = projectTemplate.content.cloneNode(true).children[0]
