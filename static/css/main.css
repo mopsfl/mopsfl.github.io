@@ -7,7 +7,6 @@
     --bg-gradient: linear-gradient(132deg, #41fc79, #1b8fc5, #c1ee1e);
 }
 
-
 /*OTHER*/
 
 * {
@@ -181,10 +180,6 @@ main {
     transform: translate(-50%, -50%);
 }
 
-.section-main {
-    text-align: center !important;
-}
-
 
 /*BUTTONS*/
 
@@ -235,12 +230,15 @@ main {
 .titleInfo {
     font-size: 16px;
     margin: 0;
+    margin-left: 5px;
     transition: font-size .5s;
+    text-align: left;
 }
 
 .buttons {
     margin-top: 40px;
     transition: margin .5s;
+    margin-left: 50px;
 }
 
 .btn-main>i {
@@ -340,8 +338,16 @@ main {
 
 .section-main {
     height: auto;
-    display: inline-block;
+    display: flex;
     width: 100%;
+    text-align: center !important;
+    padding-right: 5%;
+    justify-content: center;
+}
+
+.section-main-content {
+    border-right: solid 1px white;
+    padding-right: 50px;
 }
 
 .section-title-page2 {
@@ -503,6 +509,26 @@ main {
 
 
 /*SCREEN SIZES*/
+
+@media only screen and (max-width: 840px) {
+    .section-main {
+        display: block;
+        padding-right: 0;
+    }
+
+    .section-main-content {
+        border: none;
+        padding-right: 0;
+    }
+
+    .titleInfo {
+        text-align: center;
+    }
+
+    .buttons {
+        margin-left: 0;
+    }
+}
 
 @media screen and (max-width: 500px) {
     .title {

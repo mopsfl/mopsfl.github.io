@@ -8,12 +8,12 @@ headers.append('cache-control', 'no-cache');
 
 for (let i = 0; i < links.length; i++) {
     const element = links[i];
-    element.onmouseover = () => {
-        element.lastChild.style.maxWidth = '100px';
-    }
-    element.onmouseleave = () => {
-        element.lastChild.style.maxWidth = '0px';
-    }
+    element.addEventListener("mouseover", () => {
+        element.querySelector("#icon-text").style.maxWidth = '100px';
+    })
+    element.addEventListener("mouseleave", () => {
+        element.querySelector("#icon-text").style.maxWidth = '0px';
+    })
 }
 
 /*PAGE LOADING*/
