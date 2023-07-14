@@ -1,3 +1,6 @@
+import * as _ from "lodash"
+import $ from "jquery"
+
 const links = document.querySelectorAll('.link');
 var _cgb = false,
     currentProjectsFetch, currentAboutFetch
@@ -9,10 +12,12 @@ headers.append('cache-control', 'no-cache');
 for (let i = 0; i < links.length; i++) {
     const element = links[i];
     element.addEventListener("mouseover", () => {
-        element.querySelector("#icon-text").style.maxWidth = '100px';
+        const icon_text: any = element.querySelector("#icon-text")
+        icon_text.style.maxWidth = '100px';
     })
     element.addEventListener("mouseleave", () => {
-        element.querySelector("#icon-text").style.maxWidth = '0px';
+        const icon_text: any = element.querySelector("#icon-text")
+        icon_text.style.maxWidth = '0px';
     })
 }
 
@@ -24,7 +29,7 @@ for (let i = 0; i < links.length; i++) {
  * @param {string} sch Section content href
  */
 
-function toggleSection(stss, sths, sch) {
+function toggleSection(stss?: string, sths?: string, sch?: string) {
     if (stss == ".section2") {
         $(stss).empty()
         $(stss).load(sch)
@@ -50,38 +55,38 @@ function toggleSection(stss, sths, sch) {
 }
 
 function openLink(link) {
-    if (link != (null || "")) {
+    if (!_.isNil(link)) {
         return window.open(link, '_blank')
     }
 }
 
 function checkProjectLinks(a, b, c, d) {
-    if (d.downloadURL == (null || "")) {
+    if (!_.isNil(d.downloadURL)) {
         a.remove()
     }
-    if (d.testURL == (null || "")) {
+    if (!_.isNil(d.testURL)) {
         b.remove()
     }
-    if (d.githubURL == (null || "")) {
+    if (!_.isNil(d.githubURL)) {
         c.remove()
     }
 }
 
 $(() => {
-    $(".btns > a").click(e => {
+    $(".btns > a").on("click", (e) => {
         e.preventDefault();
         if (_cgb === true) return
-        if (e.target.attributes.hrefdata) {
-            const hrefData = e.target.attributes.hrefdata.nodeValue
+        if (!_.isNil(e.target.attributes["hrefdata"])) {
+            const hrefData = e.target.attributes["hrefdata"].nodeValue
             toggleSection(".section2", ".section", `/static/pages/${hrefData}.html`)
-            setTimeout(() => {
+            setTimeout(async () => {
                 if (hrefData == "projects") {
                     console.warn("Fetching projects")
-                    fetch("./static/json/projects.json", { method: 'GET', headers: headers })
+                    await fetch("./static/json/projects.json", { method: 'GET', headers: headers })
                         .then(res => res.json())
                         .then(data => {
                             currentProjectsFetch = data
-                            const projectTemplate = document.querySelector("[data-project-template]")
+                            const projectTemplate: any = document.querySelector("[data-project-template]")
                             const projectsList = document.querySelector("[data-project-list]")
                             console.log(data)
 
@@ -125,9 +130,9 @@ $(() => {
                 }
             }, 1000)
         } else console.warn("Unable to get pageHref", e)
-    });
+    })
 
-    $(".back").click(e => {
+    $(".back").on("click", (e) => {
         e.preventDefault();
         if (!_cgb) return
         toggleSection(".section", ".section2");
@@ -150,7 +155,7 @@ $(window).scroll(function () {
 
 /*PARTICLE.JS*/
 
-particlesJS("particles-js", {
+window.particlesJS("particles-js", {
     "particles": {
         "number": {
             "value": 100,
@@ -260,3 +265,10 @@ particlesJS("particles-js", {
     },
     "retina_detect": true
 });
+
+declare global {
+    interface Window {
+        particlesJS: Function,
+        modules: {}
+    }
+}
