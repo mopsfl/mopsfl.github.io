@@ -7,7 +7,7 @@
         "downloadURL": "",
         "imageURL": "https://luaobfuscator.com/img/logo.png",
         "descItems": [{
-                "text": "Überarbeitung von der <a class='link-highlight' href='https://luaobfuscator.com' target='_blank'> Website. (JS Frontend)</a>"
+                "text": "Überarbeitung von der <a class='link-highlight' href='https://luaobfuscator.com' target='_blank'>Lua Obfuscator</a> Website. (Javascript -> Typescript)"
             },
             {
                 "text": "<small>v.0.1</small>"
