@@ -4,4 +4,5 @@ package.json
 bower_components/jquery/src
 bower_components/jquery/*
 !bower_components/jquery/dist
-temp
+/temp
+/test
