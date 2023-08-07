@@ -1,6 +1,19 @@
 {
 
     "projects": [{
+        "title": "Self-made Lua Obfuscator",
+        "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
+        "testURL": "https://mopsfl.github.io/projects/luaobfuscator",
+        "downloadURL": "",
+        "imageURL": "https://www.lua.org/favicon.ico",
+        "descItems": [{
+                "text": "Mein eigener Lua Obfuscator, gemacht mit TypeScript.<br>Es ist kein sicherer Obfuscator sondern nur ein kleines Bastelprojekt meinerseits."
+            },
+            {
+                "text": "<small>v.0.1</small>"
+            }
+        ]
+    },{
         "title": "Lua Obfuscator - Remake",
         "githubURL": "https://github.com/mopsfl/luaobfuscator-jsrework",
         "testURL": "https://mopsfl.github.io/luaobfuscator-jsrework",

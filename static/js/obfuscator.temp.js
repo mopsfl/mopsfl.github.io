@@ -1,5 +1,8 @@
 const container = document.querySelector(".container"),
-    obfuscate = document.querySelector(".obfbtn")
+    obfuscate = document.querySelector(".obfbtn"),
+    loadingtext = document.querySelector(".loadingtext")
+
+let forceServer = false
 
 const default_code = `-- Function to create a new character with randomized stats
 local function createCharacter(name)
@@ -102,8 +105,10 @@ print("nobody won:", false)
 
 container.value = default_code
 
-obfuscate.addEventListener("click", () => {
-    fetch((document.location.hostname == "localhost" ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + "/obfuscator/obfuscate", {
+obfuscate.addEventListener("click", async () => {
+    container.classList.add("blur")
+    loadingtext.classList.remove("hide")
+    await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "http://mopsflgithubio.mopsfl.repl.co/api") + "/obfuscator/obfuscate", {
         method: "POST", body: container.value, headers: { 'Content-Type': 'text/plain' }
     }).then(async res => {
         const response = await res.text()
@@ -112,4 +117,6 @@ obfuscate.addEventListener("click", () => {
     }).catch(err => {
         container.value = `--[[\nError: (${err})\n> Check developer console for more information\n]]\n\n` + container.value
     })
+    container.classList.remove("blur")
+    loadingtext.classList.add("hide")
 })
