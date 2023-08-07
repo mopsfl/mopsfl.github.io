@@ -108,7 +108,7 @@ container.value = default_code
 obfuscate.addEventListener("click", async () => {
     container.classList.add("blur")
     loadingtext.classList.remove("hide")
-    await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "http://mopsflgithubio.mopsfl.repl.co/api") + "/obfuscator/obfuscate", {
+    await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + "/obfuscator/obfuscate", {
         method: "POST", body: container.value, headers: { 'Content-Type': 'text/plain' }
     }).then(async res => {
         const response = await res.text()
