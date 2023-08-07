@@ -1,10 +1,11 @@
-const container = document.querySelector(".container"),
-    obfuscate = document.querySelector(".obfbtn"),
-    loadingtext = document.querySelector(".loadingtext")
+let forceServer = false;
 
-let forceServer = false
-
-const default_code = `-- Function to create a new character with randomized stats
+(() => {
+    let obfuscating = false
+    const container = document.querySelector(".container"),
+        obfuscate = document.querySelector(".obfbtn"),
+        loadingtext = document.querySelector(".loadingtext"),
+        default_code = `-- Function to create a new character with randomized stats
 local function createCharacter(name)
     local health = math.random(80, 120)  -- Random health between 80 and 120
     local attack = math.random(10, 25)   -- Random attack between 10 and 25
@@ -103,20 +104,23 @@ print("match ended:", true)
 print("nobody won:", false)
 `
 
-container.value = default_code
-
-obfuscate.addEventListener("click", async () => {
-    container.classList.add("blur")
-    loadingtext.classList.remove("hide")
-    await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + "/obfuscator/obfuscate", {
-        method: "POST", body: container.value, headers: { 'Content-Type': 'text/plain' }
-    }).then(async res => {
-        const response = await res.text()
-        if (!res.ok) return container.value = `--[[\nObfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + container.value
-        container.value = response
-    }).catch(err => {
-        container.value = `--[[\nError: (${err})\n> Check developer console for more information\n]]\n\n` + container.value
+    container.value = default_code
+    obfuscate.addEventListener("click", async () => {
+        if (obfuscating) return
+        obfuscating = !obfuscating
+        container.classList.add("blur")
+        loadingtext.classList.remove("hide")
+        await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + "/obfuscator/obfuscate", {
+            method: "POST", body: container.value, headers: { 'Content-Type': 'text/plain' }
+        }).then(async res => {
+            const response = await res.text()
+            if (!res.ok) return container.value = `--[[\nObfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + container.value
+            container.value = response
+        }).catch(err => {
+            container.value = `--[[\nError: (${err})\n> Check developer console for more information\n]]\n\n` + container.value
+        })
+        container.classList.remove("blur")
+        loadingtext.classList.add("hide")
+        obfuscating = false
     })
-    container.classList.remove("blur")
-    loadingtext.classList.add("hide")
-})
+})()
