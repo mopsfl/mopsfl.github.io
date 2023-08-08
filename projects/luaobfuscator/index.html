@@ -12,9 +12,20 @@
         <textarea class="container"></textarea>
         <div class="bottom">
             <button class="obfbtn">Obfuscate</button>
-            <p class="note">Note: This is not a secure obfuscator in any way, this is just a fun project and im learning a bit more about obfuscation. So dont use it if you want to secure your Lua script. go to
-                <a href="https://luaobfuscator.com">Lua Obfuscator</a>
-                instead ;)</p>
+            <button class="downloadbtn">Download</button>
+            <button class="copybtn" onclick="navigator.clipboard.writeText(document.querySelector('.container').value)">Copy</button>
+            <button class="clearbtn" onclick="document.querySelector('.container').value = ''">Clear</button>
+            <label>Target Platform:</label>
+            <select class="targetPlatform">
+                <option>Lua</option>
+                <option>Roblox / LuaU</option>
+            </select>
+            <div class="tooltip">
+                <span class="tooltip-icon">&#128712;</span>
+                <p class="text toolbox-hidden">Note: This is not a secure obfuscator in any way, this is just a fun project and im learning a bit more about obfuscation. So dont use it if you want to secure your Lua script. go to
+                    <a href="https://luaobfuscator.com" target="_blank">Lua Obfuscator</a>
+                    instead ;)</p>
+            </div>
         </div>
     </body>
 </html>

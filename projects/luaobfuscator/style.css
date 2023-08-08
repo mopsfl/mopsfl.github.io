@@ -1,5 +1,6 @@
 * {
     scrollbar-width: thin;
+    cursor: auto;
 }
 
 html,
@@ -15,16 +16,17 @@ body,
     overflow: hidden;
     font-family: 'Courier New', Courier, monospace;
     background-color: black;
+    color: white;
 }
 
 .container {
-    height: 95%;
+    height: 92%;
     overflow-y: auto;
-    color: white;
     margin-top: 5px;
     margin-bottom: 5px;
     border: none;
     outline: none;
+    resize: none;
 }
 
 .bottom {
@@ -42,14 +44,30 @@ body,
     border: none;
     border-radius: 3px;
     padding: 5px;
-    min-width: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
     height: min-content;
+    cursor: pointer;
 }
 
-.note {
+.tooltip {
+    padding: 5px;
+    border-radius: 3px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .3s;
+}
+
+.tooltip>.text {
     margin: 0;
-    color: white;
+    margin-left: 5px;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    max-width: 50vw;
+    transform: translateX(0%);
+    transition: transform .3s;
 }
 
 .blur {
@@ -66,5 +84,29 @@ body,
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    color: white;
+}
+
+.tooltip {
+    overflow: hidden;
+    font-size: 25px;
+}
+
+.tooltip-icon {
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.toolbox-hidden {
+    transform: translateX(-150%) !important;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 96, 206);
+}
+
+a:hover {
+    cursor: pointer !important;
+    border-bottom: solid 1px rgb(0, 96, 206);
 }

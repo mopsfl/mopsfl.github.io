@@ -5,7 +5,10 @@ let forceServer = false;
     const container = document.querySelector(".container"),
         obfuscate = document.querySelector(".obfbtn"),
         loadingtext = document.querySelector(".loadingtext"),
-        default_code = `-- Function to create a new character with randomized stats
+        tooltips = document.querySelectorAll(".tooltip"),
+        download = document.querySelector(".downloadbtn"),
+        targetPlatform = document.querySelector(".targetPlatform")
+    default_code = `-- Function to create a new character with randomized stats
 local function createCharacter(name)
     local health = math.random(80, 120)  -- Random health between 80 and 120
     local attack = math.random(10, 25)   -- Random attack between 10 and 25
@@ -104,14 +107,31 @@ print("match ended:", true)
 print("nobody won:", false)
 `
 
+    let selected_target_platform = targetPlatform.selectedIndex
+
+    function saveAsFile(filename, data) {
+        const blob = new Blob([data], { type: 'text/csv' });
+        if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, filename);
+        }
+        else {
+            const elem = window.document.createElement('a');
+            elem.href = window.URL.createObjectURL(blob);
+            elem.download = filename;
+            document.body.appendChild(elem);
+            elem.click();
+            document.body.removeChild(elem);
+        }
+    }
+
     container.value = default_code
     obfuscate.addEventListener("click", async () => {
         if (obfuscating) return
         obfuscating = !obfuscating
         container.classList.add("blur")
         loadingtext.classList.remove("hide")
-        await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + "/obfuscator/obfuscate", {
-            method: "POST", body: container.value, headers: { 'Content-Type': 'text/plain' }
+        await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + `/obfuscator/obfuscate`, {
+            method: "POST", body: container.value, headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}` }
         }).then(async res => {
             const response = await res.text()
             if (!res.ok) return container.value = `--[[\nObfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + container.value
@@ -122,5 +142,18 @@ print("nobody won:", false)
         container.classList.remove("blur")
         loadingtext.classList.add("hide")
         obfuscating = false
+    })
+
+    download.addEventListener("click", () => saveAsFile("obfuscated.lua", container.value))
+    targetPlatform.addEventListener("change", (e) => selected_target_platform = e.target.selectedIndex)
+
+    tooltips.forEach(tooltip => {
+        tooltip.addEventListener("mouseenter", (e) => {
+            tooltip.style.backgroundColor = "#151515"
+            tooltip.querySelector(".text").classList.remove("toolbox-hidden")
+        }); tooltip.addEventListener("mouseleave", (e) => {
+            tooltip.style.backgroundColor = "transparent"
+            tooltip.querySelector(".text").classList.add("toolbox-hidden")
+        })
     })
 })()

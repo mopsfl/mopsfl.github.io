@@ -6,3 +6,5 @@ bower_components/jquery/*
 !bower_components/jquery/dist
 /temp
 /test
+.github
+.vscode
