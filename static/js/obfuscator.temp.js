@@ -1,8 +1,9 @@
 let forceServer = false;
 
 (() => {
+    //Obfuscation Toolbox
     let obfuscating = false
-    const container = document.querySelector(".container"),
+    const container = document.querySelector(".monaco"),
         obfuscate = document.querySelector(".obfbtn"),
         loadingtext = document.querySelector(".loadingtext"),
         tooltips = document.querySelectorAll(".tooltip"),
@@ -107,6 +108,9 @@ print("match ended:", true)
 print("nobody won:", false)
 `
 
+    const dropdowns = M.FormSelect.init(document.querySelectorAll('select'), {});
+    console.log(dropdowns);
+
     let selected_target_platform = targetPlatform.selectedIndex
 
     function saveAsFile(filename, data) {
@@ -124,36 +128,57 @@ print("nobody won:", false)
         }
     }
 
-    container.value = default_code
-    obfuscate.addEventListener("click", async () => {
-        if (obfuscating) return
-        obfuscating = !obfuscating
-        container.classList.add("blur")
-        loadingtext.classList.remove("hide")
-        await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + `/obfuscator/obfuscate`, {
-            method: "POST", body: container.value, headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}` }
-        }).then(async res => {
-            const response = await res.text()
-            if (!res.ok) return container.value = `--[[\nObfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + container.value
-            container.value = response
-        }).catch(err => {
-            container.value = `--[[\nError: (${err})\n> Check developer console for more information\n]]\n\n` + container.value
-        })
-        container.classList.remove("blur")
-        loadingtext.classList.add("hide")
-        obfuscating = false
-    })
-
-    download.addEventListener("click", () => saveAsFile("obfuscated.lua", container.value))
-    targetPlatform.addEventListener("change", (e) => selected_target_platform = e.target.selectedIndex)
-
     tooltips.forEach(tooltip => {
         tooltip.addEventListener("mouseenter", (e) => {
-            tooltip.style.backgroundColor = "#151515"
+            tooltip.style.backgroundColor = "#383838"
             tooltip.querySelector(".text").classList.remove("toolbox-hidden")
         }); tooltip.addEventListener("mouseleave", (e) => {
             tooltip.style.backgroundColor = "transparent"
             tooltip.querySelector(".text").classList.add("toolbox-hidden")
         })
     })
+
+    // Monaco Editor
+
+    require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' } });
+    window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+    let proxy = URL.createObjectURL(new Blob([`
+	self.MonacoEnvironment = {
+		baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+	};
+	importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+`], { type: 'text/javascript' }));
+
+    require(["vs/editor/editor.main"], function () {
+        let editor = monaco.editor.create(document.querySelector('.monaco'), {
+            value: `${default_code}`,
+            language: 'lua',
+            theme: 'vs-dark',
+            wordWrap: 'on',
+            wordBreak: 'off',
+            automaticLayout: true
+        });
+        window.monaco_editor = editor
+        obfuscate.addEventListener("click", async () => {
+            if (obfuscating) return
+            obfuscating = !obfuscating
+            container.classList.add("blur")
+            loadingtext.classList.remove("hide")
+            await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + `/obfuscator/obfuscate`, {
+                method: "POST", body: editor.getValue(), headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}` }
+            }).then(async res => {
+                const response = await res.text()
+                if (!res.ok) return container.value = `--[[\nObfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + container.value
+                editor.setValue(response)
+            }).catch(err => {
+                editor.setValue(`--[[\nError: (${err})\n> Check developer console for more information\n]]\n\n` + container.value)
+            })
+            container.classList.remove("blur")
+            loadingtext.classList.add("hide")
+            obfuscating = false
+        })
+
+        download.addEventListener("click", () => saveAsFile("obfuscated.lua", window.monaco_editor?.getValue()))
+        targetPlatform.addEventListener("change", (e) => selected_target_platform = e.target.selectedIndex)
+    });
 })()
