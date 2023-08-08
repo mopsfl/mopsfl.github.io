@@ -1,14 +1,14 @@
 let forceServer = false;
 
 (() => {
-    //Obfuscation Toolbox
-    let obfuscating = false
+    // Elements & Setup
     const container = document.querySelector(".monaco"),
         obfuscate = document.querySelector(".obfbtn"),
         loadingtext = document.querySelector(".loadingtext"),
-        tooltips = document.querySelectorAll(".tooltip"),
         download = document.querySelector(".downloadbtn"),
         targetPlatform = document.querySelector(".targetPlatform")
+    let selected_target_platform = targetPlatform.selectedIndex,
+        obfuscating = false
     default_code = `-- Function to create a new character with randomized stats
 local function createCharacter(name)
     local health = math.random(80, 120)  -- Random health between 80 and 120
@@ -107,11 +107,7 @@ useItem(playerCharacter, fireScroll)
 print("match ended:", true)
 print("nobody won:", false)
 `
-
-    const dropdowns = M.FormSelect.init(document.querySelectorAll('select'), {});
-    console.log(dropdowns);
-
-    let selected_target_platform = targetPlatform.selectedIndex
+    M.AutoInit()
 
     function saveAsFile(filename, data) {
         const blob = new Blob([data], { type: 'text/csv' });
@@ -127,16 +123,6 @@ print("nobody won:", false)
             document.body.removeChild(elem);
         }
     }
-
-    tooltips.forEach(tooltip => {
-        tooltip.addEventListener("mouseenter", (e) => {
-            tooltip.style.backgroundColor = "#383838"
-            tooltip.querySelector(".text").classList.remove("toolbox-hidden")
-        }); tooltip.addEventListener("mouseleave", (e) => {
-            tooltip.style.backgroundColor = "transparent"
-            tooltip.querySelector(".text").classList.add("toolbox-hidden")
-        })
-    })
 
     // Monaco Editor
 
@@ -162,16 +148,22 @@ print("nobody won:", false)
         obfuscate.addEventListener("click", async () => {
             if (obfuscating) return
             obfuscating = !obfuscating
+            const start_time = new Date().getTime()
             container.classList.add("blur")
             loadingtext.classList.remove("hide")
             await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + `/obfuscator/obfuscate`, {
                 method: "POST", body: editor.getValue(), headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}` }
             }).then(async res => {
                 const response = await res.text()
-                if (!res.ok) return container.value = `--[[\nObfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + container.value
+                if (!res.ok) {
+                    M.toast({ html: 'Error occurred while obfuscating script!' })
+                    return editor.setValue(`--[[\nObfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + editor.getValue())
+                }
                 editor.setValue(response)
+                M.toast({ html: `Script successfully obfuscated! (took ${new Date().getTime() - start_time}ms)` })
             }).catch(err => {
                 editor.setValue(`--[[\nError: (${err})\n> Check developer console for more information\n]]\n\n` + container.value)
+                M.toast({ html: 'Error occurred while obfuscating script!' })
             })
             container.classList.remove("blur")
             loadingtext.classList.add("hide")

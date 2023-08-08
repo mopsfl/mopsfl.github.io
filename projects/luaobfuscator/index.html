@@ -17,15 +17,15 @@
             <div class="code-area monaco"></div>
             <div class="sidebar">
                 <div class="sidebar-buttons">
-                    <button class="obfbtn waves-effect waves-light btn no-padding">
+                    <button class="obfbtn waves-effect waves-light btn no-padding tooltipped" data-tooltip="Obfuscate your input script." data-position="left">
                         <i class="material-icons center">lock</i>Obfuscate</button>
-                    <button class="downloadbtn waves-effect waves-light btn no-padding">
+                    <button class="downloadbtn waves-effect waves-light btn no-padding tooltipped" data-tooltip="Download your code output as a file." data-position="left">
                         <i class="material-icons center">download</i>Download</button>
-                    <button class="copybtn waves-effect waves-light btn no-padding" onclick="navigator.clipboard.writeText(monaco_editor.getValue())">
+                    <button class="copybtn waves-effect waves-light btn no-padding tooltipped" data-tooltip="Copy your code output to your clipboard." data-position="left" onclick="navigator.clipboard.writeText(monaco_editor.getValue())">
                         <i class="material-icons center">content_copy</i>Copy</button>
-                    <button class="clearbtn waves-effect waves-light btn no-padding" onclick="monaco_editor.setValue('')">
+                    <button class="clearbtn waves-effect waves-light btn no-padding tooltipped" data-tooltip="Clear the code input." data-position="left" onclick="monaco_editor.setValue('')">
                         <i class="material-icons center">delete_sweep</i>Clear</button>
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 tooltipped" data-tooltip="What platform your script is made for." data-position="left">
                         <select class="targetPlatform">
                             <option value="Lua" selected>Lua</option>
                             <option value="Roblox">Roblox / LuaU</option>
@@ -33,15 +33,24 @@
                         <label>Target Platform</label>
                     </div>
                 </div>
-                <div class="tooltip">
-                    <span class="tooltip-icon">
-                        <i class="material-icons center">info</i>
-                    </span>
-                    <p class="text toolbox-hidden">Note: This is not a secure obfuscator in any way, this is just a fun project and im learning a bit more about obfuscation. So dont use it if you want to secure your Lua script. go to
-                        <a href="https://luaobfuscator.com" target="_blank">Lua Obfuscator</a>
-                        instead ;)</p>
+                <!-- Info Modal Button -->
+                <button class="waves-effect waves-light btn-floating modal-trigger btn-small transparent infomodal-openbtn tooltipped" data-position="left" data-tooltip="Info" href="#infomodal">
+                    <i class="material-icons center">info</i>
+                </button>
+                <!-- Info Modal -->
+                <div id="infomodal" class="modal">
+                    <div class="modal-content">
+                        <h4>Note</h4>
+                        <p>This isn't a secure obfuscator in any way, this is just a fun project and im learning a bit more about obfuscation.</p>
+                        <p>So don't use it if you want to secure your Lua script. Go to
+                            <a href="https://luaobfuscator.com" target="_blank" class="tooltipped" data-tooltip="<u>https://luaobfuscator.com</u>">Lua Obfuscator</a>
+                            instead ;)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button href="#!" class="modal-close waves-light waves-effect btn">OK</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </body>
     </body>
 </html>

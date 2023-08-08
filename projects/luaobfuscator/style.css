@@ -1,6 +1,5 @@
 * {
     scrollbar-width: thin;
-    cursor: auto;
     color: white;
 }
 
@@ -129,6 +128,8 @@ main {
     margin-left: 5px;
     cursor: pointer;
     margin-bottom: auto;
+    cursor: pointer !important;
+    pointer-events: none
 }
 
 .toolbox-hidden {
@@ -143,6 +144,10 @@ a {
 a:hover {
     cursor: pointer !important;
     border-bottom: solid 1px rgb(0, 96, 206);
+}
+
+.modal-trigger {
+    cursor: pointer !important;
 }
 
 .select-dropdown {
@@ -160,6 +165,7 @@ a:hover {
 
 .material-icons {
     margin-right: 5px;
+    pointer-events: none;
 }
 
 .monaco {
@@ -170,6 +176,26 @@ a:hover {
     margin: 0;
 }
 
+.modal,
+.modal-footer {
+    background-color: #1e1e1e !important;
+}
+
+.modal-close {
+    margin-right: 5px !important;
+}
+
+.infomodal-openbtn {
+    position: absolute !important;
+    bottom: 5px;
+    right: 5px;
+}
+
+.toast {
+    user-select: none;
+}
+
+
 @media only screen and (max-width: 500px) {
     .sidebar {
         width: 150px;
@@ -177,5 +203,16 @@ a:hover {
 
     .sidebar-buttons>button {
         font-size: 10px;
+    }
+}
+
+
+@media only screen and (min-width : 601px) and (max-width : 1260px) {
+    #toast-container {
+        min-width: 100% !important;
+        bottom: 0% !important;
+        top: 90% !important;
+        right: 0% !important;
+        left: 0% !important;
     }
 }
