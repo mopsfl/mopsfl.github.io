@@ -8,7 +8,9 @@ let forceServer = false;
         download = document.querySelector(".downloadbtn"),
         targetPlatform = document.querySelector(".targetPlatform")
     let selected_target_platform = targetPlatform.selectedIndex,
-        obfuscating = false
+        obfuscating = false,
+        currentMode = localStorage.getItem("theme-mode") || 0
+
     default_code = `-- Function to create a new character with randomized stats
 local function createCharacter(name)
     local health = math.random(80, 120)  -- Random health between 80 and 120
@@ -105,8 +107,7 @@ useItem(playerCharacter, healthPotion)
 useItem(playerCharacter, fireScroll)
 
 print("match ended:", true)
-print("nobody won:", false)
-`
+print("nobody won:", false)`
     M.AutoInit()
 
     function saveAsFile(filename, data) {
@@ -123,6 +124,15 @@ print("nobody won:", false)
             document.body.removeChild(elem);
         }
     }
+
+    $('.dark-toggle').on('click', function () {
+        if (!monaco_editor) return
+        currentMode = currentMode == 0 ? 1 : 0
+        localStorage.setItem("theme-mode", currentMode)
+        monaco_editor.updateOptions({ theme: currentMode == 0 ? "vs-dark" : "vscode" })
+        currentMode == 0 ? document.querySelector(".sidebar").classList.remove("light") : document.querySelector(".sidebar").classList.add("light")
+        currentMode == 0 ? document.querySelector("body").classList.remove("light") : document.querySelector("body").classList.add("light")
+    });
 
     // Monaco Editor
 
@@ -142,7 +152,7 @@ print("nobody won:", false)
             theme: 'vs-dark',
             wordWrap: 'on',
             wordBreak: 'off',
-            automaticLayout: true
+            automaticLayout: true,
         });
         window.monaco_editor = editor
         obfuscate.addEventListener("click", async () => {
@@ -170,7 +180,10 @@ print("nobody won:", false)
             obfuscating = false
         })
 
-        download.addEventListener("click", () => saveAsFile("obfuscated.lua", window.monaco_editor?.getValue()))
+        download.addEventListener("click", () => {
+            if (window.monaco_editor?.getValue() == "") return M.toast({ html: "Nothing to download." })
+            saveAsFile("obfuscated.lua", window.monaco_editor?.getValue())
+        })
         targetPlatform.addEventListener("change", (e) => selected_target_platform = e.target.selectedIndex)
     });
 })()

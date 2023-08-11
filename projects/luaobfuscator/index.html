@@ -4,34 +4,45 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>GoofyObfuscator</title>
-        <script src="../../static/js/obfuscator.temp.js" defer></script>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script type="text/javascript" src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/loader.js"></script>
+        <script src="../../static/js/obfuscator.temp.js" defer></script>
     </head>
     <body>
+        <!-- Loading Text -->
         <span class="loadingtext hide">Obfuscating...</span>
-        <div class="main">
+        <div
+            class="main">
+            <!-- Monaco Editor Container -->
             <div class="code-area monaco"></div>
+            <!-- Toolbox Sidebar -->
             <div class="sidebar">
                 <div class="sidebar-buttons">
-                    <button class="obfbtn waves-effect waves-light btn no-padding tooltipped" data-tooltip="Obfuscate your input script." data-position="left">
+                    <button class="obfbtn waves-effect waves-light btn no-padding tooltipped green" data-tooltip="Obfuscate your input script." data-position="left">
                         <i class="material-icons center">lock</i>Obfuscate</button>
-                    <button class="downloadbtn waves-effect waves-light btn no-padding tooltipped" data-tooltip="Download your code output as a file." data-position="left">
+                    <button class="downloadbtn waves-effect waves-light btn no-padding tooltipped green" data-tooltip="Download your code output as a file." data-position="left">
                         <i class="material-icons center">download</i>Download</button>
-                    <button class="copybtn waves-effect waves-light btn no-padding tooltipped" data-tooltip="Copy your code output to your clipboard." data-position="left" onclick="navigator.clipboard.writeText(monaco_editor.getValue())">
+                    <button class="copybtn waves-effect waves-light btn no-padding tooltipped green" data-tooltip="Copy your code output to your clipboard." data-position="left" onclick="navigator.clipboard.writeText(monaco_editor.getValue())">
                         <i class="material-icons center">content_copy</i>Copy</button>
-                    <button class="clearbtn waves-effect waves-light btn no-padding tooltipped" data-tooltip="Clear the code input." data-position="left" onclick="monaco_editor.setValue('')">
+                    <button class="clearbtn waves-effect waves-light btn no-padding tooltipped green" data-tooltip="Clear the code input." data-position="left" onclick="monaco_editor.setValue('')">
                         <i class="material-icons center">delete_sweep</i>Clear</button>
-                    <div class="input-field col s12 tooltipped" data-tooltip="What platform your script is made for." data-position="left">
+                    <div class="input-field col s12 tooltipped" data-tooltip="For wich platform your script should be optimized for." data-position="left">
                         <select class="targetPlatform">
-                            <option value="Lua" selected>Lua</option>
-                            <option value="Roblox">Roblox / LuaU</option>
+                            <option value="Lua5.1">Lua 5.1 (instable)</option>
+                            <option value="Lua5.2">Lua 5.2 (instable)</option>
+                            <option value="Lua5.3">Lua 5.3 (recommended)</option>
+                            <option value="Lua5.3" selected>Lua 5.4 (recommended)</option>
+                            <option value="LuaU">Roblox (instable)</option>
                         </select>
                         <label>Target Platform</label>
                     </div>
+                    <button class="settingsbtn waves-effect waves-light btn no-padding tooltipped green modal-trigger" href="#settingsmodal" data-tooltip="Settings for the obfuscation process." data-position="left">
+                        <i class="material-icons center">settings</i>Obfuscation Settings</button>
+                    <button class="btn waves-effect waves-light dark-toggle hide">Dark Mode</button>
                 </div>
                 <!-- Info Modal Button -->
                 <button class="waves-effect waves-light btn-floating modal-trigger btn-small transparent infomodal-openbtn tooltipped" data-position="left" data-tooltip="Info" href="#infomodal">
@@ -40,17 +51,34 @@
                 <!-- Info Modal -->
                 <div id="infomodal" class="modal">
                     <div class="modal-content">
-                        <h4>Note</h4>
-                        <p>This isn't a secure obfuscator in any way, this is just a fun project and im learning a bit more about obfuscation.</p>
-                        <p>So don't use it if you want to secure your Lua script. Go to
+                        <h4>Info</h4>
+                        <p>This isn't a secure obfuscator in any way, this is just a fun project and im learning a bit more about obfuscation.<br>
+                            So don't use it if you want to secure your Lua script. Go to
                             <a href="https://luaobfuscator.com" target="_blank" class="tooltipped" data-tooltip="<u>https://luaobfuscator.com</u>">Lua Obfuscator</a>
                             instead ;)</p>
+                        <p>
+                            <b>The obfuscator is currently only optimized for Lua 5.3+. Any other versions below might not be fully compatible.</b>
+                        </p>
                     </div>
                     <div class="modal-footer">
-                        <button href="#!" class="modal-close waves-light waves-effect btn">OK</button>
+                        <p class="left bottom info-version">v.0.0.4</p>
+                        <button href="#!" class="modal-close waves-light waves-effect btn green">OK</button>
+                    </div>
+                </div>
+                <!-- Settings Modal -->
+                <div id="settingsmodal" class="modal bottom-sheet modal-fixed-footer">
+                    <div class="modal-content">
+                        <h4>Obfuscation Settings</h4>
+                        <div class="settings-options">
+                            <div class="settings-item"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button href="#!" class="modal-close waves-red waves-effect btn-flat white-text">Discard</button>
+                        <button href="#!" class="modal-close waves-green waves-effect btn-flat  white-text">Save</button>
                     </div>
                 </div>
             </div>
         </body>
     </body>
-</html>
+</html></div></body></html>
