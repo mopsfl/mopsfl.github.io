@@ -10,7 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script type="text/javascript" src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/loader.js"></script>
-        <script src="../../static/js/obfuscator.temp.js" defer></script>
+        <script src="/static/js/obfuscator.temp.js" defer></script>
     </head>
     <body>
         <!-- Loading Text -->
@@ -24,6 +24,8 @@
                 <div class="sidebar-buttons">
                     <button class="obfbtn waves-effect waves-light btn no-padding tooltipped green" data-tooltip="Obfuscate your input script." data-position="left">
                         <i class="material-icons center">lock</i>Obfuscate</button>
+                    <button class="bfbtn waves-effect waves-light btn no-padding tooltipped green" data-tooltip="Beautifies your input script." data-position="left">
+                        <i class="material-icons center">lock_open</i>Beautify</button>
                     <button class="downloadbtn waves-effect waves-light btn no-padding tooltipped green" data-tooltip="Download your code output as a file." data-position="left">
                         <i class="material-icons center">download</i>Download</button>
                     <button class="copybtn waves-effect waves-light btn no-padding tooltipped green" data-tooltip="Copy your code output to your clipboard." data-position="left" onclick="navigator.clipboard.writeText(monaco_editor.getValue())">
@@ -32,11 +34,11 @@
                         <i class="material-icons center">delete_sweep</i>Clear</button>
                     <div class="input-field col s12 tooltipped" data-tooltip="For wich platform your script should be optimized for." data-position="left">
                         <select class="targetPlatform">
-                            <option value="Lua5.1">Lua 5.1 (instable)</option>
-                            <option value="Lua5.2">Lua 5.2 (instable)</option>
+                            <option value="Lua5.1">Lua 5.1 (unstable)</option>
+                            <option value="Lua5.2">Lua 5.2 (unstable)</option>
                             <option value="Lua5.3">Lua 5.3 (recommended)</option>
                             <option value="Lua5.3" selected>Lua 5.4 (recommended)</option>
-                            <option value="LuaU">Roblox (instable)</option>
+                            <option value="LuaU">Roblox (unstable)</option>
                         </select>
                         <label>Target Platform</label>
                     </div>

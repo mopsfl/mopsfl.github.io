@@ -155,13 +155,14 @@ print("nobody won:", false)`
             automaticLayout: true,
         });
         window.monaco_editor = editor
-        obfuscate.addEventListener("click", async () => {
+        $(".obfbtn").on("click", async () => {
             if (obfuscating) return
             obfuscating = !obfuscating
             const start_time = new Date().getTime()
             container.classList.add("blur")
             loadingtext.classList.remove("hide")
-            await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co/api") + `/obfuscator/obfuscate`, {
+            loadingtext.innerText = "Obfuscating..."
+            await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co") + `/api/obfuscator/obfuscate`, {
                 method: "POST", body: editor.getValue(), headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}` }
             }).then(async res => {
                 const response = await res.text()
@@ -179,7 +180,28 @@ print("nobody won:", false)`
             loadingtext.classList.add("hide")
             obfuscating = false
         })
-
+        $(".bfbtn").on("click", async () => {
+            if (obfuscating) return
+            obfuscating = !obfuscating
+            const start_time = new Date().getTime()
+            container.classList.add("blur")
+            loadingtext.classList.remove("hide")
+            loadingtext.innerText = "Deobfuscating..."
+            await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co") + `/api/obfuscator/beautify`, {
+                method: "POST", body: editor.getValue(), headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}` }
+            }).then(async res => {
+                const response = await res.text()
+                if (!res.ok) {
+                    M.toast({ html: 'Error occurred while deobfuscating script!' })
+                    return editor.setValue(`--[[\nDeobfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + editor.getValue())
+                }
+                editor.setValue(response)
+                M.toast({ html: `Script successfully deobfuscated! (took ${new Date().getTime() - start_time}ms)` })
+            })
+            container.classList.remove("blur")
+            loadingtext.classList.add("hide")
+            obfuscating = false
+        })
         download.addEventListener("click", () => {
             if (window.monaco_editor?.getValue() == "") return M.toast({ html: "Nothing to download." })
             saveAsFile("obfuscated.lua", window.monaco_editor?.getValue())
