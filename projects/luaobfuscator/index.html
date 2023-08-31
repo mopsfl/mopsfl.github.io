@@ -6,11 +6,18 @@
         <title>GoofyObfuscator</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script type="text/javascript" src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/loader.js"></script>
-        <script src="/static/js/obfuscator.temp.js" defer></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js"></script>
+        <script type="module">
+            // i will use typescript later xd
+            import noUiSlider from 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.mjs';
+            window.noUiSlider = noUiSlider
+        </script>
+        <script src="../../static/js/obfuscator.temp.js" defer></script>
     </head>
     <body>
         <!-- Loading Text -->
@@ -71,13 +78,29 @@
                 <div id="settingsmodal" class="modal bottom-sheet modal-fixed-footer">
                     <div class="modal-content">
                         <h4>Obfuscation Settings</h4>
-                        <div class="settings-options">
-                            <div class="settings-item"></div>
+                        <div class="switch">
+                            <div class="setting">
+                                <span class="setting-name">Dead Code Injection</span>
+                                <label>
+                                    <input type="checkbox" class="filled-in" id="deadcodeinjection" checked="true"/>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="setting">
+                                <span class="setting-name">Dead Code Chance (%)</span>
+                                <label class="slider-setting">
+                                    <p class="range-field">
+                                        <input type="range" id="deadcodechance" min="0" max="100" value="50"/>
+                                    </p>
+                                    <span class="slider-value">50%</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button href="#!" class="modal-close waves-red waves-effect btn-flat white-text">Discard</button>
-                        <button href="#!" class="modal-close waves-green waves-effect btn-flat  white-text">Save</button>
+                    <div
+                        class="modal-footer">
+                        <!--<button href="#!" class="modal-close waves-red waves-effect btn-flat white-text" id="discard">Discard</button>-->
+                        <button href="#!" class="modal-close waves-green waves-effect btn-flat  white-text" id="save">Save</button>
                     </div>
                 </div>
             </div>

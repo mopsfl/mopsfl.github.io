@@ -1,9 +1,17 @@
-let forceServer = false;
+/**
+ * TODO:
+ * settings system (save, discard and localstorage save)
+ */
 
+let forceServer = false;
 (() => {
+    let settings = {
+        deadcodeinjection: true,
+        deadcodechance: 0.25,
+    },
+        _sub_settings = {}
     // Elements & Setup
     const container = document.querySelector(".monaco"),
-        obfuscate = document.querySelector(".obfbtn"),
         loadingtext = document.querySelector(".loadingtext"),
         download = document.querySelector(".downloadbtn"),
         targetPlatform = document.querySelector(".targetPlatform")
@@ -108,7 +116,33 @@ useItem(playerCharacter, fireScroll)
 
 print("match ended:", true)
 print("nobody won:", false)`
-    M.AutoInit()
+
+    //M.AutoInit()
+
+    function saveSettings(e) {
+        if (e.target.id === "save" || e === true) {
+            localStorage.setItem("_goofyObfuscator_settings", btoa(JSON.stringify(settings)))
+            console.log("settings changes saved");
+            M.toast({ html: `Settings successfully saved!` })
+        } else console.log("settings changes discarded");
+    }
+
+    function getSettings() {
+        return JSON.parse(atob(localStorage.getItem("_goofyObfuscator_settings") || btoa(JSON.stringify(settings))))
+    }
+
+    $(document).ready(function () {
+        window._modals = $('.modal').modal();
+        window._dropdowns = $('select').formSelect();
+        window._tooltips = $('.tooltipped').tooltip();
+
+        Object.values(window._modals).forEach(modal => {
+            if (modal.id === "settingsmodal") {
+                modal.querySelector("#save").addEventListener("click", saveSettings)
+                //modal.querySelector("#discard").addEventListener("click", saveSettings)
+            }
+        });
+    });
 
     function saveAsFile(filename, data) {
         const blob = new Blob([data], { type: 'text/csv' });
@@ -134,16 +168,33 @@ print("nobody won:", false)`
         currentMode == 0 ? document.querySelector("body").classList.remove("light") : document.querySelector("body").classList.add("light")
     });
 
+    // Settings
+
+    settings = getSettings()
+
+    const deadcodechance = document.querySelector("#deadcodechance"),
+        deadcodeinjection = document.querySelector("#deadcodeinjection")
+
+    document.querySelector(".slider-value").innerText = `${settings.deadcodechance * 100}%`
+    deadcodechance.value = settings.deadcodechance * 100
+    deadcodeinjection.checked = settings.deadcodeinjection
+    deadcodechance.addEventListener("input", (e) => {
+        e.target.offsetParent.parentElement.querySelector(".slider-value").innerText = `${e.target.valueAsNumber}%`
+        settings.deadcodechance = e.target.valueAsNumber / 100
+    }); deadcodeinjection.addEventListener("input", (e) => {
+        settings.deadcodeinjection = e.target.checked
+    })
+
     // Monaco Editor
 
     require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' } });
     window.MonacoEnvironment = { getWorkerUrl: () => proxy };
     let proxy = URL.createObjectURL(new Blob([`
-	self.MonacoEnvironment = {
-		baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
-	};
-	importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
-`], { type: 'text/javascript' }));
+        self.MonacoEnvironment = {
+            baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+        };
+        importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+    `], { type: 'text/javascript' }));
 
     require(["vs/editor/editor.main"], function () {
         let editor = monaco.editor.create(document.querySelector('.monaco'), {
@@ -163,7 +214,7 @@ print("nobody won:", false)`
             loadingtext.classList.remove("hide")
             loadingtext.innerText = "Obfuscating..."
             await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co") + `/api/obfuscator/obfuscate`, {
-                method: "POST", body: editor.getValue(), headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}` }
+                method: "POST", body: editor.getValue(), headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}`, "Obfuscator-Settings": btoa(JSON.stringify(getSettings())) }
             }).then(async res => {
                 const response = await res.text()
                 if (!res.ok) {
@@ -186,14 +237,14 @@ print("nobody won:", false)`
             const start_time = new Date().getTime()
             container.classList.add("blur")
             loadingtext.classList.remove("hide")
-            loadingtext.innerText = "Deobfuscating..."
+            loadingtext.innerText = "Beautifying..."
             await fetch((document.location.hostname == "localhost" && !forceServer ? `http://localhost:6969` : "https://mopsflgithubio.mopsfl.repl.co") + `/api/obfuscator/beautify`, {
                 method: "POST", body: editor.getValue(), headers: { "Content-Type": "text/plain", "Target-Language-Id": `${btoa(selected_target_platform)}` }
             }).then(async res => {
                 const response = await res.text()
                 if (!res.ok) {
                     M.toast({ html: 'Error occurred while deobfuscating script!' })
-                    return editor.setValue(`--[[\nDeobfuscation Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + editor.getValue())
+                    return editor.setValue(`--[[\nBeautifying Error: (${res.statusText})\n\n${response.replace(/^"+|"+$/igm, "")}\n]]\n\n` + editor.getValue())
                 }
                 editor.setValue(response)
                 M.toast({ html: `Script successfully deobfuscated! (took ${new Date().getTime() - start_time}ms)` })
