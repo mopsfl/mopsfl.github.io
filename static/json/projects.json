@@ -3,7 +3,7 @@
     "projects": [{
         "title": "GoofyLuaUglifier - Lua Uglifier",
         "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
-        "testURL": "https://mopsfl.github.io/projects/luaobfuscator",
+        "testURL": "https://mopsfl.github.io/projects/luauglifier",
         "downloadURL": "",
         "imageURL": "https://www.lua.org/favicon.ico",
         "descItems": [{
