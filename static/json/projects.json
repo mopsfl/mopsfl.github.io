@@ -1,20 +1,20 @@
 {
 
     "projects": [{
-        "title": "GoofyObfuscatorAkaUglifier - Lua Obfuscator",
+        "title": "GoofyLuaUglifier - Lua Uglifier",
         "githubURL": "https://github.com/mopsfl/mopsfl.github.io",
         "testURL": "https://mopsfl.github.io/projects/luaobfuscator",
         "downloadURL": "",
         "imageURL": "https://www.lua.org/favicon.ico",
         "descItems": [{
-                "text": "Mein eigener Lua Obfuscator, gemacht mit TypeScript.<br>Es ist kein sicherer Obfuscator sondern nur ein kleines Bastelprojekt meinerseits."
+                "text": "Lua Uglifier, gemacht mit TypeScript.<br>Es ist kein Obfuscator sondern nur ein kleines Bastelprojekt meinerseits welches Lua Code schwerer macht zu lesen."
             },
             {
                 "text": "<small>v.0.1</small>"
             }
         ]
     },{
-        "title": "Lua Obfuscator - Remake",
+        "title": "Lua Obfuscator - Website Remake",
         "githubURL": "https://github.com/mopsfl/luaobfuscator-jsrework",
         "testURL": "https://mopsfl.github.io/luaobfuscator-jsrework",
         "downloadURL": "",
