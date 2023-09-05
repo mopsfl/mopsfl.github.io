@@ -77,8 +77,8 @@
                 <!-- Settings Modal -->
                 <div id="settingsmodal" class="modal bottom-sheet modal-fixed-footer">
                     <div class="modal-content">
-                        <h4>Obfuscation Settings</h4>
-                        <div class="switch">
+                        <h4>Settings</h4>
+                        <div class="settings-grid">
                             <div class="setting">
                                 <span class="setting-name">Dead Code Injection (unstable)</span>
                                 <label>
@@ -93,6 +93,13 @@
                                         <input type="range" id="deadcodechance" min="0" max="100" value="50"/>
                                     </p>
                                     <span class="slider-value">50%</span>
+                                </label>
+                            </div>
+                            <div class="setting">
+                                <span class="setting-name">Random Chinese Quotes (bigger output)</span>
+                                <label>
+                                    <input type="checkbox" class="filled-in" id="chinesequotes" checked="false"/>
+                                    <span></span>
                                 </label>
                             </div>
                         </div>

@@ -1,13 +1,14 @@
 /**
  * TODO:
- * settings system (save, discard and localstorage save)
+ * -
  */
 
 let forceServer = false;
 (() => {
     let settings = {
-        deadcodeinjection: true,
+        deadcodeinjection: false,
         deadcodechance: 0.25,
+        chinesequotes: false,
     },
         _sub_settings = {}
     // Elements & Setup
@@ -173,16 +174,20 @@ print("nobody won:", false)`
     settings = getSettings()
 
     const deadcodechance = document.querySelector("#deadcodechance"),
-        deadcodeinjection = document.querySelector("#deadcodeinjection")
+        deadcodeinjection = document.querySelector("#deadcodeinjection"),
+        chinesequotes = document.querySelector("#chinesequotes")
 
     document.querySelector(".slider-value").innerText = `${settings.deadcodechance * 100}%`
     deadcodechance.value = settings.deadcodechance * 100
     deadcodeinjection.checked = settings.deadcodeinjection
+    chinesequotes.checked = settings.chinesequotes
     deadcodechance.addEventListener("input", (e) => {
         e.target.offsetParent.parentElement.querySelector(".slider-value").innerText = `${e.target.valueAsNumber}%`
         settings.deadcodechance = e.target.valueAsNumber / 100
     }); deadcodeinjection.addEventListener("input", (e) => {
         settings.deadcodeinjection = e.target.checked
+    }); chinesequotes.addEventListener("input", (e) => {
+        settings.chinesequotes = e.target.checked
     })
 
     // Monaco Editor
@@ -204,6 +209,7 @@ print("nobody won:", false)`
             wordWrap: 'on',
             wordBreak: 'off',
             automaticLayout: true,
+            maxTokenizationLineLength: 1000000
         });
         window.monaco_editor = editor
         $(".obfbtn").on("click", async () => {
