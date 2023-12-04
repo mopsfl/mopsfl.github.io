@@ -293,6 +293,10 @@ main {
     margin-left: 15px;
 }
 
+.footer-right {
+    right: 15px !important;
+}
+
 .channelThumbnail {
     transform: translateY(3px);
     transition: width .5s;

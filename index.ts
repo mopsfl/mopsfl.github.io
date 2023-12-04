@@ -74,7 +74,7 @@ function checkProjectLinks(a, b, c, d) {
     }
 }
 
-$(() => {
+$(async () => {
     $(".btns > a").on("click", (e) => {
         e.preventDefault();
         if (_cgb === true) return
@@ -138,7 +138,34 @@ $(() => {
         if (!_cgb) return
         toggleSection(".section", ".section2");
     })
+
+    /*API STATUS CHECK*/
+
+    const monitorStatusElement = $(".monitorStatus").children("p").children("span"),
+        _downMonitors = []
+    await fetch("https://mopsflgithubio.mopsfl.repl.co/api/mopsfl/getServerStatus").then(res => res.json()).then(res => {
+        const _monitors: Array<ServerMonitor> = res
+        _monitors.forEach(_monitor => {
+            if (_monitor.down === true) {
+                _downMonitors.push(_monitor.name)
+            }
+        })
+    })
+
+    let _monitorStatusText = ""
+    _downMonitors?.forEach(_monitorName => {
+        console.warn(`[Service Monitor]: ${_monitorName} is down.`);
+        _monitorStatusText += `${_monitorName},`
+    })
+    _monitorStatusText = _monitorStatusText.replace(/,$/gm, "")
+    monitorStatusElement.text(`${_monitorStatusText} is down`)
+
+    if (_downMonitors.length > 0) {
+        $(".monitorStatus").removeClass("none")
+    } else $(".monitorStatus").addClass("none")
 });
+
+
 
 /*SCROLL HANDLER*/
 
@@ -272,4 +299,10 @@ declare global {
         particlesJS: Function,
         modules: {}
     }
+}
+
+export interface ServerMonitor {
+    id: number,
+    name: string,
+    down: boolean,
 }
