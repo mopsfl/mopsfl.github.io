@@ -142,10 +142,13 @@ $(async () => {
     /*API STATUS CHECK*/
 
     const monitorStatusElement = $(".monitorStatus").children("p").children("span"),
-        _downMonitors = []
-    await fetch("https://mopsflgithubio.mopsfl.repl.co/api/mopsfl/getServerStatus").then(res => res.json()).then(res => {
-        const _monitors: Array<ServerMonitor> = res
-        _monitors.forEach(_monitor => {
+        _downMonitors = [],
+        d = "H4sIAGJ%2FhWUA%2FwVAMQ0AIAyz0lQGNqaAkMLHMTYegvflgTP3YAOXwuRXbtEjD%2FELXn04%2BR0AAAA%3D",
+        e = "H4sIAIp9hWUA%2FwWAMQoAAAABf2siyvuHK91lAHzK4VQGAAAA"
+
+    await fetch(`https://mopsflgithubio.mopsfl.repl.co/api/mopsfl?e=${e}&d=${d}&t=${new Date().getTime()}`).then(res => res.json()).then(res => {
+        const _monitors: Array<ServerMonitor> = res._monitors
+        _monitors?.forEach(_monitor => {
             if (_monitor.down === true) {
                 _downMonitors.push(_monitor.name)
             }
