@@ -1,7 +1,8 @@
 import * as _ from "lodash"
 import $ from "jquery"
 
-const links = document.querySelectorAll('.link');
+const links = document.querySelectorAll('.link'),
+    _apiUrl = window.location.host === "localhost" ? "https://mopsflgithubio.mopsfl.repl.co" : "http://localhost:6969"
 var _cgb = false,
     currentProjectsFetch, currentAboutFetch
 
@@ -136,6 +137,7 @@ $(async () => {
     $(".back").on("click", (e) => {
         e.preventDefault();
         if (!_cgb) return
+        window.history.pushState("", "", "/");
         toggleSection(".section", ".section2");
     })
 
@@ -146,7 +148,7 @@ $(async () => {
         d = "H4sIAGJ%2FhWUA%2FwVAMQ0AIAyz0lQGNqaAkMLHMTYegvflgTP3YAOXwuRXbtEjD%2FELXn04%2BR0AAAA%3D",
         e = "H4sIAIp9hWUA%2FwWAMQoAAAABf2siyvuHK91lAHzK4VQGAAAA"
 
-    await fetch(`https://mopsflgithubio.mopsfl.repl.co/api/mopsfl?e=${e}&d=${d}&t=${new Date().getTime()}`).then(res => res.json()).then(res => {
+    await fetch(`${_apiUrl}/api/mopsfl?e=${e}&d=${d}&t=${new Date().getTime()}`).then(res => res.json()).then(res => {
         const _monitors: Array<ServerMonitor> = res._monitors
         _monitors?.forEach(_monitor => {
             if (_monitor.down === true) {

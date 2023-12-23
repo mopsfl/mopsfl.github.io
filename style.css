@@ -227,6 +227,10 @@ main {
     transition: font-size .5s;
 }
 
+.about-section-title {
+    border-bottom: solid 1px #ffffff6e;
+}
+
 .titleInfo {
     font-size: 16px;
     margin: 0;
@@ -345,8 +349,8 @@ main {
     display: flex;
     width: 100%;
     text-align: center !important;
-    padding-right: 5%;
     justify-content: center;
+    margin-bottom: 15px;
 }
 
 .section-main-content {
@@ -372,14 +376,11 @@ main {
     background-color: #00000024;
     border-radius: .25em;
     margin: 15px;
+    margin-bottom: 0;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
     padding-top: 5px;
-}
-
-.project-item:not(:last-child) {
-    margin-bottom: 0;
 }
 
 .content-header {
@@ -456,6 +457,57 @@ main {
     overflow: hidden;
 }
 
+.link-btnicon {
+    margin-right: 5px;
+}
+
+.language-icons {
+    text-align: center;
+    display: inline-flex;
+    gap: 5px;
+}
+
+.language-icons,
+.contact-icons {
+    background-color: #00000049;
+    padding: 15px;
+    border-radius: 3px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.language-icon {
+    border-radius: 2px;
+    transition: transform .15s;
+}
+
+.language-icon:hover {
+    z-index: 10;
+    cursor: pointer;
+    transform: scale(110%);
+}
+
+.language-icon:active {
+    cursor: pointer;
+    transform: scale(97%);
+}
+
+.contact-discord-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.contact-discord-container {
+    padding: 5px 35px 5px 35px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 20px;
+}
+
 
 /*ANIMATIONS*/
 
@@ -514,6 +566,7 @@ main {
 
 /*SCREEN SIZES*/
 
+
 @media only screen and (max-width: 840px) {
     .section-main {
         display: block;
@@ -566,34 +619,14 @@ main {
 
     .footer {
         font-size: 10px;
+        margin-left: 10px;
     }
 
     .channelThumbnail {
         width: 50px
     }
 
-    .btn.back {
-        font-size: 10px;
-    }
-
     .section-title>p {
-        font-size: 40px
-    }
-}
-
-@media screen and (max-width: 920px) {
-    .livestream {
-        max-width: 150px
-    }
-
-    .livestreamThumbnail {
-        width: 132px;
-        height: 99px
-    }
-}
-
-@media screen and (max-width: 690px) {
-    .livestream {
-        display: none;
+        font-size: 50px
     }
 }
