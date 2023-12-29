@@ -2,7 +2,7 @@ import * as _ from "lodash"
 import $ from "jquery"
 
 const links = document.querySelectorAll('.link'),
-    _apiUrl = window.location.host !== "localhost" ? "https://mopsflgithubio.mopsfl.repl.co" : "http://localhost:6969"
+    _apiUrl = window.location.hostname !== "localhost" ? "https://mopsflgithubio.mopsfl.repl.co" : "http://localhost:6969"
 var _cgb = false,
     currentProjectsFetch, currentAboutFetch
 
