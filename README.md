@@ -1,4 +1,4 @@
 # mopsfl.github.io
 
-> mopsfl [Website](https://mopsfl.github.io) for my projects and other stuff
+> mopsfl [Website](https://mopsfl.de) for my projects and other stuff
 
