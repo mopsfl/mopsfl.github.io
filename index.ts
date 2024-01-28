@@ -2,7 +2,7 @@ import * as _ from "lodash"
 import $ from "jquery"
 
 const links = document.querySelectorAll('.link'),
-    _apiUrl = window.location.hostname !== "localhost" ? "https://f5c32026-fbe1-4f26-a96e-6401c2443a99-00-e5akeq4yyd30.spock.replit.dev" : "http://localhost:6969"
+    _apiUrl = window.location.hostname !== "localhost" ? "https://api.mopsfl.de" : "http://localhost:6969"
 var _cgb = false,
     currentProjectsFetch, currentAboutFetch
 
@@ -148,7 +148,7 @@ $(async () => {
         d = "H4sIAGJ%2FhWUA%2FwVAMQ0AIAyz0lQGNqaAkMLHMTYegvflgTP3YAOXwuRXbtEjD%2FELXn04%2BR0AAAA%3D",
         e = "H4sIAIp9hWUA%2FwWAMQoAAAABf2siyvuHK91lAHzK4VQGAAAA"
 
-    await fetch(`${_apiUrl}/api/mopsfl?e=${e}&d=${d}&t=${new Date().getTime()}`).then(res => res.json()).then(res => {
+    await fetch(`${_apiUrl}/v1/mopsfl?e=${e}&d=${d}&t=${new Date().getTime()}`).then(res => res.json()).then(res => {
         const _monitors: Array<ServerMonitor> = res._monitors
         _monitors?.forEach(_monitor => {
             if (_monitor.down === true) {
