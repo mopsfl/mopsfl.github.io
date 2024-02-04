@@ -85,7 +85,7 @@ $(async () => {
             setTimeout(async () => {
                 if (hrefData == "projects") {
                     console.warn("Fetching projects")
-                    await fetch("./static/json/projects.json", { method: 'GET', headers: headers })
+                    await fetch(`${_apiUrl}/v1/projects`, { method: 'GET', headers: headers })
                         .then(res => res.json())
                         .then(data => {
                             currentProjectsFetch = data
@@ -148,7 +148,7 @@ $(async () => {
         d = "H4sIAGJ%2FhWUA%2FwVAMQ0AIAyz0lQGNqaAkMLHMTYegvflgTP3YAOXwuRXbtEjD%2FELXn04%2BR0AAAA%3D",
         e = "H4sIAIp9hWUA%2FwWAMQoAAAABf2siyvuHK91lAHzK4VQGAAAA"
 
-    await fetch(`${_apiUrl}/v1/mopsfl?e=${e}&d=${d}&t=${new Date().getTime()}`).then(res => res.json()).then(res => {
+    await fetch(`${_apiUrl}/v1/getServerStatus`).then(res => res.json()).then(res => {
         const _monitors: Array<ServerMonitor> = res._monitors
         _monitors?.forEach(_monitor => {
             if (_monitor.down === true) {

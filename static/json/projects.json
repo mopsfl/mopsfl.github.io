@@ -3,7 +3,7 @@
     "projects": [{
         "title": "GoofyLuaUglifier - Lua Uglifier",
         "githubURL": "https://github.com/mopsfl/GoofyLuaUglifier",
-        "testURL": "https://mopsfl.github.io/GoofyLuaUglifier/",
+        "testURL": "https://mopsfl.de/GoofyLuaUglifier/",
         "downloadURL": "",
         "imageURL": "https://www.lua.org/favicon.ico",
         "descItems": [{
@@ -18,7 +18,7 @@
         "githubURL": "https://github.com/mopsfl/luaobfuscator-jsrework",
         "testURL": "https://mopsfl.github.io/luaobfuscator-jsrework",
         "downloadURL": "",
-        "imageURL": "https://luaobfuscator.com/img/logo.png",
+        "imageURL": "https://mopsfl.de/img/luaobflogo.png",
         "descItems": [{
                 "text": "Überarbeitung von der <a class='link-highlight' href='https://luaobfuscator.com' target='_blank'>Lua Obfuscator</a> Website. (Javascript -> Typescript)"
             },
@@ -29,9 +29,9 @@
     }, {
         "title": "mopsflWeather",
         "githubURL": "https://github.com/mopsfl/mopsflWeather",
-        "testURL": "https://mopsfl.github.io/mopsflWeather",
+        "testURL": "https://mopsfl.de/mopsflWeather",
         "downloadURL": "",
-        "imageURL": "https://mopsfl.github.io/mopsflWeather/svg/static/day.svg",
+        "imageURL": "https://mopsfl.de/mopsflWeather/svg/static/day.svg",
         "descItems": [{
                 "text": "Einfache Wetter App, die dir aktuelle Wetter Daten für einen einen bestimmten Ort anzeigt. (Daten von <a class='link-highlight' href='https://home.openweathermap.org/' target='_blank'>OpenWeather</a>)"
             },
@@ -44,7 +44,7 @@
         "githubURL": "https://github.com/mopsfl/luaobfuscator-bot",
         "testURL": "https://top.gg/bot/1096928538034180146",
         "downloadURL": "",
-        "imageURL": "https://luaobfuscator.com/img/logo.png",
+        "imageURL": "https://mopsfl.de/img/luaobflogo.png",
         "descItems": [{
                 "text": "Der offizielle Discord Bot für <a class='link-highlight' href='https://luaobfuscator.com' target='_blank'>Lua Obfuscator</a>."
             },
