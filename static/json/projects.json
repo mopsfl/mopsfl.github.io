@@ -18,7 +18,7 @@
         "githubURL": "https://github.com/mopsfl/luaobfuscator-jsrework",
         "testURL": "https://mopsfl.github.io/luaobfuscator-jsrework",
         "downloadURL": "",
-        "imageURL": "https://mopsfl.de/img/luaobflogo.png",
+        "imageURL": "https://mopsfl.de/static/img/luaobflogo.png",
         "descItems": [{
                 "text": "Überarbeitung von der <a class='link-highlight' href='https://luaobfuscator.com' target='_blank'>Lua Obfuscator</a> Website. (Javascript -> Typescript)"
             },
@@ -44,7 +44,7 @@
         "githubURL": "https://github.com/mopsfl/luaobfuscator-bot",
         "testURL": "https://top.gg/bot/1096928538034180146",
         "downloadURL": "",
-        "imageURL": "https://mopsfl.de/img/luaobflogo.png",
+        "imageURL": "https://mopsfl.de/static/img/luaobflogo.png",
         "descItems": [{
                 "text": "Der offizielle Discord Bot für <a class='link-highlight' href='https://luaobfuscator.com' target='_blank'>Lua Obfuscator</a>."
             },
