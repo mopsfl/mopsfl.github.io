@@ -85,22 +85,22 @@ $(async () => {
             setTimeout(async () => {
                 if (hrefData == "projects") {
                     console.warn("Fetching projects")
-                    await fetch(`${_apiUrl}/v1/projects`, { method: 'GET', headers: headers })
+                    await fetch(`${_apiUrl}/v1/projects?co=${Math.floor(Math.random() * 9e9)}`)
                         .then(res => res.json())
                         .then(data => {
                             currentProjectsFetch = data
-                            const projectTemplate: any = document.querySelector("[data-project-template]")
-                            const projectsList = document.querySelector("[data-project-list]")
+                            const projectTemplate: any = document.querySelector("[data-project-template]"),
+                                projectsList = document.querySelector("[data-project-list]")
 
-                            data.projects.forEach(project => {
-                                const projectClone = projectTemplate.content.cloneNode(true).children[0]
-                                const descTemplate = projectClone.querySelector("[data-desc-item]")
-                                const title = projectClone.querySelector("[data-title]")
-                                const image = projectClone.querySelector("[data-image]")
-                                const descList = projectClone.querySelector("[data-descs]")
-                                const download = projectClone.querySelector("[data-download]")
-                                const test = projectClone.querySelector("[data-test]")
-                                const github = projectClone.querySelector("[data-github]")
+                            data.projects.forEach((project: ProjectItem) => {
+                                const projectClone = projectTemplate.content.cloneNode(true).children[0],
+                                    descTemplate = projectClone.querySelector("[data-desc-item]"),
+                                    title = projectClone.querySelector("[data-title]"),
+                                    image = projectClone.querySelector("[data-image]"),
+                                    descList = projectClone.querySelector("[data-descs]"),
+                                    download = projectClone.querySelector("[data-download]"),
+                                    test = projectClone.querySelector("[data-test]"),
+                                    github = projectClone.querySelector("[data-github]")
 
                                 title.innerHTML = project.title
                                 image.src = project.imageURL
@@ -109,15 +109,9 @@ $(async () => {
                                 github.setAttribute("href", project.githubURL || "#")
                                 test.setAttribute("href", project.testURL || "#")
 
-                                download.onclick = () => {
-                                    openLink(project.downloadURL)
-                                }
-                                github.onclick = () => {
-                                    openLink(project.githubURL)
-                                }
-                                test.onclick = () => {
-                                    openLink(project.testURL)
-                                }
+                                download.onclick = () => openLink(project.downloadURL)
+                                github.onclick = () => openLink(project.githubURL)
+                                test.onclick = () => openLink(project.testURL)
                                 checkProjectLinks(download, test, github, project)
 
                                 project.descItems.forEach(descItem => {
@@ -144,9 +138,7 @@ $(async () => {
     /*API STATUS CHECK*/
 
     const monitorStatusElement = $(".monitorStatus").children("p").children("span"),
-        _downMonitors = [],
-        d = "H4sIAGJ%2FhWUA%2FwVAMQ0AIAyz0lQGNqaAkMLHMTYegvflgTP3YAOXwuRXbtEjD%2FELXn04%2BR0AAAA%3D",
-        e = "H4sIAIp9hWUA%2FwWAMQoAAAABf2siyvuHK91lAHzK4VQGAAAA"
+        _downMonitors = []
 
     await fetch(`${_apiUrl}/v1/getServerStatus`).then(res => res.json()).then(res => {
         const _monitors: Array<ServerMonitor> = res._monitors
@@ -160,7 +152,7 @@ $(async () => {
     let _monitorStatusText = ""
     _downMonitors?.forEach(_monitorName => {
         console.warn(`[Service Monitor]: ${_monitorName} is down.`);
-        _monitorStatusText += `${_monitorName},`
+        _monitorStatusText += `${_monitorName}, `
     })
     _monitorStatusText = _monitorStatusText.replace(/,$/gm, "")
     monitorStatusElement.text(`${_monitorStatusText} is down`)
@@ -311,3 +303,5 @@ export interface ServerMonitor {
     name: string,
     down: boolean,
 }
+
+export interface ProjectItem { title: string, imageURL: string, downloadURL: string, githubURL: string, testURL: string, descItems: Array<{ text: string }> }
