@@ -1,3 +1,5 @@
+// very dogshit messy rn. will remake this soon
+
 import * as _ from "lodash"
 import $ from "jquery"
 
@@ -5,10 +7,6 @@ const links = document.querySelectorAll('.link'),
     _apiUrl = window.location.hostname !== "localhost" ? "https://api.mopsfl.de" : "http://localhost:6969"
 var _cgb = false,
     currentProjectsFetch, currentAboutFetch
-
-const headers = new Headers()
-headers.append('pragma', 'no-cache');
-headers.append('cache-control', 'no-cache');
 
 for (let i = 0; i < links.length; i++) {
     const element = links[i];
@@ -21,8 +19,6 @@ for (let i = 0; i < links.length; i++) {
         icon_text.style.maxWidth = '0px';
     })
 }
-
-/* COOKIE NOTIF */
 
 /*PAGE LOADING*/
 
@@ -76,55 +72,53 @@ function checkProjectLinks(a, b, c, d) {
 }
 
 $(async () => {
-    $(".btns > a").on("click", (e) => {
+    $(".btns > a").on("click", async (e) => {
         e.preventDefault();
         if (_cgb === true) return
         if (!_.isNil(e.target.attributes["hrefdata"])) {
             const hrefData = e.target.attributes["hrefdata"].nodeValue
             toggleSection(".section2", ".section", `/static/pages/${hrefData}.html`)
-            setTimeout(async () => {
-                if (hrefData == "projects") {
-                    console.warn("Fetching projects")
-                    await fetch(`${_apiUrl}/v1/projects?co=${Math.floor(Math.random() * 9e9)}`)
-                        .then(res => res.json())
-                        .then(data => {
-                            currentProjectsFetch = data
-                            const projectTemplate: any = document.querySelector("[data-project-template]"),
-                                projectsList = document.querySelector("[data-project-list]")
+            if (hrefData == "projects") {
+                console.warn("Fetching projects")
+                await fetch(`${_apiUrl}/v1/projects?co=${Math.floor(Math.random() * 9e9)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        currentProjectsFetch = data
+                        const projectTemplate: any = document.querySelector("[data-project-template]"),
+                            projectsList = document.querySelector("[data-project-list]")
 
-                            data.projects.forEach((project: ProjectItem) => {
-                                const projectClone = projectTemplate.content.cloneNode(true).children[0],
-                                    descTemplate = projectClone.querySelector("[data-desc-item]"),
-                                    title = projectClone.querySelector("[data-title]"),
-                                    image = projectClone.querySelector("[data-image]"),
-                                    descList = projectClone.querySelector("[data-descs]"),
-                                    download = projectClone.querySelector("[data-download]"),
-                                    test = projectClone.querySelector("[data-test]"),
-                                    github = projectClone.querySelector("[data-github]")
+                        data.projects.forEach((project: ProjectItem) => {
+                            const projectClone = projectTemplate.content.cloneNode(true).children[0],
+                                descTemplate = projectClone.querySelector("[data-desc-item]"),
+                                title = projectClone.querySelector("[data-title]"),
+                                image = projectClone.querySelector("[data-image]"),
+                                descList = projectClone.querySelector("[data-descs]"),
+                                download = projectClone.querySelector("[data-download]"),
+                                test = projectClone.querySelector("[data-test]"),
+                                github = projectClone.querySelector("[data-github]")
 
-                                title.innerHTML = project.title
-                                image.src = project.imageURL
+                            title.innerHTML = project.title
+                            image.src = project.imageURL
 
-                                download.setAttribute("href", project.downloadURL || "#")
-                                github.setAttribute("href", project.githubURL || "#")
-                                test.setAttribute("href", project.testURL || "#")
+                            download.setAttribute("href", project.downloadURL || "#")
+                            github.setAttribute("href", project.githubURL || "#")
+                            test.setAttribute("href", project.testURL || "#")
 
-                                download.onclick = () => openLink(project.downloadURL)
-                                github.onclick = () => openLink(project.githubURL)
-                                test.onclick = () => openLink(project.testURL)
-                                checkProjectLinks(download, test, github, project)
+                            download.onclick = () => openLink(project.downloadURL)
+                            github.onclick = () => openLink(project.githubURL)
+                            test.onclick = () => openLink(project.testURL)
+                            checkProjectLinks(download, test, github, project)
 
-                                project.descItems.forEach(descItem => {
-                                    const descItemClone = descTemplate.content.cloneNode(true).children[0]
-                                    descItemClone.innerHTML = descItem.text
-                                    descList.appendChild(descItemClone)
-                                })
+                            project.descItems.forEach(descItem => {
+                                const descItemClone = descTemplate.content.cloneNode(true).children[0]
+                                descItemClone.innerHTML = descItem.text
+                                descList.appendChild(descItemClone)
+                            })
 
-                                projectsList.appendChild(projectClone)
-                            });
-                        })
-                }
-            }, 1000)
+                            projectsList.appendChild(projectClone)
+                        });
+                    })
+            }
         } else console.warn("Unable to get pageHref", e)
     })
 
@@ -294,7 +288,8 @@ window.particlesJS("particles-js", {
 declare global {
     interface Window {
         particlesJS: Function,
-        modules: {}
+        modules: {},
+        fp: boolean
     }
 }
 
