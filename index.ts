@@ -4,7 +4,7 @@ import * as _ from "lodash"
 import $ from "jquery"
 
 const links = document.querySelectorAll('.link'),
-    _apiUrl = window.location.hostname !== "localhost" || window.fp !== true ? "prod" : "dev" ? "https://api.mopsfl.de" : "http://localhost:6969"
+    _apiUrl = window.location.hostname !== "localhost" ? "https://api.mopsfl.de" : "http://localhost:6969"
 var _cgb = false,
     currentProjectsFetch, currentAboutFetch
 
