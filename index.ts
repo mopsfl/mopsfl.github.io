@@ -4,7 +4,7 @@ import * as _ from "lodash"
 import $ from "jquery"
 
 const links = document.querySelectorAll('.link'),
-    _apiUrl = window.location.hostname !== "localhost" ? "https://api.mopsfl.de" : "http://localhost:6969"
+    _apiUrl = window.location.hostname !== "localhost" || window.fp !== true ? "prod" : "dev" ? "https://api.mopsfl.de" : "http://localhost:6969"
 var _cgb = false,
     currentProjectsFetch, currentAboutFetch
 
@@ -80,7 +80,7 @@ $(async () => {
             toggleSection(".section2", ".section", `/static/pages/${hrefData}.html`)
             if (hrefData == "projects") {
                 console.warn("Fetching projects")
-                await fetch(`${_apiUrl}/v1/projects?co=${Math.floor(Math.random() * 9e9)}`)
+                await fetch(`${_apiUrl}/v1/projects`)
                     .then(res => res.json())
                     .then(data => {
                         currentProjectsFetch = data
