@@ -508,6 +508,19 @@ main {
     font-size: 20px;
 }
 
+.skill-lang-tooltip {
+    font-size: 12px;
+    background-color: #3e3e3e;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.lang-skill-container {
+    display: grid;
+    align-items: center;
+    gap: 5px;
+}
+
 
 /*ANIMATIONS*/
 

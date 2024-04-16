@@ -52,7 +52,7 @@ function toggleSection(stss?: string, sths?: string, sch?: string) {
         }, 500)
     }, 500)
 }
-
+toggleSection(".section2", ".section", `/static/pages/about.html`)
 function openLink(link) {
     if (!_.isNil(link)) {
         return window.open(link, '_blank')
@@ -156,7 +156,11 @@ $(async () => {
     } else $(".monitorStatus").addClass("none")
 });
 
+/** skill-lang */
 
+document.querySelectorAll(".skill-lang").forEach(slang => {
+
+})
 
 /*SCROLL HANDLER*/
 
