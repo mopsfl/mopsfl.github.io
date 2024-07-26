@@ -148,7 +148,8 @@ $(async () => {
         console.warn(`[Service Monitor]: ${_monitorName} is down.`);
         _monitorStatusText += `${_monitorName}, `
     })
-    _monitorStatusText = _monitorStatusText.replace(/,$/gm, "")
+
+    _monitorStatusText = _monitorStatusText.replace(/,.$/gm, "")
     monitorStatusElement.text(`${_monitorStatusText} is down`)
 
     if (_downMonitors.length > 0) {
