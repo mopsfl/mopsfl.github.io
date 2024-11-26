@@ -33,7 +33,7 @@
         "downloadURL": "",
         "imageURL": "https://www.lua.org/favicon.ico",
         "descItems": [{
-                "text": "Ein experimenteller Lua Obfuscator, erstellt mit TypeScript und NodeJS.<br>Dient nur als privates Projekt um mehr über Lua Obfuscation zu lernen!"
+                "text": "Ein experimenteller Lua Obfuscator, erstellt mit TypeScript und NodeJS.<br>Dient hauptsächlich als privates Projekt um mehr über Lua Obfuscation zu lernen, jedoch habe ich mich dafür entschieden<br>es online verfügbar zu machen! :)"
             },
             {
                 "text": "<small>v.1.2</small>"
