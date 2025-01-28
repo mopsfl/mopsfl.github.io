@@ -57,7 +57,7 @@
         "githubURL": "https://github.com/mopsfl/mopsflWeather",
         "testURL": "https://mopsfl.de/mopsflWeather",
         "downloadURL": "",
-        "imageURL": "https://mopsfl.de/mopsflWeather/svg/static/day.svg",
+        "imageURL": "https://mopsfl.de/mopsflWeather/images/svg/static/day.svg",
         "descItems": [{
                 "text": "Einfache Wetter App, die dir aktuelle Wetter Daten und sonstige Informationen für einen einen bestimmten Ort anzeigt.<br>Daten werden von <a class='link-highlight' href='https://home.openweathermap.org/' target='_blank'>OpenWeather</a> bereitgestellt."
             },
