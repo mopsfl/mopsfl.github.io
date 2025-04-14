@@ -8,6 +8,9 @@ export class Pages {
     private pageContainer: JQuery<HTMLElement>
     private pageMainContent: JQuery<HTMLElement>
 
+    private isPageOpen = false
+    private _pageShowTimeout: NodeJS.Timeout
+
     public readonly pages = {
         projects: Projects
     }
@@ -25,6 +28,17 @@ export class Pages {
             button.on("click", () => {
                 this.LoadPage(button.attr("pageid"))
             })
+        })
+
+        $(".back-btn").on("click", () => {
+            if (!this.isPageOpen) return
+            this._pageShowTimeout && clearTimeout(this._pageShowTimeout)
+            this._pageShowTimeout = undefined
+            this.isPageOpen = false
+
+            $(".back-btn").fadeOut()
+            this.pageContainer.fadeOut()
+            setTimeout(() => this.mainContainer.fadeIn(), 1000)
         })
 
         $(document.body).on("scroll", () => {
@@ -46,6 +60,8 @@ export class Pages {
         if (!pageid) return console.error("unable to load page. missing <pageid: string>")
         const page: Page = this.pages[pageid]
         if (!page) return console.error(`unable to load page '${pageid}'. unknown <pageid: string>`)
+        if (this.isPageOpen) return console.error(`unable to load page '${pageid}'. another page is already opened!`)
+        this.isPageOpen = true
 
         var pageLoadFinished = false
 
@@ -58,20 +74,21 @@ export class Pages {
             this.pageMainContent.append((template.content.firstChild as any));
         });
 
-        App.elements.GetElement(".loading-message").fadeIn()
+        $(".loading-message").fadeIn()
+        $(".back-btn").fadeIn()
 
         const loadTimeout = setTimeout(() => {
-            if (!pageLoadFinished) App.elements.GetElement(".loading-long-message").fadeIn()
+            if (!pageLoadFinished) $(".loading-long-message").fadeIn()
         }, 2000);
 
         page.load(this.pageMainContent).then(() => {
-            setTimeout(() => this.pageContainer.fadeIn(), 1000)
+            this._pageShowTimeout = setTimeout(() => this.pageContainer.fadeIn(), 1000)
 
             pageLoadFinished = true
             clearTimeout(loadTimeout)
 
-            App.elements.GetElement(".loading-message").fadeOut()
-            App.elements.GetElement(".loading-long-message").fadeOut()
+            $(".loading-message").fadeOut()
+            $(".loading-long-message").fadeOut()
 
             this.pageContainer.find(".page-title").text(page.title)
             this.pageContainer.find(".page-desc").text(page.description)

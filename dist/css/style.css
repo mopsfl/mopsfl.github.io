@@ -57,11 +57,32 @@ footer {
 .none {
   display: none !important;
 }
+.back-btn {
+  user-select: none;
+  position: absolute;
+  z-index: 3;
+  top: 5px;
+  left: 0;
+  font-size: 16px;
+  font-weight: 500 !important;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.back-btn > .fa {
+  margin-right: 5px;
+  transition: margin-right .5s;
+}
+.back-btn:hover > .fa {
+  margin-right: 10px;
+}
+.back-btn:active > .fa {
+  margin-right: 5px;
+}
 .loadingtext {
   font-family: monospace;
   text-align: center;
   line-height: 2em;
-  z-index: 999;
+  z-index: 2;
 }
 .loading-long-message {
   position: absolute;
@@ -121,7 +142,7 @@ footer {
 main {
   position: relative;
   height: 100%;
-  z-index: 999;
+  z-index: 2;
 }
 .container,
 .page-container {

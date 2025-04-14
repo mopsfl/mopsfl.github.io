@@ -6029,9 +6029,6 @@ var Elements = class {
   CloneTemplate(name) {
     return $($(`.template-${name}`).contents().clone());
   }
-  GetElement(className) {
-    return $(className);
-  }
 };
 
 // modules/Pages/Projects.ts
@@ -6066,6 +6063,8 @@ var Pages = class {
   mainContainer;
   pageContainer;
   pageMainContent;
+  isPageOpen = false;
+  _pageShowTimeout;
   pages = {
     projects: Projects_default
   };
@@ -6080,6 +6079,16 @@ var Pages = class {
       button.on("click", () => {
         this.LoadPage(button.attr("pageid"));
       });
+    });
+    $(".back-btn").on("click", () => {
+      if (!this.isPageOpen)
+        return;
+      this._pageShowTimeout && clearTimeout(this._pageShowTimeout);
+      this._pageShowTimeout = void 0;
+      this.isPageOpen = false;
+      $(".back-btn").fadeOut();
+      this.pageContainer.fadeOut();
+      setTimeout(() => this.mainContainer.fadeIn(), 1e3);
     });
     $(document.body).on("scroll", () => {
       if ($(document.body).scrollTop() > 0) {
@@ -6099,6 +6108,9 @@ var Pages = class {
     const page = this.pages[pageid];
     if (!page)
       return console.error(`unable to load page '${pageid}'. unknown <pageid: string>`);
+    if (this.isPageOpen)
+      return console.error(`unable to load page '${pageid}'. another page is already opened!`);
+    this.isPageOpen = true;
     var pageLoadFinished = false;
     this.mainContainer.fadeOut();
     this.pageMainContent.empty();
@@ -6107,17 +6119,18 @@ var Pages = class {
       template.innerHTML = html.trim();
       this.pageMainContent.append(template.content.firstChild);
     });
-    App.elements.GetElement(".loading-message").fadeIn();
+    $(".loading-message").fadeIn();
+    $(".back-btn").fadeIn();
     const loadTimeout = setTimeout(() => {
       if (!pageLoadFinished)
-        App.elements.GetElement(".loading-long-message").fadeIn();
+        $(".loading-long-message").fadeIn();
     }, 2e3);
     page.load(this.pageMainContent).then(() => {
-      setTimeout(() => this.pageContainer.fadeIn(), 1e3);
+      this._pageShowTimeout = setTimeout(() => this.pageContainer.fadeIn(), 1e3);
       pageLoadFinished = true;
       clearTimeout(loadTimeout);
-      App.elements.GetElement(".loading-message").fadeOut();
-      App.elements.GetElement(".loading-long-message").fadeOut();
+      $(".loading-message").fadeOut();
+      $(".loading-long-message").fadeOut();
       this.pageContainer.find(".page-title").text(page.title);
       this.pageContainer.find(".page-desc").text(page.description);
     });

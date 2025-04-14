@@ -6,8 +6,4 @@ export class Elements {
     CloneTemplate(name: string) {
         return $($(`.template-${name}`).contents().clone())
     }
-
-    GetElement(className: string) {
-        return $(className)
-    }
 }
