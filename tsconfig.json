@@ -1,15 +1,14 @@
 {
-    "compilerOptions": {
-      "target": "ES2022",
-      "module": "es2022",
-      "outDir": "./dist/js",
-      "esModuleInterop": true,
-      "paths": {
-        "lodash": ["/static/js/lodash.min.js"],
-        "jquery": ["/bower_components/jquery/dist/jquery.min.js"],
-        "particle-js": ["/bower_components/particles.js/particles.min.js"],
-      }
-    },
-    "compileOnSave": true,
-    "exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist/js",
+    "esModuleInterop": true,
+    "paths": {
+      "jquery": ["/bower_components/jquery/dist/jquery.min.js"],
+    }
+  },
+  "compileOnSave": true,
+  "exclude": ["node_modules"]
 }
