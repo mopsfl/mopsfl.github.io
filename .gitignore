@@ -8,3 +8,4 @@ bower_components/jquery/*
 /test
 .github
 .vscode
+/dist/js/modules

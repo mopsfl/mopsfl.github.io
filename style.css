@@ -466,7 +466,7 @@ main {
 
 @media only screen and (max-width: 1000px) {
     .container>.container-content {
-        display: grid;
+        flex-direction: column;
     }
 
     .container>.container-content>.section-header {
@@ -477,5 +477,26 @@ main {
     .container>.container-content>.section-header>span {
         text-align: center;
         margin: 0;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .project-list {
+        grid-template-columns: 90%;
+    }
+
+    .project-item {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .page-buttons {
+        flex-direction: column;
+        margin-top: 3em !important;
+    }
+
+    .container-buttons {
+        width: 90%;
     }
 }
