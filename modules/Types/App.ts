@@ -1,4 +1,4 @@
-import { Api } from "../API";
+import { Api } from "../Api";
 import { Background } from "../Background";
 import { Elements } from "../Elements";
 import { Pages } from "../Pages";
