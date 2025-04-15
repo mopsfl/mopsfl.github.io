@@ -9,9 +9,9 @@ export default {
         `<div class="project-list"></div>`
     ],
 
-    async load(pageContent: JQuery<HTMLElement>) {
+    async load(page: JQuery<HTMLElement>) {
         return new Promise(async (resolve, reject) => {
-            const projectList = $(pageContent.find(".project-list")),
+            const projectList = $(page.find(".project-list")),
                 projectsJson: Project[] = await App.api.Get(App.api.Endpoints.GET_PROJECTS)
 
             projectsJson.forEach(project => {

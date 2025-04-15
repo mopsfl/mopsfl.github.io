@@ -1,3 +1,5 @@
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
 import Projects from "./Pages/Projects"
 import { App } from "./Types/App"
 import { Page } from "./Types/Page"
@@ -13,7 +15,9 @@ export class Pages {
     private _pageShowTimeout: NodeJS.Timeout
 
     public readonly pages = {
-        projects: Projects
+        projects: Projects,
+        about: About,
+        contact: Contact,
     }
 
     init() {
