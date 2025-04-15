@@ -1,5 +1,6 @@
 import { App } from "../Types/App"
 import { Project } from "../Types/Projects"
+import $ from "jquery";
 
 export default {
     title: "Projects",

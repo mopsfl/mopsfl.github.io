@@ -1,6 +1,7 @@
 import Projects from "./Pages/Projects"
 import { App } from "./Types/App"
 import { Page } from "./Types/Page"
+import $ from "jquery";
 
 export class Pages {
     private pageButtons: JQuery<HTMLElement>

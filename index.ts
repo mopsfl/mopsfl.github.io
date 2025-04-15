@@ -3,6 +3,7 @@ import { Background } from "./modules/Background";
 import { Elements } from "./modules/Elements";
 import { Pages } from "./modules/Pages";
 import { App } from "./modules/Types/App";
+import $ from "jquery";
 
 $(async function () {
     App.isDev = location.hostname === "localhost";

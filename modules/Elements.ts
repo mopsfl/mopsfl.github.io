@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 export class Elements {
     init() {
         return this
