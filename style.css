@@ -286,7 +286,8 @@ main {
 }
 
 .container-buttons {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1em;
     backdrop-filter: blur(10px);
 }
