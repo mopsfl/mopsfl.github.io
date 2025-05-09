@@ -310,6 +310,7 @@ main {
 }
 
 .link-btn>.hover-text {
+    white-space: nowrap;
     height: 100%;
     font-family: "Poppins";
     font-weight: 200;
@@ -388,6 +389,7 @@ main {
     padding-top: 10px;
     box-shadow: rgba(0, 0, 0, 0.253) 0 2px 3px 2px;
     transition: background-color .5s;
+    overflow: hidden;
 }
 
 .project-item:hover {
@@ -410,6 +412,7 @@ main {
 
 .project-title {
     width: 100%;
+    white-space: nowrap;
 }
 
 .project-icon {
@@ -481,7 +484,7 @@ main {
     }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1020px) {
     .project-list {
         grid-template-columns: 90%;
     }

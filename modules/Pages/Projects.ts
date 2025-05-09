@@ -15,15 +15,25 @@ export default {
                 projectsJson: Project[] = await App.api.Get(App.api.Endpoints.GET_PROJECTS)
 
             projectsJson.forEach(project => {
-                const projectItem = App.elements.CloneTemplate("project-item")
+                const projectItem = App.elements.CloneTemplate("project-item"),
+                    projectButtons = $(projectItem.find(".project-buttons"))
 
                 projectItem.find(".project-title").text(project.title)
                 projectItem.find(".project-desc").text(project.description.de)
                 projectItem.find(".project-icon").attr("src", `./images/projects/${project.icon}`)
 
-                if (project.github) {
-                    projectItem.find(".github-link").attr("href", project.github)
-                } else projectItem.find(".github-link").hide()
+                if (project.urls) {
+                    project.urls.forEach(url => {
+                        const linkBtn = projectItem.find(".link-btn-template").clone(),
+                            hoverText = $(linkBtn.find(".hover-text"))
+
+                        hoverText.text(url.name)
+                        linkBtn.attr("href", url.url)
+                            .addClass(`fa-${url.icon}`)
+                            .removeClass("hide link-btn-template")
+                            .appendTo(projectButtons)
+                    })
+                }
 
                 projectItem.appendTo(projectList)
             })
