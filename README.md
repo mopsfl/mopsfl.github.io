@@ -1,4 +1,4 @@
 # mopsfl.github.io
 
-> mopsfl [Website](https://mopsfl.de) for my projects and other stuff
+my [website](https://mopsfl.de) to see all my projects and other information about me
 
