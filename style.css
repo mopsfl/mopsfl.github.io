@@ -504,3 +504,19 @@ main {
         width: 90%;
     }
 }
+
+@media only screen and (max-width: 550px) {
+    .page-header {
+        width: 90%;
+    }
+
+    .page-title {
+        border-bottom: solid 3px white !important;
+        margin-bottom: 15px;
+    }
+
+    .page-title::before,
+    .page-title::after {
+        display: none;
+    }
+}
