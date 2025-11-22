@@ -1,7 +1,6 @@
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Projects from "./Pages/Projects"
-import { App } from "./Types/App"
 import { Page } from "./Types/Page"
 import $ from "jquery";
 
@@ -12,7 +11,7 @@ export class Pages {
     private pageMainContent: JQuery<HTMLElement>
 
     private isPageOpen = false
-    private _pageShowTimeout: NodeJS.Timeout
+    private _pageShowTimeout: number
 
     public readonly pages = {
         projects: Projects,
@@ -35,16 +34,7 @@ export class Pages {
             })
         })
 
-        $(".back-btn").on("click", () => {
-            if (!this.isPageOpen) return
-            this._pageShowTimeout && clearTimeout(this._pageShowTimeout)
-            this._pageShowTimeout = undefined
-            this.isPageOpen = false
-
-            $(".back-btn").fadeOut()
-            this.pageContainer.fadeOut()
-            setTimeout(() => this.mainContainer.fadeIn(), 1000)
-        })
+        $(".back-btn").on("click", () => this.GoBack())
 
         $(document.body).on("scroll", () => {
             if ($(document.body).scrollTop() > 0) {
@@ -57,6 +47,17 @@ export class Pages {
         $(".page-scroll-arrow").on("click", () => {
             $(document.body).animate({ scrollTop: $(".page-main").offset().top / 2 }, 1000)
         })
+
+        window.addEventListener("popstate", (event) => {
+            const pageid = event.state?.pageid || location.hash.slice(1)
+            if (!pageid || !this.pages[pageid] || pageid === "main") return this.GoBack()
+
+            this.LoadPage(pageid)
+        })
+
+        if (this.pages[location.hash.slice(1)]) {
+            this.LoadPage(location.hash.slice(1))
+        }
 
         return this
     }
@@ -97,6 +98,20 @@ export class Pages {
 
             this.pageContainer.find(".page-title").text(page.title)
             this.pageContainer.find(".page-desc").text(page.description)
-        });
+        })
+
+        history.pushState({ pageid }, "", `#${pageid}`)
+    }
+
+    GoBack() {
+        if (!this.isPageOpen) return
+        this._pageShowTimeout && clearTimeout(this._pageShowTimeout)
+        this._pageShowTimeout = undefined
+        this.isPageOpen = false
+
+        $(".back-btn").fadeOut()
+        this.pageContainer.fadeOut()
+        history.pushState({ pageid: "main" }, "", "/");
+        setTimeout(() => this.mainContainer.fadeIn(), 1000)
     }
 }
